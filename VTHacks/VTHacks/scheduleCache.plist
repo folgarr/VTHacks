@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Saturday March 1st</key>
+	<dict>
+		<key>11:00am</key>
+		<string>Registration &amp; Lunch</string>
+		<key>12:30pm</key>
+		<string>Welcome ceremony</string>
+		<key>1:30pm</key>
+		<string>Team formation; start hacking</string>
+		<key>6:00pm</key>
+		<string>Dinner hour: stop hacking and chill</string>
+	</dict>
+	<key>Sunday March 2nd</key>
+	<dict>
+		<key>12:00am</key>
+		<string>Snacks &amp; Drinks</string>
+		<key>8:00am</key>
+		<string>Breakfast Bagels!</string>
+		<key>1:30pm</key>
+		<string>End Hacking and move on!</string>
+		<key>2:00pm</key>
+		<string>Expo and Demos!</string>
+		<key>3:00pm</key>
+		<string>End Expos.</string>
+		<key>3:20pm</key>
+		<string>Notify Top 7.</string>
+		<key>3:30pm</key>
+		<string>Closing Ceremony.</string>
+		<key>5:30pm</key>
+		<string>End of HackNC. Leave Chapel Hill.</string>
+	</dict>
+</dict>
+</plist>

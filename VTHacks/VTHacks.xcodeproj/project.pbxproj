@@ -1,0 +1,601 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */; };
+		10C7849D18C3A03F003A1ED0 /* scheduleCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */; };
+		10C784A018C3A80B003A1ED0 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849F18C3A80B003A1ED0 /* ScheduleCell.m */; };
+		10CF8D8E18C27EBA0014E20D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8D18C27EBA0014E20D /* Foundation.framework */; };
+		10CF8D9018C27EBA0014E20D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8F18C27EBA0014E20D /* CoreGraphics.framework */; };
+		10CF8D9218C27EBA0014E20D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D9118C27EBA0014E20D /* UIKit.framework */; };
+		10CF8D9818C27EBA0014E20D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8D9618C27EBA0014E20D /* InfoPlist.strings */; };
+		10CF8D9A18C27EBA0014E20D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8D9918C27EBA0014E20D /* main.m */; };
+		10CF8D9E18C27EBA0014E20D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8D9D18C27EBA0014E20D /* AppDelegate.m */; };
+		10CF8DA118C27EBA0014E20D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8D9F18C27EBA0014E20D /* Main.storyboard */; };
+		10CF8DA418C27EBA0014E20D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DA318C27EBA0014E20D /* ViewController.m */; };
+		10CF8DAD18C27EBA0014E20D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8DAC18C27EBA0014E20D /* XCTest.framework */; };
+		10CF8DAE18C27EBA0014E20D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8D18C27EBA0014E20D /* Foundation.framework */; };
+		10CF8DAF18C27EBA0014E20D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D9118C27EBA0014E20D /* UIKit.framework */; };
+		10CF8DB718C27EBA0014E20D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DB518C27EBA0014E20D /* InfoPlist.strings */; };
+		10CF8DB918C27EBA0014E20D /* VTHacksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DB818C27EBA0014E20D /* VTHacksTests.m */; };
+		10CF8DCA18C289BC0014E20D /* AnnoucementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DC918C289BC0014E20D /* AnnoucementViewController.m */; };
+		10CF8DCE18C28A760014E20D /* UIColor+VTHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DCD18C28A760014E20D /* UIColor+VTHColor.m */; };
+		10CF8DD218C293450014E20D /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD118C292BE0014E20D /* FontAwesome.otf */; };
+		10CF8DD418C2C9060014E20D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD318C2C9060014E20D /* Images.xcassets */; };
+		10CF8DD718C2FED60014E20D /* annoucementCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD618C2FED60014E20D /* annoucementCache.plist */; };
+		10CF8DDE18C305B60014E20D /* annoucementDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */; };
+		10CF8DE118C38D620014E20D /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DE018C38D620014E20D /* ScheduleViewController.m */; };
+		3D4103B718C399CF008B4295 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4103B418C399CF008B4295 /* AWSRuntime.framework */; };
+		3D4103B818C399CF008B4295 /* AWSSNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4103B518C399CF008B4295 /* AWSSNS.framework */; };
+		3D4103B918C399CF008B4295 /* AWSSQS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4103B618C399CF008B4295 /* AWSSQS.framework */; };
+		3D56281E18C2B4FC003C3253 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56281D18C2B4FC003C3253 /* Constants.m */; };
+		3D56282118C2B63F003C3253 /* ClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56282018C2B63F003C3253 /* ClientManager.m */; };
+		3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE7483418C3396900AC37E7 /* MessageBoard.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		10CF8DB018C27EBA0014E20D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10CF8D8218C27EBA0014E20D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 10CF8D8918C27EBA0014E20D;
+			remoteInfo = VTHacks;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		10C7849918C397C5003A1ED0 /* AnnoucementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnoucementCell.h; sourceTree = "<group>"; };
+		10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnoucementCell.m; sourceTree = "<group>"; };
+		10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = scheduleCache.plist; sourceTree = "<group>"; };
+		10C7849E18C3A80B003A1ED0 /* ScheduleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
+		10C7849F18C3A80B003A1ED0 /* ScheduleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
+		10CF8D8A18C27EBA0014E20D /* VTHacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VTHacks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10CF8D8D18C27EBA0014E20D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		10CF8D8F18C27EBA0014E20D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		10CF8D9118C27EBA0014E20D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		10CF8D9518C27EBA0014E20D /* VTHacks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VTHacks-Info.plist"; sourceTree = "<group>"; };
+		10CF8D9718C27EBA0014E20D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		10CF8D9918C27EBA0014E20D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		10CF8D9B18C27EBA0014E20D /* VTHacks-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VTHacks-Prefix.pch"; sourceTree = "<group>"; };
+		10CF8D9C18C27EBA0014E20D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		10CF8D9D18C27EBA0014E20D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		10CF8DA018C27EBA0014E20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		10CF8DA218C27EBA0014E20D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		10CF8DA318C27EBA0014E20D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		10CF8DAB18C27EBA0014E20D /* VTHacksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VTHacksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		10CF8DAC18C27EBA0014E20D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		10CF8DB418C27EBA0014E20D /* VTHacksTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VTHacksTests-Info.plist"; sourceTree = "<group>"; };
+		10CF8DB618C27EBA0014E20D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		10CF8DB818C27EBA0014E20D /* VTHacksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VTHacksTests.m; sourceTree = "<group>"; };
+		10CF8DC818C289BC0014E20D /* AnnoucementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnoucementViewController.h; sourceTree = "<group>"; };
+		10CF8DC918C289BC0014E20D /* AnnoucementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnoucementViewController.m; sourceTree = "<group>"; };
+		10CF8DCC18C28A760014E20D /* UIColor+VTHColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+VTHColor.h"; sourceTree = "<group>"; };
+		10CF8DCD18C28A760014E20D /* UIColor+VTHColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+VTHColor.m"; sourceTree = "<group>"; };
+		10CF8DCF18C290370014E20D /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		10CF8DD118C292BE0014E20D /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		10CF8DD318C2C9060014E20D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		10CF8DD618C2FED60014E20D /* annoucementCache.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = annoucementCache.plist; sourceTree = "<group>"; };
+		10CF8DDC18C305B60014E20D /* annoucementDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = annoucementDescriptionCell.h; sourceTree = "<group>"; };
+		10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = annoucementDescriptionCell.m; sourceTree = "<group>"; };
+		10CF8DDF18C38D620014E20D /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		10CF8DE018C38D620014E20D /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		3D4103B418C399CF008B4295 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
+		3D4103B518C399CF008B4295 /* AWSSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSSNS.framework; sourceTree = "<group>"; };
+		3D4103B618C399CF008B4295 /* AWSSQS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSSQS.framework; sourceTree = "<group>"; };
+		3D56281C18C2B4FC003C3253 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		3D56281D18C2B4FC003C3253 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		3D56281F18C2B63F003C3253 /* ClientManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientManager.h; sourceTree = "<group>"; };
+		3D56282018C2B63F003C3253 /* ClientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientManager.m; sourceTree = "<group>"; };
+		3DE7483318C3396900AC37E7 /* MessageBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBoard.h; sourceTree = "<group>"; };
+		3DE7483418C3396900AC37E7 /* MessageBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageBoard.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		10CF8D8718C27EBA0014E20D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10CF8D9018C27EBA0014E20D /* CoreGraphics.framework in Frameworks */,
+				3D4103B818C399CF008B4295 /* AWSSNS.framework in Frameworks */,
+				10CF8D9218C27EBA0014E20D /* UIKit.framework in Frameworks */,
+				10CF8D8E18C27EBA0014E20D /* Foundation.framework in Frameworks */,
+				3D4103B918C399CF008B4295 /* AWSSQS.framework in Frameworks */,
+				3D4103B718C399CF008B4295 /* AWSRuntime.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10CF8DA818C27EBA0014E20D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10CF8DAD18C27EBA0014E20D /* XCTest.framework in Frameworks */,
+				10CF8DAF18C27EBA0014E20D /* UIKit.framework in Frameworks */,
+				10CF8DAE18C27EBA0014E20D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10CF8D8118C27EBA0014E20D = {
+			isa = PBXGroup;
+			children = (
+				10CF8D9318C27EBA0014E20D /* VTHacks */,
+				10CF8DB218C27EBA0014E20D /* VTHacksTests */,
+				10CF8D8C18C27EBA0014E20D /* Frameworks */,
+				10CF8D8B18C27EBA0014E20D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		10CF8D8B18C27EBA0014E20D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8D8A18C27EBA0014E20D /* VTHacks.app */,
+				10CF8DAB18C27EBA0014E20D /* VTHacksTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		10CF8D8C18C27EBA0014E20D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D4103B418C399CF008B4295 /* AWSRuntime.framework */,
+				3D4103B518C399CF008B4295 /* AWSSNS.framework */,
+				3D4103B618C399CF008B4295 /* AWSSQS.framework */,
+				10CF8D8D18C27EBA0014E20D /* Foundation.framework */,
+				10CF8D8F18C27EBA0014E20D /* CoreGraphics.framework */,
+				10CF8D9118C27EBA0014E20D /* UIKit.framework */,
+				10CF8DAC18C27EBA0014E20D /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		10CF8D9318C27EBA0014E20D /* VTHacks */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8DD818C302E70014E20D /* ViewController */,
+				10CF8DD518C2FA710014E20D /* Custom Cells */,
+				10CF8DD318C2C9060014E20D /* Images.xcassets */,
+				10CF8DD018C2903C0014E20D /* Custom Fonts */,
+				10CF8DCB18C28A590014E20D /* Categories */,
+				10CF8D9C18C27EBA0014E20D /* AppDelegate.h */,
+				10CF8D9F18C27EBA0014E20D /* Main.storyboard */,
+				10CF8D9D18C27EBA0014E20D /* AppDelegate.m */,
+				10CF8D9418C27EBA0014E20D /* Supporting Files */,
+				3D56281C18C2B4FC003C3253 /* Constants.h */,
+				3D56281D18C2B4FC003C3253 /* Constants.m */,
+				3D56281F18C2B63F003C3253 /* ClientManager.h */,
+				3D56282018C2B63F003C3253 /* ClientManager.m */,
+				10CF8DD618C2FED60014E20D /* annoucementCache.plist */,
+				10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */,
+				3DE7483318C3396900AC37E7 /* MessageBoard.h */,
+				3DE7483418C3396900AC37E7 /* MessageBoard.m */,
+			);
+			path = VTHacks;
+			sourceTree = "<group>";
+		};
+		10CF8D9418C27EBA0014E20D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8D9518C27EBA0014E20D /* VTHacks-Info.plist */,
+				10CF8D9618C27EBA0014E20D /* InfoPlist.strings */,
+				10CF8D9918C27EBA0014E20D /* main.m */,
+				10CF8D9B18C27EBA0014E20D /* VTHacks-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		10CF8DB218C27EBA0014E20D /* VTHacksTests */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8DB818C27EBA0014E20D /* VTHacksTests.m */,
+				10CF8DB318C27EBA0014E20D /* Supporting Files */,
+			);
+			path = VTHacksTests;
+			sourceTree = "<group>";
+		};
+		10CF8DB318C27EBA0014E20D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8DB418C27EBA0014E20D /* VTHacksTests-Info.plist */,
+				10CF8DB518C27EBA0014E20D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		10CF8DCB18C28A590014E20D /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8DCC18C28A760014E20D /* UIColor+VTHColor.h */,
+				10CF8DCD18C28A760014E20D /* UIColor+VTHColor.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		10CF8DD018C2903C0014E20D /* Custom Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8DD118C292BE0014E20D /* FontAwesome.otf */,
+				10CF8DCF18C290370014E20D /* fontawesome-webfont.ttf */,
+			);
+			name = "Custom Fonts";
+			sourceTree = "<group>";
+		};
+		10CF8DD518C2FA710014E20D /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8DDC18C305B60014E20D /* annoucementDescriptionCell.h */,
+				10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */,
+				10C7849918C397C5003A1ED0 /* AnnoucementCell.h */,
+				10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */,
+				10C7849E18C3A80B003A1ED0 /* ScheduleCell.h */,
+				10C7849F18C3A80B003A1ED0 /* ScheduleCell.m */,
+			);
+			name = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		10CF8DD818C302E70014E20D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				10CF8DA218C27EBA0014E20D /* ViewController.h */,
+				10CF8DA318C27EBA0014E20D /* ViewController.m */,
+				10CF8DC818C289BC0014E20D /* AnnoucementViewController.h */,
+				10CF8DC918C289BC0014E20D /* AnnoucementViewController.m */,
+				10CF8DDF18C38D620014E20D /* ScheduleViewController.h */,
+				10CF8DE018C38D620014E20D /* ScheduleViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10CF8D8918C27EBA0014E20D /* VTHacks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10CF8DBC18C27EBA0014E20D /* Build configuration list for PBXNativeTarget "VTHacks" */;
+			buildPhases = (
+				10CF8D8618C27EBA0014E20D /* Sources */,
+				10CF8D8718C27EBA0014E20D /* Frameworks */,
+				10CF8D8818C27EBA0014E20D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VTHacks;
+			productName = VTHacks;
+			productReference = 10CF8D8A18C27EBA0014E20D /* VTHacks.app */;
+			productType = "com.apple.product-type.application";
+		};
+		10CF8DAA18C27EBA0014E20D /* VTHacksTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10CF8DBF18C27EBA0014E20D /* Build configuration list for PBXNativeTarget "VTHacksTests" */;
+			buildPhases = (
+				10CF8DA718C27EBA0014E20D /* Sources */,
+				10CF8DA818C27EBA0014E20D /* Frameworks */,
+				10CF8DA918C27EBA0014E20D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				10CF8DB118C27EBA0014E20D /* PBXTargetDependency */,
+			);
+			name = VTHacksTests;
+			productName = VTHacksTests;
+			productReference = 10CF8DAB18C27EBA0014E20D /* VTHacksTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10CF8D8218C27EBA0014E20D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Vincent Ngo";
+				TargetAttributes = {
+					10CF8DAA18C27EBA0014E20D = {
+						TestTargetID = 10CF8D8918C27EBA0014E20D;
+					};
+				};
+			};
+			buildConfigurationList = 10CF8D8518C27EBA0014E20D /* Build configuration list for PBXProject "VTHacks" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 10CF8D8118C27EBA0014E20D;
+			productRefGroup = 10CF8D8B18C27EBA0014E20D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10CF8D8918C27EBA0014E20D /* VTHacks */,
+				10CF8DAA18C27EBA0014E20D /* VTHacksTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		10CF8D8818C27EBA0014E20D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10C7849D18C3A03F003A1ED0 /* scheduleCache.plist in Resources */,
+				10CF8DD218C293450014E20D /* FontAwesome.otf in Resources */,
+				10CF8DD418C2C9060014E20D /* Images.xcassets in Resources */,
+				10CF8DD718C2FED60014E20D /* annoucementCache.plist in Resources */,
+				10CF8D9818C27EBA0014E20D /* InfoPlist.strings in Resources */,
+				10CF8DA118C27EBA0014E20D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10CF8DA918C27EBA0014E20D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10CF8DB718C27EBA0014E20D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10CF8D8618C27EBA0014E20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10CF8DA418C27EBA0014E20D /* ViewController.m in Sources */,
+				3D56282118C2B63F003C3253 /* ClientManager.m in Sources */,
+				10C784A018C3A80B003A1ED0 /* ScheduleCell.m in Sources */,
+				10CF8D9E18C27EBA0014E20D /* AppDelegate.m in Sources */,
+				10CF8DCE18C28A760014E20D /* UIColor+VTHColor.m in Sources */,
+				10CF8DDE18C305B60014E20D /* annoucementDescriptionCell.m in Sources */,
+				10CF8DCA18C289BC0014E20D /* AnnoucementViewController.m in Sources */,
+				10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */,
+				10CF8D9A18C27EBA0014E20D /* main.m in Sources */,
+				3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */,
+				3D56281E18C2B4FC003C3253 /* Constants.m in Sources */,
+				10CF8DE118C38D620014E20D /* ScheduleViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10CF8DA718C27EBA0014E20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10CF8DB918C27EBA0014E20D /* VTHacksTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		10CF8DB118C27EBA0014E20D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 10CF8D8918C27EBA0014E20D /* VTHacks */;
+			targetProxy = 10CF8DB018C27EBA0014E20D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		10CF8D9618C27EBA0014E20D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10CF8D9718C27EBA0014E20D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		10CF8D9F18C27EBA0014E20D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10CF8DA018C27EBA0014E20D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		10CF8DB518C27EBA0014E20D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10CF8DB618C27EBA0014E20D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		10CF8DBA18C27EBA0014E20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		10CF8DBB18C27EBA0014E20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		10CF8DBD18C27EBA0014E20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/vincentngo/Documents/Git\\ Repositories/VTHacks/VTHacks",
+					/Users/cfol1032/hacknc/VTHacks/VTHacks,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VTHacks/VTHacks-Prefix.pch";
+				INFOPLIST_FILE = "VTHacks/VTHacks-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		10CF8DBE18C27EBA0014E20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/vincentngo/Documents/Git\\ Repositories/VTHacks/VTHacks",
+					/Users/cfol1032/hacknc/VTHacks/VTHacks,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VTHacks/VTHacks-Prefix.pch";
+				INFOPLIST_FILE = "VTHacks/VTHacks-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		10CF8DC018C27EBA0014E20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VTHacks.app/VTHacks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VTHacks/VTHacks-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "VTHacksTests/VTHacksTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		10CF8DC118C27EBA0014E20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VTHacks.app/VTHacks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VTHacks/VTHacks-Prefix.pch";
+				INFOPLIST_FILE = "VTHacksTests/VTHacksTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		10CF8D8518C27EBA0014E20D /* Build configuration list for PBXProject "VTHacks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10CF8DBA18C27EBA0014E20D /* Debug */,
+				10CF8DBB18C27EBA0014E20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10CF8DBC18C27EBA0014E20D /* Build configuration list for PBXNativeTarget "VTHacks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10CF8DBD18C27EBA0014E20D /* Debug */,
+				10CF8DBE18C27EBA0014E20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10CF8DBF18C27EBA0014E20D /* Build configuration list for PBXNativeTarget "VTHacksTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10CF8DC018C27EBA0014E20D /* Debug */,
+				10CF8DC118C27EBA0014E20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 10CF8D8218C27EBA0014E20D /* Project object */;
+}

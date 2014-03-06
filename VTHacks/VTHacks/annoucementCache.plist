@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>March 3, 2014</key>
+	<dict>
+		<key>Start packing!</key>
+		<dict>
+			<key>time</key>
+			<date>2014-03-01T06:14:10Z</date>
+			<key>location</key>
+			<string>Home</string>
+			<key>description</key>
+			<string>Before attending the hackathon, I found the idea of building something over night both exciting and intimidating.  Most of all, it was my first hackathon;Backpack, Bandana, Day pack for shorter afternoon hikes, Glasses and/or contact lenses, if needed (plus an extra pair), Hiking boots, Pack cover, Sunglasses, Waterproof gloves, Wide-brimmed rain or sun hat, Fleece or wool gloves or mittensFleece jacket or wool sweaterFleece or wool vestHiking socks Long-sleeved shirts Quick-drying pants and/or shorts Quick-drying swimsuit
+Rainwear (tops and bottoms) Regular underwear Short-sleeved shirts Warm hat (fleece or wool) Warm pants (fleece or wool) Wicking liner socks Wicking long underwear</string>
+		</dict>
+		<key>Tip</key>
+		<dict>
+			<key>time</key>
+			<date>2014-03-03T06:18:02Z</date>
+			<key>location</key>
+			<string>notification</string>
+			<key>description</key>
+			<string>On the VTHacks app click contacts menu, and tweet, send us a message if you need any assistance.</string>
+		</dict>
+		<key>Welcome to VTHacks</key>
+		<dict>
+			<key>time</key>
+			<date>2014-03-02T06:15:17Z</date>
+			<key>location</key>
+			<string>Cassell Coliseum</string>
+			<key>description</key>
+			<string>Get hyped, everyone is going to learn and build something insanely great.</string>
+		</dict>
+		<key>Apple UITransitions Talk</key>
+		<dict>
+			<key>time</key>
+			<date>2014-03-02T07:16:48Z</date>
+			<key>location</key>
+			<string>Mcbryde 110</string>
+			<key>description</key>
+			<string>Get in-depth guidance about developing for iOS 7, learn practical coding tips and tricks, and obtain valuable one-on-one programming and design assistance in our lab. Choose which day is best for you — app developer day or game developer day.</string>
+		</dict>
+		<key>Bus Departures</key>
+		<dict>
+			<key>time</key>
+			<date>2014-03-02T05:55:06Z</date>
+			<key>location</key>
+			<string>Outside Lane Stadium</string>
+			<key>description</key>
+			<string>MIT/Boston/SUNY-Buffalo, Georgia Institute of Technology, Your departure is 4:00pm. Please be in the lobby between 3:30 to 3:45.</string>
+		</dict>
+		<key>Final Demos LiveStream</key>
+		<dict>
+			<key>time</key>
+			<date>2014-03-02T05:56:39Z</date>
+			<key>location</key>
+			<string>Internet</string>
+			<key>description</key>
+			<string>The livestream link for the final demos with Sam Altman of YC and Jeff Lawson, CEO of Twilio is, hello sir The livestream link for the final demos with Sam Altman of YC and Jeff Lawson, CEO of Twilio is, hello sir The livestream link for the final demos with Sam Altman of YC and Jeff Lawson, CEO of Twilio is, hello sir </string>
+		</dict>
+	</dict>
+</dict>
+</plist>
