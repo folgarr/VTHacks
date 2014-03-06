@@ -170,7 +170,8 @@ static MessageBoard *_instance = nil;
     return YES;
 }
 
--(bool)subscribeDevice {
+-(bool)subscribeDevice
+{
     if (endpointARN == nil) {
         dispatch_async(dispatch_get_main_queue(), ^{
             

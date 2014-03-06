@@ -182,7 +182,6 @@ static NSString *notifyBody;
     [photoImage setImage:[UIImage imageNamed:@"photoIcon"]];
     [photoImage setContentMode:UIViewContentModeScaleAspectFit];
     [self.menuActionSheet addSubview:photoImage];
-
 }
 
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body
@@ -275,13 +274,13 @@ static NSString *notifyBody;
 - (void)showScheduleView
 
 {
-    NSLog(@"Yolo swag");
+    NSLog(@"CLICKED ON THE Show Schedule Button!");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"scheduleViewController"];
     [vc setModalPresentationStyle:UIModalPresentationFullScreen];
 //    
 //    [self presentViewController:vc animated:NO completion:nil];
-    [self.navigationController pushViewController:vc animated:YES];
+    [[self navigationController] pushViewController:vc animated:YES];
     [self.menuActionSheet dismissWithClickedButtonIndex:0 animated:NO];
 //    [self presentViewController:vc animated:YES completion:nil];
 

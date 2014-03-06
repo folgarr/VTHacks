@@ -30,9 +30,10 @@
 {
     [super viewDidLoad];
 
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache"
-                                                         ofType:@"plist"];
+    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache" ofType:@"plist"];
     self.scheduleDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    
+    // this is an array of dicts (exactly two of them)
     self.nameOfDay = [self.scheduleDict allKeys];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -78,12 +79,21 @@
     
     NSString *nameDate = self.nameOfDay[section];
     NSDictionary *events = self.scheduleDict[nameDate];
+    
+    // dictionary of string-key -> dict value
     NSArray *arrayOfEvents = [events allKeys];
 
     
+    
     NSString *time = arrayOfEvents[row];
+    NSDictionary *eventInfo = events[time];
     [cell.timeLabel setText:time];
-    [cell.eventLabel setText:events[time]];
+//    [cell.timeLabel setTextColor:[UIColor darkGrayColor]];
+    
+    [cell.eventLabel setText:eventInfo[@"Body"]];
+    [cell.cellTitle setText:eventInfo[@"Title"]];
+//    [cell.cellTitle setTextColor:[UIColor darkGrayColor]];
+
 
     return cell;
 }
@@ -91,7 +101,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return 70;
+    return 85;
 }
 /*
 // Override to support conditional editing of the table view.

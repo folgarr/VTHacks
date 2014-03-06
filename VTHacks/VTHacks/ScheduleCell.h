@@ -11,5 +11,6 @@
 @interface ScheduleCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *eventLabel;
+@property (strong, nonatomic) IBOutlet UILabel *cellTitle;
 
 @end
