@@ -38,7 +38,8 @@ static MessageBoard *_instance = nil;
 {
     self = [super init];
     NSLog(@"~~~~~ Calling [MessageBoard init]");
-    if (self != nil) {
+    if (self != nil)
+    {
         snsClient = [[AmazonSNSClient alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
         snsClient.endpoint = [AmazonEndpoints snsEndpoint:US_EAST_1];
         
