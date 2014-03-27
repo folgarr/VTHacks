@@ -40,6 +40,8 @@ static MessageBoard *_instance = nil;
     NSLog(@"~~~~~ Calling [MessageBoard init]");
     if (self != nil)
     {
+        
+        // ACCESS_KEY_ID and SECRET_KEY must be retrieved from Token Vending Machine on server
         snsClient = [[AmazonSNSClient alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
         snsClient.endpoint = [AmazonEndpoints snsEndpoint:US_EAST_1];
         
