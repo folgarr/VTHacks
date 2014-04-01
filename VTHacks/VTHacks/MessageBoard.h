@@ -11,43 +11,47 @@
 #import <AWSSNS/AWSSNS.h>
 #import <AWSSQS/AWSSQS.h>
 
-@interface MessageBoard:NSObject
+
+typedef void (^completionHandler)(NSDictionary *jsonDictionary, NSError *serverError);
+
+@interface MessageBoard:NSObject<NSURLConnectionDelegate>
 {
+    
+    // Clients and Amazon Resource names
     AmazonSNSClient *snsClient;
     AmazonSQSClient *sqsClient;
     NSString        *topicARN;
     NSString        *queueUrl;
-    
     NSString        *endpointARN;
+    
+    // Temporary credential info
+    AmazonCredentials *credentials;
+    NSString *tempACCESS_KEY_ID;
+    NSString *tempSECRET_KEY;
+    NSString *tempSECURITY_TOKEN;
+    NSString *tempExpirationString;
+    
+    // Holds the response data from any server call
+    NSMutableData *_responseData;
+
+    // name identifier attached to server calls (randomly generated on first run)
+    NSString *nameIdentifier;
+    
+
+    //(nonatomic, copy) void (^serverResponseHandler)(NSDictionary *jsonDictionary, NSError *serverError);
+       
 }
 
 +(MessageBoard *)instance;
+-(void)getDataFromServer:(NSString*) type completionHandler:(completionHandler)handler;
 
 -(id)init;
--(NSString *)createTopic;
 -(bool)createApplicationEndpoint;
--(void)deleteTopic;
--(NSString *)findTopicArn;
 -(NSString *)findEndpointARN;
 -(bool)subscribeDevice;
--(void)subscribeEmail:(NSString *)emailAddress;
--(void)subscribeSms:(NSString *)smsNumber;
--(void)post:(NSString *)theMessage;
--(bool)pushToMobile:(NSString*)theMessage;
--(NSMutableArray *)listSubscribers;
--(NSMutableArray *)listEndpoints;
--(void)updateEndpointAttributesWithendPointARN:(NSString *)endpointArn Attributes:(NSMutableDictionary *)attributeDic;
--(void)removeSubscriber:(NSString *)subscriptionArn;
--(void)removeEndpoint:(NSString *)endpointArn;
--(NSString *)findQueueUrl;
 -(NSMutableArray *)getMessagesFromQueue;
 -(void)subscribeQueue;
--(NSString *)createQueue;
--(void)deleteQueue;
--(NSString *)getQueueArn:(NSString *)queueUrl;
--(void)addPolicyToQueueForTopic:(NSString *)queueUrl queueArn:(NSString *)queueArn;
--(NSString *)generateSqsPolicyForTopic:(NSString *)queueArn;
 -(void)deleteMessageFromQueue:(SQSMessage *)message;
 
--(void)changeVisibilityTimeoutForQueue:(NSString*)theQueueUrl toSeconds:(int)seconds;
+
 @end

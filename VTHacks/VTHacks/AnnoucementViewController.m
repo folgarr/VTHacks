@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "AnnoucementCell.h"
 #import "AppDelegate.h"
+#import "MessageBoard.h"
 
 static NSString *notifySubject;
 static NSString *notifyBody;
@@ -286,6 +287,7 @@ static NSString *notifyBody;
 
     
 }
+
 
 
 - (void)exitMenu
