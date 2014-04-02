@@ -119,7 +119,6 @@
     
     [self.transparentView addSubview:self.tableView];
     
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -197,7 +196,7 @@
 
 - (void)openSelectedMenuItem: (NSString *)selectedMenuItem
 {
-    NSLog(@"Count of number of viewControllers on the stack is %lu", [[self.navigationController viewControllers] count]);
+    NSLog(@"Count of number of viewControllers on the stack is %lu", (unsigned long)[[self.navigationController viewControllers] count]);
     
     if ([self.navigationController.viewControllers count] > 1)
     {

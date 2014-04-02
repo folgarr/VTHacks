@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10747F2218EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 10747F2118EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m */; };
 		10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */; };
 		10C7849D18C3A03F003A1ED0 /* scheduleCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */; };
 		10C784A018C3A80B003A1ED0 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849F18C3A80B003A1ED0 /* ScheduleCell.m */; };
@@ -53,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10747F2018EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+GifPullToRefresh.h"; sourceTree = "<group>"; };
+		10747F2118EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+GifPullToRefresh.m"; sourceTree = "<group>"; };
 		10C7849918C397C5003A1ED0 /* AnnoucementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnoucementCell.h; sourceTree = "<group>"; };
 		10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnoucementCell.m; sourceTree = "<group>"; };
 		10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = scheduleCache.plist; sourceTree = "<group>"; };
@@ -133,6 +136,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10747F1F18EBDCF400B2EB5E /* Custom Refresh Controls */ = {
+			isa = PBXGroup;
+			children = (
+				10747F2018EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.h */,
+				10747F2118EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m */,
+			);
+			name = "Custom Refresh Controls";
+			sourceTree = "<group>";
+		};
 		10CF8D8118C27EBA0014E20D = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +181,7 @@
 		10CF8D9318C27EBA0014E20D /* VTHacks */ = {
 			isa = PBXGroup;
 			children = (
+				10747F1F18EBDCF400B2EB5E /* Custom Refresh Controls */,
 				10F75C2118EB890C004DBF27 /* Custom Menu */,
 				10CF8DD818C302E70014E20D /* ViewController */,
 				10CF8DD518C2FA710014E20D /* Custom Cells */,
@@ -384,6 +397,7 @@
 			files = (
 				10CF8DA418C27EBA0014E20D /* ViewController.m in Sources */,
 				3D56282118C2B63F003C3253 /* ClientManager.m in Sources */,
+				10747F2218EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m in Sources */,
 				10C784A018C3A80B003A1ED0 /* ScheduleCell.m in Sources */,
 				10CF8D9E18C27EBA0014E20D /* AppDelegate.m in Sources */,
 				10F75C2918EB8E2F004DBF27 /* MenuViewController.m in Sources */,

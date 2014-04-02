@@ -8,10 +8,22 @@
 
 #import "ScheduleViewController.h"
 #import "ScheduleCell.h"
+#import "MessageBoard.h"
+
 @interface ScheduleViewController ()
 
 @property (nonatomic, strong) NSDictionary *scheduleDict;
 @property (nonatomic, strong) NSArray *nameOfDay;
+
+@property (nonatomic, strong) MessageBoard *messageBoard;
+
+@property (nonatomic, strong) NSArray *sectionDay;
+@property (nonatomic, strong) NSDictionary *dayScheduleDict;
+
+@property (nonatomic, strong) NSArray *sundayEvents;
+@property (nonatomic, strong) NSArray *saturdayEvents;
+@property (nonatomic, strong) NSArray *fridayEvents;
+
 @end
 
 @implementation ScheduleViewController
@@ -36,6 +48,23 @@
     
     // this is an array of dicts (exactly two of them)
     self.nameOfDay = [self.scheduleDict allKeys];
+    
+    self.messageBoard = [MessageBoard instance];
+    [self.messageBoard getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+
+        
+        self.sectionDay = [jsonDictionary allKeys];
+        NSLog(@"jsonDictionary is %@", jsonDictionary);
+        NSLog(@"sectionDay is %@", self.sectionDay);
+        
+        
+        self.sundayEvents = jsonDictionary[@"Sunday"];
+        self.saturdayEvents = jsonDictionary[@"Saturday"];
+        self.fridayEvents = jsonDictionary[@"Friday"];
+        
+        
+        
+    }];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
