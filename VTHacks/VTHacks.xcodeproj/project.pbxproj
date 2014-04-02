@@ -10,9 +10,6 @@
 		10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */; };
 		10C7849D18C3A03F003A1ED0 /* scheduleCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */; };
 		10C784A018C3A80B003A1ED0 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849F18C3A80B003A1ED0 /* ScheduleCell.m */; };
-		10CF8D8E18C27EBA0014E20D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8D18C27EBA0014E20D /* Foundation.framework */; };
-		10CF8D9018C27EBA0014E20D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8F18C27EBA0014E20D /* CoreGraphics.framework */; };
-		10CF8D9218C27EBA0014E20D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D9118C27EBA0014E20D /* UIKit.framework */; };
 		10CF8D9818C27EBA0014E20D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8D9618C27EBA0014E20D /* InfoPlist.strings */; };
 		10CF8D9A18C27EBA0014E20D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8D9918C27EBA0014E20D /* main.m */; };
 		10CF8D9E18C27EBA0014E20D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8D9D18C27EBA0014E20D /* AppDelegate.m */; };
@@ -30,7 +27,14 @@
 		10CF8DD718C2FED60014E20D /* annoucementCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD618C2FED60014E20D /* annoucementCache.plist */; };
 		10CF8DDE18C305B60014E20D /* annoucementDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */; };
 		10CF8DE118C38D620014E20D /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DE018C38D620014E20D /* ScheduleViewController.m */; };
-		3D4103B718C399CF008B4295 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4103B418C399CF008B4295 /* AWSRuntime.framework */; };
+		10F75C1718EB7F0C004DBF27 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F75C1618EB7F0C004DBF27 /* AWSRuntime.framework */; };
+		10F75C1B18EB8494004DBF27 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D9118C27EBA0014E20D /* UIKit.framework */; };
+		10F75C1C18EB849A004DBF27 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8D18C27EBA0014E20D /* Foundation.framework */; };
+		10F75C1D18EB84A0004DBF27 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8F18C27EBA0014E20D /* CoreGraphics.framework */; };
+		10F75C2018EB8908004DBF27 /* VVNTransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F75C1F18EB8908004DBF27 /* VVNTransparentView.m */; };
+		10F75C2518EB8B11004DBF27 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F75C2318EB8B11004DBF27 /* MenuCell.m */; };
+		10F75C2618EB8B11004DBF27 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10F75C2418EB8B11004DBF27 /* MenuCell.xib */; };
+		10F75C2918EB8E2F004DBF27 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F75C2818EB8E2F004DBF27 /* MenuViewController.m */; };
 		3D4103B818C399CF008B4295 /* AWSSNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4103B518C399CF008B4295 /* AWSSNS.framework */; };
 		3D4103B918C399CF008B4295 /* AWSSQS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4103B618C399CF008B4295 /* AWSSQS.framework */; };
 		3D56281E18C2B4FC003C3253 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56281D18C2B4FC003C3253 /* Constants.m */; };
@@ -84,7 +88,14 @@
 		10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = annoucementDescriptionCell.m; sourceTree = "<group>"; };
 		10CF8DDF18C38D620014E20D /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		10CF8DE018C38D620014E20D /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
-		3D4103B418C399CF008B4295 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
+		10F75C1618EB7F0C004DBF27 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
+		10F75C1E18EB8908004DBF27 /* VVNTransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VVNTransparentView.h; sourceTree = "<group>"; };
+		10F75C1F18EB8908004DBF27 /* VVNTransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VVNTransparentView.m; sourceTree = "<group>"; };
+		10F75C2218EB8B11004DBF27 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
+		10F75C2318EB8B11004DBF27 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
+		10F75C2418EB8B11004DBF27 /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		10F75C2718EB8E2F004DBF27 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		10F75C2818EB8E2F004DBF27 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		3D4103B518C399CF008B4295 /* AWSSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSSNS.framework; sourceTree = "<group>"; };
 		3D4103B618C399CF008B4295 /* AWSSQS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSSQS.framework; sourceTree = "<group>"; };
 		3D56281C18C2B4FC003C3253 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -100,12 +111,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10CF8D9018C27EBA0014E20D /* CoreGraphics.framework in Frameworks */,
+				10F75C1D18EB84A0004DBF27 /* CoreGraphics.framework in Frameworks */,
+				10F75C1C18EB849A004DBF27 /* Foundation.framework in Frameworks */,
+				10F75C1B18EB8494004DBF27 /* UIKit.framework in Frameworks */,
 				3D4103B818C399CF008B4295 /* AWSSNS.framework in Frameworks */,
-				10CF8D9218C27EBA0014E20D /* UIKit.framework in Frameworks */,
-				10CF8D8E18C27EBA0014E20D /* Foundation.framework in Frameworks */,
+				10F75C1718EB7F0C004DBF27 /* AWSRuntime.framework in Frameworks */,
 				3D4103B918C399CF008B4295 /* AWSSQS.framework in Frameworks */,
-				3D4103B718C399CF008B4295 /* AWSRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +155,7 @@
 		10CF8D8C18C27EBA0014E20D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D4103B418C399CF008B4295 /* AWSRuntime.framework */,
+				10F75C1618EB7F0C004DBF27 /* AWSRuntime.framework */,
 				3D4103B518C399CF008B4295 /* AWSSNS.framework */,
 				3D4103B618C399CF008B4295 /* AWSSQS.framework */,
 				10CF8D8D18C27EBA0014E20D /* Foundation.framework */,
@@ -158,6 +169,7 @@
 		10CF8D9318C27EBA0014E20D /* VTHacks */ = {
 			isa = PBXGroup;
 			children = (
+				10F75C2118EB890C004DBF27 /* Custom Menu */,
 				10CF8DD818C302E70014E20D /* ViewController */,
 				10CF8DD518C2FA710014E20D /* Custom Cells */,
 				10CF8DD318C2C9060014E20D /* Images.xcassets */,
@@ -252,6 +264,20 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
+		10F75C2118EB890C004DBF27 /* Custom Menu */ = {
+			isa = PBXGroup;
+			children = (
+				10F75C1E18EB8908004DBF27 /* VVNTransparentView.h */,
+				10F75C1F18EB8908004DBF27 /* VVNTransparentView.m */,
+				10F75C2218EB8B11004DBF27 /* MenuCell.h */,
+				10F75C2318EB8B11004DBF27 /* MenuCell.m */,
+				10F75C2418EB8B11004DBF27 /* MenuCell.xib */,
+				10F75C2718EB8E2F004DBF27 /* MenuViewController.h */,
+				10F75C2818EB8E2F004DBF27 /* MenuViewController.m */,
+			);
+			name = "Custom Menu";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -300,7 +326,7 @@
 				ORGANIZATIONNAME = "Vincent Ngo";
 				TargetAttributes = {
 					10CF8D8918C27EBA0014E20D = {
-						DevelopmentTeam = 3AC2RN6H7L;
+						DevelopmentTeam = LZMRHF534X;
 					};
 					10CF8DAA18C27EBA0014E20D = {
 						TestTargetID = 10CF8D8918C27EBA0014E20D;
@@ -333,6 +359,7 @@
 			files = (
 				10C7849D18C3A03F003A1ED0 /* scheduleCache.plist in Resources */,
 				10CF8DD218C293450014E20D /* FontAwesome.otf in Resources */,
+				10F75C2618EB8B11004DBF27 /* MenuCell.xib in Resources */,
 				10CF8DD418C2C9060014E20D /* Images.xcassets in Resources */,
 				10CF8DD718C2FED60014E20D /* annoucementCache.plist in Resources */,
 				10CF8D9818C27EBA0014E20D /* InfoPlist.strings in Resources */,
@@ -359,13 +386,16 @@
 				3D56282118C2B63F003C3253 /* ClientManager.m in Sources */,
 				10C784A018C3A80B003A1ED0 /* ScheduleCell.m in Sources */,
 				10CF8D9E18C27EBA0014E20D /* AppDelegate.m in Sources */,
+				10F75C2918EB8E2F004DBF27 /* MenuViewController.m in Sources */,
 				10CF8DCE18C28A760014E20D /* UIColor+VTHColor.m in Sources */,
 				10CF8DDE18C305B60014E20D /* annoucementDescriptionCell.m in Sources */,
 				10CF8DCA18C289BC0014E20D /* AnnoucementViewController.m in Sources */,
 				10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */,
+				10F75C2518EB8B11004DBF27 /* MenuCell.m in Sources */,
 				10CF8D9A18C27EBA0014E20D /* main.m in Sources */,
 				3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */,
 				3D56281E18C2B4FC003C3253 /* Constants.m in Sources */,
+				10F75C2018EB8908004DBF27 /* VVNTransparentView.m in Sources */,
 				10CF8DE118C38D620014E20D /* ScheduleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -493,18 +523,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.CarlosVincent.VTHacks";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/vincentngo/Documents/Git\\ Repositories/VTHacks/VTHacks",
+					/Users/vincentngo/Documents/Git,
+					Repositories/VTHacks/VTHacks,
 					/Users/cfol1032/hacknc/VTHacks/VTHacks,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VTHacks/VTHacks-Prefix.pch";
 				INFOPLIST_FILE = "VTHacks/VTHacks-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A264BA50-C297-463C-A32F-7D80EAF7FD57";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -514,18 +547,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.CarlosVincent.VTHacks";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/vincentngo/Documents/Git\\ Repositories/VTHacks/VTHacks",
+					/Users/vincentngo/Documents/Git,
+					Repositories/VTHacks/VTHacks,
 					/Users/cfol1032/hacknc/VTHacks/VTHacks,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VTHacks/VTHacks-Prefix.pch";
 				INFOPLIST_FILE = "VTHacks/VTHacks-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A264BA50-C297-463C-A32F-7D80EAF7FD57";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -8,7 +8,6 @@
 
 #import "ScheduleViewController.h"
 #import "ScheduleCell.h"
-
 @interface ScheduleViewController ()
 
 @property (nonatomic, strong) NSDictionary *scheduleDict;
@@ -30,6 +29,8 @@
 {
     [super viewDidLoad];
 
+    self.navigationItem.hidesBackButton = YES;
+    
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache" ofType:@"plist"];
     self.scheduleDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     

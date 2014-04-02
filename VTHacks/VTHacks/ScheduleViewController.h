@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MenuViewController.h"
 @interface ScheduleViewController : UITableViewController
+
+@property (nonatomic, strong) MenuViewController *menuController;
 
 @end

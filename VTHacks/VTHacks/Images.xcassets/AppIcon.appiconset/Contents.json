@@ -3,19 +3,19 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "hackstarIcon.png",
+      "filename" : "avatar.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "hackstarIcon-1.png",
+      "filename" : "avatar-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "hackstarIcon-2.png",
+      "filename" : "avatar-2.png",
       "scale" : "2x"
     }
   ],

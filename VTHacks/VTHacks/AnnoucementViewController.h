@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
+#import "MenuViewController.h"
 
 @interface AnnoucementViewController : UITableViewController <UIActionSheetDelegate>
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body;
 +(void) setSubject:(NSString *)subj andBody:(NSString *)body;
+
+@property (nonatomic, strong) MenuViewController *menuController;
+
 @end
