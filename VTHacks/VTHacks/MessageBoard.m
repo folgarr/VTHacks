@@ -79,6 +79,7 @@ static MessageBoard *_instance = nil;
         // set everything up using these previous credentials but dont do a full run
         [self runSetupWithCredentials:NO];
 
+
         return YES;
     }
     else
@@ -158,8 +159,8 @@ static MessageBoard *_instance = nil;
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
             });
             
-            NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
-            NSLog(@"Here are the SQS messages: %@", msgs);
+            //NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
+            //NSLog(@"Here are the SQS messages: %@", msgs);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             });
@@ -292,6 +293,28 @@ static MessageBoard *_instance = nil;
     }
     
     return response.subscriptions;
+}
+
+-(void)getAnnouncements:(jsonListCallback)handler
+{
+    NSMutableArray *rawJSON = [self getMessagesFromQueue];
+    NSError *localError = nil;
+    NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
+    for (SQSMessage *rawMessage in rawJSON)
+    {
+        NSString *body = [rawMessage body];
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&localError];
+        
+        // get the date from time-stamp (initially comes in as utc timezone)
+        NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
+        NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
+
+        NSString * message = jsonDict[@"Message"];
+        NSArray *components = [message componentsSeparatedByString:@"|"];
+        NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString};
+        [multipleJsons addObject:simpleDictionary];
+    }
+    handler(multipleJsons, localError);
 }
 
 
