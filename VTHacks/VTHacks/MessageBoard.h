@@ -13,6 +13,7 @@
 
 
 typedef void (^completionHandler)(NSDictionary *jsonDictionary, NSError *serverError);
+typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError);
 
 @interface MessageBoard:NSObject<NSURLConnectionDelegate>
 {
