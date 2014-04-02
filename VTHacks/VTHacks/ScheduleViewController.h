@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong) MenuViewController *menuController;
 
+//Custom Pull Refresh
+@property (nonatomic, strong)NSArray *loadingImgs;
+@property (nonatomic, strong)NSArray *drawingImgs;
 @end

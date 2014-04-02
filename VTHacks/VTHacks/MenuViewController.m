@@ -24,12 +24,13 @@
 @property (nonatomic, strong) VVNTransparentView *transparentView;
 @property (nonatomic, assign) NSInteger selectedCell;
 
+@property (nonatomic, strong) NSString *menuSelected;
+
 @end
 
 @implementation MenuViewController
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
     
     if ([viewController isKindOfClass:[ScheduleViewController class]])
     {
@@ -41,7 +42,6 @@
         AnnoucementViewController *annoucementController = (AnnoucementViewController *)viewController;
         annoucementController.menuController = self;
     }
-    
     
     [self createMenuWithViewController:viewController];
 }
@@ -59,6 +59,15 @@
 {
     [super viewDidLoad];
     self.navigationController.delegate = self;
+    self.menuSelected = @"Annoucements";
+    
+    //Initially push Annoucement view controller on the stack
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
+    [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,20 +76,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidLayoutSubviews{
-//    self.navigationItem.backBarButtonItem = nil;
-//    [self.navigationController.navigationBar.backItem setHidesBackButton:YES];
-//    self.navigationController.navigationBar.topItem.titleView = nil;
-//    UIView *staticTitle = [[UIView alloc]initWithFrame:self.navigationController.navigationBar.bounds];
-//    [staticTitle setBackgroundColor:[UIColor greenColor]];
-//    [staticTitle setUserInteractionEnabled:NO];
-//    [self.navigationController.navigationBar addSubview:staticTitle];
-//    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 15, 100, 60)];
-//    [customButton setBackgroundColor:[UIColor whiteColor]];
-//    [customButton addTarget:self action:@selector(handleBackBtn) forControlEvents:UIControlEventTouchUpInside];
-//    [customButton setTitle:@"Button" forState:UIControlStateNormal];
-//    [staticTitle addSubview:customButton];
-}
 
 #pragma mark - Creation of UI
 
@@ -90,7 +85,7 @@
     self.menuList = @[@"Annoucements", @"Schedule", @"Contacts", @"Map", @"Awards", @"Social"];
     
     //Stores the awesomefont id that cooresponds to the company name.
-    self.menuDict = @{@"Annoucements": @"\uf179", @"Schedule" : @"\uf17c", @"Contacts" : @"\uf0c0", @"Map" : @"\uf09a", @"Awards" : @"\uf113", @"Social" : @"\uf0e1"};
+    self.menuDict = @{@"Annoucements": @"\uf0f3", @"Schedule" : @"\uf133", @"Contacts" : @"\uf007", @"Map" : @"\uf041", @"Awards" : @"\uf091", @"Social" : @"\uf099"};
     
     //Add Ellipse Menu Button
     self.menuBarButton = [[UIBarButtonItem alloc] initWithTitle:@"^_^"
@@ -99,7 +94,13 @@
     [self.menuBarButton setTitleTextAttributes:@{NSFontAttributeName: font} forState:UIControlStateNormal];
     [self.menuBarButton setTitle:@"\uf142"];
     viewController.navigationItem.rightBarButtonItem = self.menuBarButton;
+    [viewController.navigationController.navigationBar setTranslucent:NO];
+    [viewController.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
     
+    [viewController.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+
 }
 
 
@@ -185,13 +186,24 @@
     MenuCell *cell = (MenuCell *)[tableView cellForRowAtIndexPath:indexPath];
     NSString *menuSelected = cell.titleLabel.text;
     
-    [self openSelectedMenuItem:menuSelected];
-    [tableView setUserInteractionEnabled:NO];
-    [cell animateCellWithStyle:CCAnimationStyleRubberBand completion:^(BOOL finished) {
-        [tableView setUserInteractionEnabled:YES];
-        self.selectedCell = indexPath.row;
-        [self.transparentView closeView];
-    }];
+    if (![self.menuSelected isEqualToString:menuSelected])
+    {
+        [self openSelectedMenuItem:menuSelected];
+        self.menuSelected = menuSelected;
+        [tableView setUserInteractionEnabled:NO];
+        [cell animateCellWithStyle:CCAnimationStyleRubberBand completion:^(BOOL finished) {
+            [tableView setUserInteractionEnabled:YES];
+            self.selectedCell = indexPath.row;
+            [self.transparentView closeView];
+        }];
+    }
+    else
+    {
+        [cell animateCellWithStyle:CCAnimationStyleRubberBand completion:^(BOOL finished) {
+            [self.transparentView closeView];
+        }];
+    }
+
 }
 
 - (void)openSelectedMenuItem: (NSString *)selectedMenuItem
@@ -209,6 +221,7 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if ([selectedMenuItem isEqualToString:@"Schedule"])
@@ -216,7 +229,9 @@
         NSLog(@"Schedule View Controller");
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"scheduleViewController"];
+        
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if ([selectedMenuItem isEqualToString:@"Contacts"])

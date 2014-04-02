@@ -9,6 +9,8 @@
 #import "ScheduleViewController.h"
 #import "ScheduleCell.h"
 #import "MessageBoard.h"
+#import "DateUtilities.h"
+#import "UIScrollView+GifPullToRefresh.h"
 
 @interface ScheduleViewController ()
 
@@ -17,12 +19,12 @@
 
 @property (nonatomic, strong) MessageBoard *messageBoard;
 
-@property (nonatomic, strong) NSArray *sectionDay;
+@property (nonatomic, strong) NSMutableArray *sectionDay;
 @property (nonatomic, strong) NSDictionary *dayScheduleDict;
 
 @property (nonatomic, strong) NSArray *sundayEvents;
-@property (nonatomic, strong) NSArray *saturdayEvents;
-@property (nonatomic, strong) NSArray *fridayEvents;
+@property (nonatomic, strong) NSMutableArray *saturdayEvents;
+@property (nonatomic, strong) NSMutableArray *fridayEvents;
 
 @end
 
@@ -52,25 +54,35 @@
     self.messageBoard = [MessageBoard instance];
     [self.messageBoard getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
 
-        
-        self.sectionDay = [jsonDictionary allKeys];
-        NSLog(@"jsonDictionary is %@", jsonDictionary);
-        NSLog(@"sectionDay is %@", self.sectionDay);
-        
-        
-        self.sundayEvents = jsonDictionary[@"Sunday"];
-        self.saturdayEvents = jsonDictionary[@"Saturday"];
-        self.fridayEvents = jsonDictionary[@"Friday"];
-        
-        
-        
+        if(jsonDictionary)
+        {
+            self.scheduleDict = jsonDictionary;
+            
+            self.sectionDay = [NSMutableArray arrayWithArray:[jsonDictionary allKeys]];
+            [DateUtilities sortArrayBasedOnDay:self.sectionDay ascending:NO];
+            
+            [self.tableView reloadData];
+        }
     }];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSMutableArray *horseDrawingImgs = [NSMutableArray array];
+    NSMutableArray *horseLoadingImgs = [NSMutableArray array];
+    for (NSUInteger i  = 0; i <= 15; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"hokieHorse-%lu.png", (unsigned long)i];
+        [horseDrawingImgs addObject:[UIImage imageNamed:fileName]];
+    }
+    
+    for (NSUInteger i  = 0; i <= 15; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"hokieHorse-%lu.png", (unsigned long)i];
+        [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
+    }
+    __weak UIScrollView *tempScrollView = self.tableView;
+    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:3];
+        
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,19 +95,18 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *currentDate = self.nameOfDay[section];
+    NSString *currentDate = self.sectionDay[section];
     return currentDate;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.nameOfDay count];
+    return [self.sectionDay count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *events = self.scheduleDict[self.nameOfDay[section]];
-    
+    NSArray *events = self.scheduleDict[self.sectionDay[section]];
     return [events count];
 }
 
@@ -107,24 +118,16 @@
     NSInteger section = [indexPath section];
     NSInteger row = [indexPath row];
     
-    NSString *nameDate = self.nameOfDay[section];
-    NSDictionary *events = self.scheduleDict[nameDate];
+    NSString *nameDate = self.sectionDay[section];
+    NSArray *events = self.scheduleDict[nameDate];
+    NSArray *eventsSortedDescending = [DateUtilities sortArrayOfEventDictByTimeStamp:events ascending:NO];
     
-    // dictionary of string-key -> dict value
-    NSArray *arrayOfEvents = [events allKeys];
-
+    NSDictionary *event = eventsSortedDescending[row];
     
+    [cell.timeLabel setText:event[@"timestamp"]];
+    [cell.eventLabel setText:event[@"description"]];
+    [cell.cellTitle setText:event[@"title"]];
     
-    NSString *time = arrayOfEvents[row];
-    NSDictionary *eventInfo = events[time];
-    [cell.timeLabel setText:time];
-//    [cell.timeLabel setTextColor:[UIColor darkGrayColor]];
-    
-    [cell.eventLabel setText:eventInfo[@"Body"]];
-    [cell.cellTitle setText:eventInfo[@"Title"]];
-//    [cell.cellTitle setTextColor:[UIColor darkGrayColor]];
-
-
     return cell;
 }
 
@@ -133,6 +136,8 @@
     
     return 85;
 }
+
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

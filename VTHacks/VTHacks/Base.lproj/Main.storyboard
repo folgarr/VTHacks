@@ -12,6 +12,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.63137257099999999" green="0.19215688110000001" blue="0.2078431547" alpha="1" colorSpace="deviceRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="annoucementCell" rowHeight="100" id="SIx-Oa-0s8" customClass="AnnoucementCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="100"/>
@@ -70,6 +71,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="scheduleCell" rowHeight="80" id="HBJ-GD-ZIV" customClass="ScheduleCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="80"/>
@@ -105,6 +107,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="cellTitle" destination="aXI-Vt-G2H" id="2p0-84-b0g"/>
                                     <outlet property="eventLabel" destination="0x7-bf-sDb" id="VSO-8j-R69"/>

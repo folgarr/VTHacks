@@ -196,15 +196,14 @@
 - (void) customizeUI
 {
 
-    UIColor *red = [UIColor colorWithRed:163/255.0f
-                                   green:29/255.0f
-                                    blue:33/255.0f
+    UIColor *red = [UIColor colorWithRed:153/255.0f
+                                   green:0/255.0f
+                                    blue:51/255.0f
                                    alpha:1.0f];
     
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
     [[UINavigationBar appearance] setBarTintColor:red];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
     
 }
 
