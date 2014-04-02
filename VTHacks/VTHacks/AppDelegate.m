@@ -117,7 +117,7 @@
         if (components && [components count] > 1)
         {
             [self.announceVC announceWithSubject: components[0] andBody: components[1]];
-            [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
+//            [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
         }
     }
     else
