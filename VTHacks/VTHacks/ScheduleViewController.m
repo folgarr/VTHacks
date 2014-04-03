@@ -11,7 +11,6 @@
 #import "MessageBoard.h"
 #import "DateUtilities.h"
 #import "UIScrollView+GifPullToRefresh.h"
-#import "SectionCell.h"
 @interface ScheduleViewController ()
 
 @property (nonatomic, strong) NSDictionary *scheduleDict;

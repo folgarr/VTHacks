@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		102423A518ECEEA600EF9B00 /* SectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 102423A418ECEEA600EF9B00 /* SectionCell.m */; };
 		102423A718ECF4C000EF9B00 /* backgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 102423A618ECF4C000EF9B00 /* backgroundColor.png */; };
 		10747F2218EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 10747F2118EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m */; };
 		10751F3E18EC6AD700102B57 /* DateUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 10751F3D18EC6AD700102B57 /* DateUtilities.m */; };
@@ -75,8 +74,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		102423A318ECEEA600EF9B00 /* SectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionCell.h; sourceTree = "<group>"; };
-		102423A418ECEEA600EF9B00 /* SectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionCell.m; sourceTree = "<group>"; };
 		102423A618ECF4C000EF9B00 /* backgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundColor.png; sourceTree = "<group>"; };
 		10747F2018EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+GifPullToRefresh.h"; sourceTree = "<group>"; };
 		10747F2118EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+GifPullToRefresh.m"; sourceTree = "<group>"; };
@@ -350,8 +347,6 @@
 				10751F4018EC8BAA00102B57 /* ContactsViewController.m */,
 				10751F4218EC8BB200102B57 /* AwardsViewController.h */,
 				10751F4318EC8BB200102B57 /* AwardsViewController.m */,
-				102423A318ECEEA600EF9B00 /* SectionCell.h */,
-				102423A418ECEEA600EF9B00 /* SectionCell.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -504,7 +499,6 @@
 				10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */,
 				10F75C2518EB8B11004DBF27 /* MenuCell.m in Sources */,
 				10CF8D9A18C27EBA0014E20D /* main.m in Sources */,
-				102423A518ECEEA600EF9B00 /* SectionCell.m in Sources */,
 				3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */,
 				10751F4418EC8BB200102B57 /* AwardsViewController.m in Sources */,
 				3D56281E18C2B4FC003C3253 /* Constants.m in Sources */,
