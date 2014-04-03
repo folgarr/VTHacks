@@ -45,6 +45,7 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
 
 +(MessageBoard *)instance;
 -(void)getDataFromServer:(NSString*) type completionHandler:(completionHandler)handler;
+-(void)getAnnouncements:(jsonListCallback)handler;
 
 -(id)init;
 -(bool)createApplicationEndpoint;
