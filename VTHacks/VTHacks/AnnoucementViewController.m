@@ -47,15 +47,14 @@ static NSString *notifyBody;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
 
     //Creates an instance of MessageBoard
-    MessageBoard *messageBoard = [MessageBoard instance];
-    
-    //Grab annoucements data
-    [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-        NSLog(@"jsonList %@", jsonList);
-    }];
+//    MessageBoard *messageBoard = [MessageBoard instance];
+//
+//    //Grab annoucements data
+//    [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+//        NSLog(@"jsonList %@", jsonList);
+//    }];
 
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"annoucementCache"
                                                          ofType:@"plist"];

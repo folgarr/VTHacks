@@ -11,7 +11,7 @@
 #import "MessageBoard.h"
 #import "DateUtilities.h"
 #import "UIScrollView+GifPullToRefresh.h"
-
+#import "SectionCell.h"
 @interface ScheduleViewController ()
 
 @property (nonatomic, strong) NSDictionary *scheduleDict;
@@ -42,8 +42,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.navigationItem.hidesBackButton = YES;
     
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache" ofType:@"plist"];
     self.scheduleDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
@@ -64,7 +62,7 @@
             [self.tableView reloadData];
         }
     }];
-
+    
     NSMutableArray *horseDrawingImgs = [NSMutableArray array];
     NSMutableArray *horseLoadingImgs = [NSMutableArray array];
     for (NSUInteger i  = 0; i <= 15; i++) {
@@ -77,12 +75,12 @@
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
+    
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:3];
+
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,7 +131,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     return 85;
 }
 

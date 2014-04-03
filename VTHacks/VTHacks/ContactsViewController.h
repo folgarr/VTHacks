@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MenuViewController.h"
 
 @interface ContactsViewController : UIViewController
+
+@property (nonatomic, strong) MenuViewController *menuController;
 
 @end

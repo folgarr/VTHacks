@@ -11,7 +11,7 @@
 #import "MenuCell.h"
 #import "ScheduleViewController.h"
 #import "AnnoucementViewController.h"
-
+#import "ContactsViewController.h"
 @interface MenuViewController ()
 
 //Menu Properties
@@ -42,6 +42,11 @@
         AnnoucementViewController *annoucementController = (AnnoucementViewController *)viewController;
         annoucementController.menuController = self;
     }
+    else if ([viewController isKindOfClass:[ContactsViewController class]])
+    {
+        ContactsViewController *contactsController = (ContactsViewController *)viewController;
+        contactsController.menuController = self;
+    }
     
     [self createMenuWithViewController:viewController];
 }
@@ -66,7 +71,7 @@
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
     [vc setModalPresentationStyle:UIModalPresentationFullScreen];
     
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
     
 }
 
@@ -100,6 +105,8 @@
                            barMetrics:UIBarMetricsDefault];
     
     [viewController.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    
+    viewController.navigationItem.hidesBackButton = YES;
 
 }
 
@@ -220,8 +227,8 @@
         NSLog(@"Annoucements View Controller");
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
-        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        
+//        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        [vc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if ([selectedMenuItem isEqualToString:@"Schedule"])
@@ -237,6 +244,12 @@
     else if ([selectedMenuItem isEqualToString:@"Contacts"])
     {
         NSLog(@"Contacts View Controller");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"contactsViewController"];
+        
+        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        
+        [self.navigationController pushViewController:vc animated:YES];
     }
     else if ([selectedMenuItem isEqualToString:@"Map"])
     {

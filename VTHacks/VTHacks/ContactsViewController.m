@@ -7,9 +7,10 @@
 //
 
 #import "ContactsViewController.h"
-
+#import "MessageBoard.h"
 @interface ContactsViewController ()
 
+@property (nonatomic, strong) MessageBoard *messageBoard;
 @end
 
 @implementation ContactsViewController
@@ -26,6 +27,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.messageBoard = [MessageBoard instance];
+    [self.messageBoard getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+    
+        NSLog(@"%@", jsonDictionary);
+    }];
     // Do any additional setup after loading the view.
 }
 

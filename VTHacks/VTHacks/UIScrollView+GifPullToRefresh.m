@@ -27,7 +27,7 @@
 #import "UIScrollView+GifPullToRefresh.h"
 #import <objc/runtime.h>
 
-#define GifRefreshControlHeight 104.0
+#define GifRefreshControlHeight 103.5
 
 typedef enum
 {
@@ -55,7 +55,6 @@ static char UIScrollViewGifPullToRefresh;
 
 - (void)addPullToRefreshWithDrawingImgs:(NSArray*)drawingImgs andLoadingImgs:(NSArray*)loadingImgs andActionHandler:(void (^)(void))actionHandler
 {
-    
     CHGifRefreshControl *view = [[CHGifRefreshControl alloc] initWithFrame:CGRectMake(0, -GifRefreshControlHeight - 2, self.bounds.size.width, GifRefreshControlHeight)];
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) {
         view.originalContentInsectY = 0;
@@ -116,6 +115,7 @@ static char UIScrollViewGifPullToRefresh;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (self.scrollView.contentOffset.y + self.originalContentInsectY <= 0) {
+        
         if ([keyPath isEqualToString:@"pan.state"]) {
             if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded && _isTrigged) {
                 [self setState:GifPullToRefreshStateLoading];
@@ -125,6 +125,7 @@ static char UIScrollViewGifPullToRefresh;
                                  animations:^{
                                      self.scrollView.contentOffset = CGPointMake(0, -GifRefreshControlHeight - self.originalContentInsectY);
                                      self.scrollView.contentInset = UIEdgeInsetsMake(GifRefreshControlHeight + self.originalContentInsectY, 0.0f, 0.0f, 0.0f);
+
  
                                  }
                                  completion:^(BOOL finished) {
@@ -145,11 +146,11 @@ static char UIScrollViewGifPullToRefresh;
 - (void)scrollViewContentOffsetChanged
 {
     if (_state != GifPullToRefreshStateLoading) {
-        if (self.scrollView.isDragging && self.scrollView.contentOffset.y + self.originalContentInsectY < -GifRefreshControlHeight + 30 && !_isTrigged) {
+        if (self.scrollView.isDragging && self.scrollView.contentOffset.y + self.originalContentInsectY < -GifRefreshControlHeight && !_isTrigged) {
             _isTrigged = YES;
         }
         else {
-            if (self.scrollView.isDragging && self.scrollView.contentOffset.y + self.originalContentInsectY > -GifRefreshControlHeight + 30) {
+            if (self.scrollView.isDragging && self.scrollView.contentOffset.y + self.originalContentInsectY > -GifRefreshControlHeight) {
                 _isTrigged = NO;
             }
             [self setState:GifPullToRefreshStateDrawing];
