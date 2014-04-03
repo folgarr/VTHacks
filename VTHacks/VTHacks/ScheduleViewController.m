@@ -42,6 +42,14 @@
 {
     [super viewDidLoad];
     
+    UIColor *red = [UIColor colorWithRed:153/255.0f
+                                   green:0/255.0f
+                                    blue:51/255.0f
+                                   alpha:1.0f];
+    
+    UIImage *image = [UIImage imageNamed:@"backgroundColor.png"];
+    [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundColor.png"]]];
+//    [self.tableView setBackgroundColor:red];
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache" ofType:@"plist"];
     self.scheduleDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     
@@ -77,7 +85,7 @@
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
 
-        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+//        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
 }
@@ -90,6 +98,35 @@
 
 #pragma mark - Table view data source
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    /* Create custom view to display section header... */
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+    [label setFont:[UIFont boldSystemFontOfSize:12]];
+    NSString *string =self.sectionDay[section];
+    /* Section header is in 0th index... */
+    [label setText:string];
+    [view addSubview:label];
+    [view setBackgroundColor:[UIColor whiteColor]]; //your background color...
+    return view;
+}
+
+//-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    return [[UIView alloc] initWithFrame:CGRectZero];
+//}
+
+-(UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    return view;
+}
+-(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1.0;
+}
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *currentDate = self.sectionDay[section];

@@ -3,19 +3,19 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "avatar.png",
+      "filename" : "hokieHorseHead.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "avatar-1.png",
+      "filename" : "hokieHorseHead-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "avatar-2.png",
+      "filename" : "hokieHorseHead-2.png",
       "scale" : "2x"
     }
   ],

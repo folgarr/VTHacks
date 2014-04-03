@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		102423A718ECF4C000EF9B00 /* backgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 102423A618ECF4C000EF9B00 /* backgroundColor.png */; };
+		10456CD918ED1F8800630998 /* SocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10456CD818ED1F8800630998 /* SocialViewController.m */; };
 		10747F2218EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 10747F2118EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m */; };
 		10751F3E18EC6AD700102B57 /* DateUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 10751F3D18EC6AD700102B57 /* DateUtilities.m */; };
 		10751F4118EC8BAA00102B57 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10751F4018EC8BAA00102B57 /* ContactsViewController.m */; };
@@ -75,6 +76,8 @@
 
 /* Begin PBXFileReference section */
 		102423A618ECF4C000EF9B00 /* backgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundColor.png; sourceTree = "<group>"; };
+		10456CD718ED1F8800630998 /* SocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialViewController.h; sourceTree = "<group>"; };
+		10456CD818ED1F8800630998 /* SocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialViewController.m; sourceTree = "<group>"; };
 		10747F2018EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+GifPullToRefresh.h"; sourceTree = "<group>"; };
 		10747F2118EBDD0100B2EB5E /* UIScrollView+GifPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+GifPullToRefresh.m"; sourceTree = "<group>"; };
 		10751F3C18EC6AD700102B57 /* DateUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateUtilities.h; sourceTree = "<group>"; };
@@ -347,6 +350,8 @@
 				10751F4018EC8BAA00102B57 /* ContactsViewController.m */,
 				10751F4218EC8BB200102B57 /* AwardsViewController.h */,
 				10751F4318EC8BB200102B57 /* AwardsViewController.m */,
+				10456CD718ED1F8800630998 /* SocialViewController.h */,
+				10456CD818ED1F8800630998 /* SocialViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				10CF8D9E18C27EBA0014E20D /* AppDelegate.m in Sources */,
 				10F75C2918EB8E2F004DBF27 /* MenuViewController.m in Sources */,
 				10CF8DCE18C28A760014E20D /* UIColor+VTHColor.m in Sources */,
+				10456CD918ED1F8800630998 /* SocialViewController.m in Sources */,
 				10751F4118EC8BAA00102B57 /* ContactsViewController.m in Sources */,
 				10CF8DDE18C305B60014E20D /* annoucementDescriptionCell.m in Sources */,
 				10CF8DCA18C289BC0014E20D /* AnnoucementViewController.m in Sources */,

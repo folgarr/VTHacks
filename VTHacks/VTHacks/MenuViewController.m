@@ -12,6 +12,7 @@
 #import "ScheduleViewController.h"
 #import "AnnoucementViewController.h"
 #import "ContactsViewController.h"
+#import "SocialViewController.h"
 @interface MenuViewController ()
 
 //Menu Properties
@@ -46,6 +47,11 @@
     {
         ContactsViewController *contactsController = (ContactsViewController *)viewController;
         contactsController.menuController = self;
+    }
+    else if ([viewController isKindOfClass:[SocialViewController class]])
+    {
+        SocialViewController *socialController = (SocialViewController *)viewController;
+        socialController.menuController = self;
     }
     
     [self createMenuWithViewController:viewController];
@@ -261,7 +267,12 @@
     }
     else //Social
     {
-        NSLog(@"Social View Controller");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
+        
+        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
