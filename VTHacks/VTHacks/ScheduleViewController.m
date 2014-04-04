@@ -11,6 +11,7 @@
 #import "MessageBoard.h"
 #import "DateUtilities.h"
 #import "UIScrollView+GifPullToRefresh.h"
+
 @interface ScheduleViewController ()
 
 @property (nonatomic, strong) NSDictionary *scheduleDict;
@@ -42,15 +43,6 @@
 {
     [super viewDidLoad];
     
-//    UIColor *red = [UIColor colorWithRed:153/255.0f
-//                                   green:0/255.0f
-//                                    blue:51/255.0f
-//                                   alpha:1.0f];
-//    
-//    UIImage *image = [UIImage imageNamed:@"backgroundColor.png"];
-//    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundColor.png"]]];
-//    [self.tableView setBackgroundColor:red];
-//    [self.view.superview setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundColor.png"]]];
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache" ofType:@"plist"];
     self.scheduleDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     
@@ -104,16 +96,25 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
     /* Create custom view to display section header... */
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
-    [label setFont:[UIFont boldSystemFontOfSize:12]];
-    NSString *string =self.sectionDay[section];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width, 30)];
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    NSString *string = self.sectionDay[section];
+    
+    label.textAlignment = NSTextAlignmentLeft;
+
     /* Section header is in 0th index... */
     [label setText:string];
     [view addSubview:label];
-    [view setBackgroundColor:[UIColor whiteColor]]; //your background color...
+    [view setBackgroundColor:[UIColor sectionColor]]; //your background color...
+//    scheduleHeaderCell
     return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
 }
 
 //-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
@@ -131,11 +132,11 @@
 {
     return 1.0;
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *currentDate = self.sectionDay[section];
-    return currentDate;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSString *currentDate = self.sectionDay[section];
+//    return currentDate;
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -173,6 +174,53 @@
 {
     return 85;
 }
+
+#pragma mark - scroll view delegates
+
+-(void)scrollViewDidScroll: (UIScrollView*)scrollView
+{
+    float scrollOffset = scrollView.contentOffset.y;
+    if (scrollOffset == 0 || scrollOffset < 20)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor maroonColor]];
+        }
+        
+    }
+    else if (scrollOffset > 21)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor whiteColor]];
+        }
+        
+    }
+}
+
+
+
+
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+//{
+//    float scrollViewHeight = scrollView.frame.size.height;
+//    float scrollContentSizeHeight = scrollView.contentSize.height;
+//    float scrollOffset = scrollView.contentOffset.y;
+//    
+//    if (scrollOffset == 0)
+//    {
+//        [self.tableView setBackgroundColor:[UIColor redColor]];
+//    }
+//    else if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
+//    {
+//        [self.tableView setBackgroundColor:[UIColor whiteColor]];
+//    }
+//}
+
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+//{
+//    
+//}
 
 
 /*

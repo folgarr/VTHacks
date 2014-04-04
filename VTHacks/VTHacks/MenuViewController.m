@@ -13,6 +13,7 @@
 #import "AnnoucementViewController.h"
 #import "ContactsViewController.h"
 #import "SocialViewController.h"
+#import "AwardsViewController.h"
 @interface MenuViewController ()
 
 //Menu Properties
@@ -52,6 +53,11 @@
     {
         SocialViewController *socialController = (SocialViewController *)viewController;
         socialController.menuController = self;
+    }
+    else if ([viewController isKindOfClass:[AwardsViewController class]])
+    {
+        AwardsViewController *awardsController = (AwardsViewController *)viewController;
+        awardsController.menuController = self;
     }
     
     [self createMenuWithViewController:viewController];
@@ -106,12 +112,14 @@
     [self.menuBarButton setTitle:@"\uf142"];
     viewController.navigationItem.rightBarButtonItem = self.menuBarButton;
     [viewController.navigationController.navigationBar setTranslucent:NO];
-    [viewController.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
-                       forBarPosition:UIBarPositionAny
-                           barMetrics:UIBarMetricsDefault];
+//    [viewController.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
+//                       forBarPosition:UIBarPositionAny
+//                           barMetrics:UIBarMetricsDefault];
+//    
+//    [viewController.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+//
     
-    [viewController.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
-    
+//        [self.navigationController.navigationBar setBackgroundColor:[UIColor greenColor]];
     viewController.navigationItem.hidesBackButton = YES;
 
 }
@@ -235,8 +243,8 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
 //        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [vc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-        [self.navigationController pushViewController:vc animated:YES];
+
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else if ([selectedMenuItem isEqualToString:@"Schedule"])
     {
@@ -246,7 +254,7 @@
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
 
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else if ([selectedMenuItem isEqualToString:@"Contacts"])
     {
@@ -256,7 +264,7 @@
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
         
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else if ([selectedMenuItem isEqualToString:@"Map"])
     {
@@ -264,7 +272,13 @@
     }
     else if ([selectedMenuItem isEqualToString:@"Awards"])
     {
-        NSLog(@"Awards View Controller");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"awardsViewController"];
+        
+        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        
+        [self.navigationController pushViewController:vc animated:NO];
+
     }
     else //Social
     {
@@ -273,7 +287,7 @@
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
         
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
 }
 

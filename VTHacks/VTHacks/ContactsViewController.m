@@ -131,6 +131,28 @@
 }
 
 
+#pragma mark - scroll view delegates
+
+-(void)scrollViewDidScroll: (UIScrollView*)scrollView
+{
+    float scrollOffset = scrollView.contentOffset.y;
+    if (scrollOffset == 0 || scrollOffset < 20)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor maroonColor]];
+        }
+        
+    }
+    else if (scrollOffset > 21)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor whiteColor]];
+        }
+        
+    }
+}
 
 
 

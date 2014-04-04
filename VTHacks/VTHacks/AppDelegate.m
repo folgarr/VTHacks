@@ -48,30 +48,30 @@
     //Register for push notification
     application.applicationIconBadgeNumber = 0;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    if(launchOptions != nil)
-    {
-        NSString *msg = [NSString stringWithFormat:@"%@", launchOptions];
-        NSLog(@"%@",msg);
-        
-        NSString *rawBody = launchOptions[@"aps"][@"alert"];
-        if (rawBody != nil && [rawBody length] > 0)
-        {
-            NSArray *components = [rawBody componentsSeparatedByString:@"|"];
-            if (components && [components count] > 1)
-            {
-                
-                if (self.announceVC)
-                    [self.announceVC announceWithSubject: components[0] andBody: components[1]];
-                else
-                {
-                    [AnnoucementViewController setSubject:components[0] andBody:components[1]];
-                }
-                [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
-            }
-        }
-        else
-            NSLog(@"Invalid body in the message of this notification");
-    }
+//    if(launchOptions != nil)
+//    {
+//        NSString *msg = [NSString stringWithFormat:@"%@", launchOptions];
+//        NSLog(@"%@",msg);
+//        
+//        NSString *rawBody = launchOptions[@"aps"][@"alert"];
+//        if (rawBody != nil && [rawBody length] > 0)
+//        {
+//            NSArray *components = [rawBody componentsSeparatedByString:@"|"];
+//            if (components && [components count] > 1)
+//            {
+//                
+//                if (self.announceVC)
+//                    [self.announceVC announceWithSubject: components[0] andBody: components[1]];
+//                else
+//                {
+//                    [AnnoucementViewController setSubject:components[0] andBody:components[1]];
+//                }
+//                [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
+//            }
+//        }
+//        else
+//            NSLog(@"Invalid body in the message of this notification");
+//    }
     [self customizeUI];
     
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -195,10 +195,14 @@
                                    green:0/255.0f
                                     blue:51/255.0f
                                    alpha:1.0f];
-    
+//    
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
     [[UINavigationBar appearance] setBarTintColor:red];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"test2.png"] forBarMetrics:UIBarMetricsDefault];
+//    
+//    [[UINavigationBar appearance] setAlpha:0.9];
+    
     
 }
 

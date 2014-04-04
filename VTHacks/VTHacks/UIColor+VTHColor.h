@@ -10,4 +10,6 @@
 
 @interface UIColor (VTHColor)
 
++ (UIColor *) maroonColor;
++ (UIColor *) sectionColor;
 @end
