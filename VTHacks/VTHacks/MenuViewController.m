@@ -226,6 +226,7 @@
     if ([self.navigationController.viewControllers count] > 1)
     {
         [self.navigationController popViewControllerAnimated:NO];
+//        [self.navigationController popToRootViewControllerAnimated:NO]
     }
     
     if ([selectedMenuItem isEqualToString:@"Annoucements"])

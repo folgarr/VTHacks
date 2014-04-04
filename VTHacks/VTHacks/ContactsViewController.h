@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MenuViewController.h"
 
-@interface ContactsViewController : UIViewController
+@interface ContactsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) MenuViewController *menuController;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

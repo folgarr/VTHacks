@@ -42,14 +42,15 @@
 {
     [super viewDidLoad];
     
-    UIColor *red = [UIColor colorWithRed:153/255.0f
-                                   green:0/255.0f
-                                    blue:51/255.0f
-                                   alpha:1.0f];
-    
-    UIImage *image = [UIImage imageNamed:@"backgroundColor.png"];
-    [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundColor.png"]]];
+//    UIColor *red = [UIColor colorWithRed:153/255.0f
+//                                   green:0/255.0f
+//                                    blue:51/255.0f
+//                                   alpha:1.0f];
+//    
+//    UIImage *image = [UIImage imageNamed:@"backgroundColor.png"];
+//    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundColor.png"]]];
 //    [self.tableView setBackgroundColor:red];
+//    [self.view.superview setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundColor.png"]]];
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache" ofType:@"plist"];
     self.scheduleDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     
@@ -65,7 +66,7 @@
             self.scheduleDict = jsonDictionary;
             
             self.sectionDay = [NSMutableArray arrayWithArray:[jsonDictionary allKeys]];
-            [DateUtilities sortArrayBasedOnDay:self.sectionDay ascending:NO];
+            [DateUtilities sortArrayBasedOnDay:self.sectionDay ascending:YES];
             
             [self.tableView reloadData];
         }
@@ -85,7 +86,9 @@
     __weak UIScrollView *tempScrollView = self.tableView;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+
         NSLog(@"PULL TO REFRESH is happening ScheduleViewController!");
+
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
@@ -155,7 +158,7 @@
     
     NSString *nameDate = self.sectionDay[section];
     NSArray *events = self.scheduleDict[nameDate];
-    NSArray *eventsSortedDescending = [DateUtilities sortArrayOfEventDictByTimeStamp:events ascending:NO];
+    NSArray *eventsSortedDescending = [DateUtilities sortArrayOfEventDictByTimeStamp:events ascending:YES];
     
     NSDictionary *event = eventsSortedDescending[row];
     

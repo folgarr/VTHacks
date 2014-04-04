@@ -15,7 +15,6 @@
 @end
 
 #pragma mark - UIViewController(SWRevealViewController) Category
-
 // We add a category of UIViewController to let childViewControllers easily access their parent SWRevealViewController
 @interface UIViewController(SWRevealViewController)
 

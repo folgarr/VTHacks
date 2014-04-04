@@ -159,8 +159,8 @@ static MessageBoard *_instance = nil;
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
             });
             
-            //NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
-            //NSLog(@"Here are the SQS messages: %@", msgs);
+//NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
+//NSLog(@"Here are the SQS messages: %@", msgs);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             });

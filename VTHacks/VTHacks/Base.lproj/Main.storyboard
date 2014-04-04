@@ -64,9 +64,81 @@
             <point key="canvasLocation" x="623" y="109"/>
         </scene>
         <!--Contacts View Controller-->
+        <scene sceneID="iah-vw-v0P">
+            <objects>
+                <viewController storyboardIdentifier="contactsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="l1l-C8-kXI" customClass="ContactsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PL5-yg-9bg"/>
+                        <viewControllerLayoutGuide type="bottom" id="unf-ci-ZIP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wjn-S8-WPT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="794-H4-Kpp">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactsCell" rowHeight="46" id="3se-Gv-zPD" customClass="ContactsCell">
+                                        <rect key="frame" x="0.0" y="55" width="320" height="46"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3se-Gv-zPD" id="y4f-0X-U6y">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name here:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98w-4m-GM2">
+                                                    <rect key="frame" x="20" y="0.0" width="280" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="skills" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhw-h6-Bsl">
+                                                    <rect key="frame" x="20" y="20" width="280" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="jhw-h6-Bsl" secondAttribute="bottom" constant="4" id="1dY-4M-qqL"/>
+                                                <constraint firstAttribute="trailing" secondItem="98w-4m-GM2" secondAttribute="trailing" constant="20" symbolic="YES" id="9Pp-pJ-LAL"/>
+                                                <constraint firstItem="98w-4m-GM2" firstAttribute="leading" secondItem="y4f-0X-U6y" secondAttribute="leading" constant="20" symbolic="YES" id="CbV-ER-wRH"/>
+                                                <constraint firstItem="98w-4m-GM2" firstAttribute="top" secondItem="y4f-0X-U6y" secondAttribute="top" id="MjS-71-Twb"/>
+                                                <constraint firstAttribute="bottom" secondItem="98w-4m-GM2" secondAttribute="bottom" constant="24" id="bzH-dX-YiJ"/>
+                                                <constraint firstItem="jhw-h6-Bsl" firstAttribute="trailing" secondItem="98w-4m-GM2" secondAttribute="trailing" id="gw1-wf-ugQ"/>
+                                                <constraint firstItem="jhw-h6-Bsl" firstAttribute="top" secondItem="y4f-0X-U6y" secondAttribute="top" constant="20" symbolic="YES" id="kta-XJ-vOY"/>
+                                                <constraint firstItem="98w-4m-GM2" firstAttribute="leading" secondItem="jhw-h6-Bsl" secondAttribute="leading" id="piP-i7-gVk"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="98w-4m-GM2" id="Ibc-ga-vC4"/>
+                                            <outlet property="skillLabel" destination="jhw-h6-Bsl" id="SwA-f9-FYb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="l1l-C8-kXI" id="1Qm-Hm-YRB"/>
+                                    <outlet property="delegate" destination="l1l-C8-kXI" id="hvL-fw-RA8"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="794-H4-Kpp" id="Pda-SJ-moz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J0d-Yu-dfe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="623" y="824"/>
+        </scene>
+        <!--Awards View Controller-->
         <scene sceneID="xQc-9W-N9p">
             <objects>
-                <viewController storyboardIdentifier="contactsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="h7M-9A-vjS" customClass="ContactsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="awardsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="h7M-9A-vjS" customClass="AwardsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CdE-Oh-Z6W"/>
                         <viewControllerLayoutGuide type="bottom" id="xNX-Zv-9NF"/>
