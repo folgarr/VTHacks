@@ -10,13 +10,13 @@
 #import "MessageBoard.h"
 #import "AwardsCell.h"
 #import "UIScrollView+GifPullToRefresh.h"
-#import "FBShimmeringView.h"
+
 @interface AwardsViewController ()
 
 @property (nonatomic, strong) MessageBoard *messageBoard;
 
 @property (nonatomic, strong) NSMutableArray *awardsList;
-@property (nonatomic, strong) FBShimmeringView *shimmeringView;
+
 
 @end
 
