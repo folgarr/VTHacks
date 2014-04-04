@@ -38,26 +38,31 @@
     {
         ScheduleViewController *scheduleController = (ScheduleViewController *)viewController;
         scheduleController.menuController = self;
+        scheduleController.navigationController.title = @"Schedule";
     }
     else if ([viewController isKindOfClass:[AnnoucementViewController class]])
     {
         AnnoucementViewController *annoucementController = (AnnoucementViewController *)viewController;
         annoucementController.menuController = self;
+        annoucementController.navigationController.title = @"Annoucements";
     }
     else if ([viewController isKindOfClass:[ContactsViewController class]])
     {
         ContactsViewController *contactsController = (ContactsViewController *)viewController;
         contactsController.menuController = self;
+        contactsController.navigationController.title = @"Contacts";
     }
     else if ([viewController isKindOfClass:[SocialViewController class]])
     {
         SocialViewController *socialController = (SocialViewController *)viewController;
         socialController.menuController = self;
+        socialController.navigationController.title = @"Social";
     }
     else if ([viewController isKindOfClass:[AwardsViewController class]])
     {
         AwardsViewController *awardsController = (AwardsViewController *)viewController;
         awardsController.menuController = self;
+        awardsController.navigationController.title = @"Awards";
     }
     
     [self createMenuWithViewController:viewController];
@@ -121,7 +126,6 @@
     
 //        [self.navigationController.navigationBar setBackgroundColor:[UIColor greenColor]];
     viewController.navigationItem.hidesBackButton = YES;
-
 }
 
 

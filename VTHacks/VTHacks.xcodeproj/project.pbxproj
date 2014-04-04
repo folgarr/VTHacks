@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		102423A718ECF4C000EF9B00 /* backgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 102423A618ECF4C000EF9B00 /* backgroundColor.png */; };
 		10456CD918ED1F8800630998 /* SocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10456CD818ED1F8800630998 /* SocialViewController.m */; };
-		104E5D2718EEA4EF00AEE078 /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 104E5D2418EEA4EF00AEE078 /* FBShimmeringLayer.m */; };
-		104E5D2818EEA4EF00AEE078 /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 104E5D2618EEA4EF00AEE078 /* FBShimmeringView.m */; };
 		104E5D2B18EEAAFA00AEE078 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 104E5D2A18EEAAFA00AEE078 /* test.png */; };
 		104E5D2D18EEAB2F00AEE078 /* test2.png in Resources */ = {isa = PBXBuildFile; fileRef = 104E5D2C18EEAB2F00AEE078 /* test2.png */; };
 		105829A918EE3E1600C4AD7E /* ContactsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 105829A818EE3E1600C4AD7E /* ContactsCell.m */; };
@@ -84,12 +82,6 @@
 		102423A618ECF4C000EF9B00 /* backgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundColor.png; sourceTree = "<group>"; };
 		10456CD718ED1F8800630998 /* SocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialViewController.h; sourceTree = "<group>"; };
 		10456CD818ED1F8800630998 /* SocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialViewController.m; sourceTree = "<group>"; };
-		104E5D2118EEA4EF00AEE078 /* FBShimmering-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmering-Prefix.pch"; sourceTree = "<group>"; };
-		104E5D2218EEA4EF00AEE078 /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
-		104E5D2318EEA4EF00AEE078 /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
-		104E5D2418EEA4EF00AEE078 /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
-		104E5D2518EEA4EF00AEE078 /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
-		104E5D2618EEA4EF00AEE078 /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		104E5D2A18EEAAFA00AEE078 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		104E5D2C18EEAB2F00AEE078 /* test2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test2.png; sourceTree = "<group>"; };
 		105829A718EE3E1600C4AD7E /* ContactsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsCell.h; sourceTree = "<group>"; };
@@ -200,19 +192,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		104E5D2918EEA4F200AEE078 /* Facebook Shimmer */ = {
-			isa = PBXGroup;
-			children = (
-				104E5D2118EEA4EF00AEE078 /* FBShimmering-Prefix.pch */,
-				104E5D2218EEA4EF00AEE078 /* FBShimmering.h */,
-				104E5D2318EEA4EF00AEE078 /* FBShimmeringLayer.h */,
-				104E5D2418EEA4EF00AEE078 /* FBShimmeringLayer.m */,
-				104E5D2518EEA4EF00AEE078 /* FBShimmeringView.h */,
-				104E5D2618EEA4EF00AEE078 /* FBShimmeringView.m */,
-			);
-			name = "Facebook Shimmer";
-			sourceTree = "<group>";
-		};
 		10747F1F18EBDCF400B2EB5E /* Custom Refresh Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,7 +263,6 @@
 			children = (
 				104E5D2C18EEAB2F00AEE078 /* test2.png */,
 				104E5D2A18EEAAFA00AEE078 /* test.png */,
-				104E5D2918EEA4F200AEE078 /* Facebook Shimmer */,
 				102423A618ECF4C000EF9B00 /* backgroundColor.png */,
 				10747F1F18EBDCF400B2EB5E /* Custom Refresh Controls */,
 				10F75C2118EB890C004DBF27 /* Custom Menu */,
@@ -545,12 +523,10 @@
 				10CF8DCA18C289BC0014E20D /* AnnoucementViewController.m in Sources */,
 				10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */,
 				10F75C2518EB8B11004DBF27 /* MenuCell.m in Sources */,
-				104E5D2718EEA4EF00AEE078 /* FBShimmeringLayer.m in Sources */,
 				10CF8D9A18C27EBA0014E20D /* main.m in Sources */,
 				3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */,
 				10751F4418EC8BB200102B57 /* AwardsViewController.m in Sources */,
 				105829A918EE3E1600C4AD7E /* ContactsCell.m in Sources */,
-				104E5D2818EEA4EF00AEE078 /* FBShimmeringView.m in Sources */,
 				3D56281E18C2B4FC003C3253 /* Constants.m in Sources */,
 				10F75C2018EB8908004DBF27 /* VVNTransparentView.m in Sources */,
 				10CF8DE118C38D620014E20D /* ScheduleViewController.m in Sources */,

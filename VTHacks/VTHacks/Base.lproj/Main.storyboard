@@ -63,7 +63,7 @@
             </objects>
             <point key="canvasLocation" x="623" y="109"/>
         </scene>
-        <!--Contacts View Controller-->
+        <!--Contacts View Controller - Contacts-->
         <scene sceneID="iah-vw-v0P">
             <objects>
                 <viewController storyboardIdentifier="contactsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="l1l-C8-kXI" customClass="ContactsViewController" sceneMemberID="viewController">
@@ -127,6 +127,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Contacts" id="JJh-tU-5de"/>
                     <connections>
                         <outlet property="tableView" destination="794-H4-Kpp" id="Pda-SJ-moz"/>
                     </connections>
@@ -135,7 +136,19 @@
             </objects>
             <point key="canvasLocation" x="623" y="824"/>
         </scene>
-        <!--Awards View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="Hkx-Q6-ttT">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="qVx-qN-we2" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SFA-Gy-amg">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fev-JL-hPs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1026" y="575"/>
+        </scene>
+        <!--Awards View Controller - Awards-->
         <scene sceneID="xQc-9W-N9p">
             <objects>
                 <viewController storyboardIdentifier="awardsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="h7M-9A-vjS" customClass="AwardsViewController" sceneMemberID="viewController">
@@ -234,13 +247,14 @@
                             <constraint firstAttribute="trailing" secondItem="1Ka-53-qpw" secondAttribute="trailing" id="mpW-of-eTo"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Awards" id="gre-8L-MxS"/>
                     <connections>
                         <outlet property="tableView" destination="1Ka-53-qpw" id="oo3-KG-P23"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDe-tC-CU7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1336" y="109"/>
+            <point key="canvasLocation" x="1351" y="109"/>
         </scene>
         <!--Social View Controller-->
         <scene sceneID="Ghh-He-uMt">

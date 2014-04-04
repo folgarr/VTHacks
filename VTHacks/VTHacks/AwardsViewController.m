@@ -16,6 +16,7 @@
 @property (nonatomic, strong) MessageBoard *messageBoard;
 
 @property (nonatomic, strong) NSMutableArray *awardsList;
+@property (nonatomic, strong) FBShimmeringView *shimmeringView;
 
 @end
 
@@ -30,35 +31,10 @@
     return self;
 }
 
-- (void)makeShimmerTitle
-{
-    CGRect frame = self.navigationController.navigationBar.frame;
-    frame.origin.y -= 25;
-    
-    FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:frame];
-    [self.navigationController.navigationBar addSubview:shimmeringView];
-    
-    UILabel *loadingLabel = [[UILabel alloc] initWithFrame:shimmeringView.bounds];
-    
-    loadingLabel.textAlignment = NSTextAlignmentCenter;
-    loadingLabel.text = NSLocalizedString(@"Awards", nil);
-    [loadingLabel setFont:[UIFont fontWithName:@"Arial" size:20.0f]];
-    [loadingLabel setTextColor:[UIColor whiteColor]];
-    shimmeringView.contentView = loadingLabel;
-    
-    // Start shimmering.
-    shimmeringView.shimmering = YES;
-//    
-//    UIView *view = [[UIView alloc] initWithFrame:self.navigationController.navigationBar.frame];
-//    [view setBackgroundColor:[UIColor blackColor]];
-//    [self.navigationController.navigationBar addSubview:view];
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self makeShimmerTitle];
     
     self.messageBoard = [MessageBoard instance];
     [self.messageBoard getDataFromServer:@"awards" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
