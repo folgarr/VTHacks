@@ -13,13 +13,15 @@
 #import "MessageBoard.h"
 #import "VVNTransparentView.h"
 #import "MenuCell.h"
+#import "UIScrollView+GifPullToRefresh.h"
+
 
 static NSString *notifySubject;
 static NSString *notifyBody;
 
 @interface AnnoucementViewController ()
 
-@property (nonatomic, strong) NSMutableDictionary *annoucementDict;
+@property (nonatomic, strong) __block NSMutableDictionary *annoucementDict;
 
 @property (nonatomic, strong) NSMutableArray *annoucementKeys;
 @property (nonatomic, strong) NSMutableArray *eventKeys;
@@ -49,12 +51,9 @@ static NSString *notifyBody;
     [super viewDidLoad];
 
     //Creates an instance of MessageBoard
-//    MessageBoard *messageBoard = [MessageBoard instance];
-//
-//    //Grab annoucements data
-//    [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-//        NSLog(@"jsonList %@", jsonList);
-//    }];
+    MessageBoard *messageBoard = [MessageBoard instance];
+
+    
 
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"annoucementCache"
                                                          ofType:@"plist"];
@@ -81,6 +80,35 @@ static NSString *notifyBody;
     }
     notifyBody = nil;
     notifySubject = nil;
+    
+    NSMutableArray *horseDrawingImgs = [NSMutableArray array];
+    NSMutableArray *horseLoadingImgs = [NSMutableArray array];
+    for (NSUInteger i  = 0; i <= 15; i++)
+    {
+        NSString *fileName = [NSString stringWithFormat:@"hokieHorse-%lu.png", (unsigned long)i];
+        [horseDrawingImgs addObject:[UIImage imageNamed:fileName]];
+    }
+    
+    for (NSUInteger i  = 0; i <= 15; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"hokieHorse-%lu.png", (unsigned long)i];
+        [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
+    }
+    __weak UIScrollView *tempScrollView = self.tableView;
+    
+    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+        
+        //Grab annoucements data that is cached on initial load
+        [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+            _annoucementDict = jsonList;
+        } fromCache:YES];
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        
+    }];
+    
+    
+    
+    
+    
 }
 
 

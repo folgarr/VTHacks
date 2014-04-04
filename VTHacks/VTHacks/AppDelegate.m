@@ -36,11 +36,6 @@
             2. the app creates its own endpoint and subscribes to sns topic
      */
     [MessageBoard instance];
-    
-    
-    
-    //[msgBoard createApplicationEndpoint];
-    //[self subscribeDevice:nil];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{

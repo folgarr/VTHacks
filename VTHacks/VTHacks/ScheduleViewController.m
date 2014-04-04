@@ -57,9 +57,10 @@
     self.nameOfDay = [self.scheduleDict allKeys];
     
     self.messageBoard = [MessageBoard instance];
-    [self.messageBoard getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+    [self.messageBoard getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError)
+    {
 
-        if(jsonDictionary)
+        if (jsonDictionary)
         {
             self.scheduleDict = jsonDictionary;
             
@@ -84,8 +85,8 @@
     __weak UIScrollView *tempScrollView = self.tableView;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-
-//        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        NSLog(@"PULL TO REFRESH is happening ScheduleViewController!");
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
 }

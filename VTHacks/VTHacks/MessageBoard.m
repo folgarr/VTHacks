@@ -295,9 +295,31 @@ static MessageBoard *_instance = nil;
     return response.subscriptions;
 }
 
--(void)getAnnouncements:(jsonListCallback)handler
+-(void)getAnnouncements:(jsonListCallback)handler fromCache:(BOOL)wantCached
 {
-    NSMutableArray *rawJSON = [self getMessagesFromQueue];
+    // only return cached response if its available
+    if (wantCached && cachedAnnouncements)
+    {
+        handler(cachedAnnouncements, nil);
+        return;
+    }
+    
+    // must assign __block specifier to indicate mutability within block
+    __block NSMutableArray *rawJSON = nil;
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        });
+        
+            rawJSON = [self getMessagesFromQueue];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        });
+    });
+    
     NSError *localError = nil;
     NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
     for (SQSMessage *rawMessage in rawJSON)
@@ -308,12 +330,13 @@ static MessageBoard *_instance = nil;
         // get the date from time-stamp (initially comes in as utc timezone)
         NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
         NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
-
         NSString * message = jsonDict[@"Message"];
         NSArray *components = [message componentsSeparatedByString:@"|"];
         NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString};
         [multipleJsons addObject:simpleDictionary];
     }
+    
+    cachedAnnouncements = multipleJsons;
     handler(multipleJsons, localError);
 }
 

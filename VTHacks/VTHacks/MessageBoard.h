@@ -38,6 +38,9 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
     // name identifier attached to server calls (randomly generated on first run)
     NSString *nameIdentifier;
     
+    // store announcements here
+    NSMutableArray* cachedAnnouncements;
+    
 
     //(nonatomic, copy) void (^serverResponseHandler)(NSDictionary *jsonDictionary, NSError *serverError);
        
@@ -45,7 +48,7 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
 
 +(MessageBoard *)instance;
 -(void)getDataFromServer:(NSString*) type completionHandler:(completionHandler)handler;
--(void)getAnnouncements:(jsonListCallback)handler;
+-(void)getAnnouncements:(jsonListCallback)handler fromCache:(BOOL)wantCached;
 
 -(id)init;
 -(bool)createApplicationEndpoint;
