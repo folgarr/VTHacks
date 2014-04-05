@@ -255,6 +255,8 @@
     NSLog(@"Count of number of viewControllers on the stack is %lu", (unsigned long)[[self.navigationController viewControllers] count]);
     
     [self.navigationController popToRootViewControllerAnimated:NO];
+    
+     NSLog(@"stack after pop %lu", (unsigned long)[[self.navigationController viewControllers] count]);
 
 //    if ([self.navigationController.viewControllers count] > 1)
 //    {

@@ -14,5 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *companyLabel;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel *prizeLabel;
+@property (strong, nonatomic) IBOutlet UITextView *descriptionView;
 
 @end
