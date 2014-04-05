@@ -13,7 +13,7 @@
 
 @interface ContactsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
-@property (nonatomic, strong) MenuViewController *menuController;
+@property (nonatomic, weak) MenuViewController *menuController;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

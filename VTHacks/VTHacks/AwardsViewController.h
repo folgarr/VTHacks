@@ -12,6 +12,6 @@
 @interface AwardsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) MenuViewController *menuController;
+@property (nonatomic, weak) MenuViewController *menuController;
 
 @end

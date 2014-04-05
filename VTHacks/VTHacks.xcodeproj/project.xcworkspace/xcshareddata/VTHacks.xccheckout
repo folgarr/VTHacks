@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>12E9D5A0-34E9-457F-958B-48DABCFFDD16</string>
+	<string>9A40B403-39C0-42E8-A60D-69D1D640ECE3</string>
 	<key>IDESourceControlProjectName</key>
 	<string>VTHacks</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>23858A08-F26C-447C-B7D8-285806C9CAC7</key>
-		<string>https://github.com/cfol103/VTHacks</string>
+		<key>1067E583-FF63-4572-8BE1-E8A3052EF40A</key>
+		<string>https://github.com/cfol103/VTHacks.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>VTHacks/VTHacks.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>23858A08-F26C-447C-B7D8-285806C9CAC7</key>
+		<key>1067E583-FF63-4572-8BE1-E8A3052EF40A</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/cfol103/VTHacks</string>
+	<string>https://github.com/cfol103/VTHacks.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>23858A08-F26C-447C-B7D8-285806C9CAC7</string>
+	<string>1067E583-FF63-4572-8BE1-E8A3052EF40A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>23858A08-F26C-447C-B7D8-285806C9CAC7</string>
+			<string>1067E583-FF63-4572-8BE1-E8A3052EF40A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>VTHacks</string>
 		</dict>

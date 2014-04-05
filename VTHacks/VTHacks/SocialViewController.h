@@ -11,6 +11,6 @@
 
 @interface SocialViewController : UIViewController
 
-@property (nonatomic, strong)MenuViewController *menuController;
+@property (nonatomic, weak)MenuViewController *menuController;
 @end
 

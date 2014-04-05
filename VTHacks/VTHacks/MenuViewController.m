@@ -254,12 +254,14 @@
 {
     NSLog(@"Count of number of viewControllers on the stack is %lu", (unsigned long)[[self.navigationController viewControllers] count]);
     
-    if ([self.navigationController.viewControllers count] > 1)
-    {
-        [self.navigationController popViewControllerAnimated:NO];
-//        [self.navigationController popToRootViewControllerAnimated:NO]
-    }
-    
+    [self.navigationController popToRootViewControllerAnimated:NO];
+
+//    if ([self.navigationController.viewControllers count] > 1)
+//    {
+//        [self.navigationController popViewControllerAnimated:NO];
+////        [self.navigationController popToRootViewControllerAnimated:NO]
+//    }
+//    
     if ([selectedMenuItem isEqualToString:@"Annoucements"])
     {
         NSLog(@"Annoucements View Controller");
@@ -329,20 +331,20 @@
 
 @end
 
-//Credit to Joan Lluch
-@implementation UIViewController(MenuViewController)
+////Credit to Joan Lluch
+//@implementation UIViewController(MenuViewController)
+//
+//- (MenuViewController*)menuViewController
+//{
+//    UIViewController *parent = self;
+//    Class menuClass = [MenuViewController class];
+//    
+//    while ( nil != (parent = [parent parentViewController]) && ![parent isKindOfClass:menuClass] )
+//    {
+//    }
+//    
+//    return (id)parent;
+//}
 
-- (MenuViewController*)menuViewController
-{
-    UIViewController *parent = self;
-    Class menuClass = [MenuViewController class];
-    
-    while ( nil != (parent = [parent parentViewController]) && ![parent isKindOfClass:menuClass] )
-    {
-    }
-    
-    return (id)parent;
-}
-
-@end
+//@end
 

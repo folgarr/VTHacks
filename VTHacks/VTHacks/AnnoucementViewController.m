@@ -100,16 +100,16 @@ static NSString *notifyBody;
     }
     __weak UIScrollView *tempScrollView = self.tableView;
     
-    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-        
-        //Grab annoucements data that is cached on initial load
-//        [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-//            _annoucementDict = jsonList;
-//        } fromCache:YES];
-
-        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-        
-    }];
+//    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+//        
+//        //Grab annoucements data that is cached on initial load
+////        [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+////            _annoucementDict = jsonList;
+////        } fromCache:YES];
+//
+//        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+//        
+//    }];
     
     
 }

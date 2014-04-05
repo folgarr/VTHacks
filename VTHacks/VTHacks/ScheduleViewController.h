@@ -10,7 +10,7 @@
 #import "MenuViewController.h"
 @interface ScheduleViewController : UITableViewController <UIScrollViewDelegate>
 
-@property (nonatomic, strong) MenuViewController *menuController;
+@property (nonatomic, weak) MenuViewController *menuController;
 
 //Custom Pull Refresh
 @property (nonatomic, strong)NSArray *loadingImgs;

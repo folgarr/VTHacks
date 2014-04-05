@@ -11,7 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 
 @interface MapViewController : UIViewController <UIScrollViewDelegate>
-@property (nonatomic, strong)MenuViewController *menuController;
+@property (nonatomic, weak)MenuViewController *menuController;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 

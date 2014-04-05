@@ -13,6 +13,6 @@
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body;
 +(void) setSubject:(NSString *)subj andBody:(NSString *)body;
 
-@property (nonatomic, strong) MenuViewController *menuController;
+@property (nonatomic, weak) MenuViewController *menuController;
 
 @end
