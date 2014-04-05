@@ -31,14 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    
-    
+
     [self.scrollView addSubview:self.imageView];
-    self.scrollView.contentSize = CGSizeMake(700, 415.5);
-    
-    
+    self.scrollView.contentSize = CGSizeMake(405.5, 646);
     
     NSURL *url = [NSURL URLWithString:MAPS_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -47,23 +42,14 @@
     operation.responseSerializer = [AFImageResponseSerializer serializer];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Success! Able to set the image on the imageview asynchronously!");
         self.imageView.image = responseObject;
-        self.scrollView.contentSize = CGSizeMake(700, 415.5);
-        NSLog(@"Here is the image size: %@", CGSizeCreateDictionaryRepresentation(self.imageView.image.size));
-        //[self saveImage:responseObject withFilename:@"background.png"];
-        
+        self.scrollView.contentSize = CGSizeMake(405.5, 646);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
         NSLog(@"Error: %@", error);
     }];
     
     [operation start];
-    
-    
 }
-
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -76,7 +62,7 @@
 
     self.scrollView.maximumZoomScale = 2.0f;
     self.scrollView.zoomScale = minScale;
-    //[self centerScrollViewContents];
+
 }
 
 - (void)didReceiveMemoryWarning

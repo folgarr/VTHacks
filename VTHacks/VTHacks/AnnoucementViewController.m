@@ -33,6 +33,7 @@ static NSString *notifyBody;
 
 @property (nonatomic, strong) AppDelegate *appDelegate;
 
+
 @end
 
 @implementation AnnoucementViewController
@@ -99,17 +100,18 @@ static NSString *notifyBody;
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
-    
-//    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-//        
-//        //Grab annoucements data that is cached on initial load
-////        [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-////            _annoucementDict = jsonList;
-////        } fromCache:YES];
-//
-//        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-//        
-//    }];
+     __unsafe_unretained typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+        
+        //Grab annoucements data that is cached on initial load
+        [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+            NSLog(@"Here are the announcements: %@", jsonList);
+            weakSelf.announcementDictionaries = jsonList;
+        } usingPullToRefresh:YES];
+
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        
+    }];
     
     
 }
@@ -325,7 +327,6 @@ static NSString *notifyBody;
         {
             [self.tableView setBackgroundColor:[UIColor whiteColor]];
         }
-        
     }
 }
 

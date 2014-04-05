@@ -295,10 +295,10 @@ static MessageBoard *_instance = nil;
     return response.subscriptions;
 }
 
--(void)getAnnouncements:(jsonListCallback)handler usingPullToRefresh:(BOOL)wantCached
+-(void)getAnnouncements:(jsonListCallback)handler usingPullToRefresh:(BOOL)skipCache
 {
     // only return cached response if its available
-    if (wantCached && cachedAnnouncements)
+    if (!skipCache && cachedAnnouncements)
     {
         handler(cachedAnnouncements, nil);
         return;
@@ -314,30 +314,31 @@ static MessageBoard *_instance = nil;
         });
         
             rawJSON = [self getMessagesFromQueue];
+            NSError *localError = nil;
+            NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
+            for (SQSMessage *rawMessage in rawJSON)
+            {
+                NSString *body = [rawMessage body];
+                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&localError];
+                
+                // get the date from time-stamp (initially comes in as utc timezone)
+                NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
+                NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
+                NSString * message = jsonDict[@"Message"];
+                NSArray *components = [message componentsSeparatedByString:@"|"];
+                NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString};
+                [multipleJsons addObject:simpleDictionary];
+            }
+            
+            cachedAnnouncements = multipleJsons;
+            handler(multipleJsons, localError);
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         });
     });
     
-    NSError *localError = nil;
-    NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
-    for (SQSMessage *rawMessage in rawJSON)
-    {
-        NSString *body = [rawMessage body];
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&localError];
-        
-        // get the date from time-stamp (initially comes in as utc timezone)
-        NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
-        NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
-        NSString * message = jsonDict[@"Message"];
-        NSArray *components = [message componentsSeparatedByString:@"|"];
-        NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString};
-        [multipleJsons addObject:simpleDictionary];
-    }
     
-    cachedAnnouncements = multipleJsons;
-    handler(multipleJsons, localError);
 }
 
 

@@ -14,5 +14,5 @@
 +(void) setSubject:(NSString *)subj andBody:(NSString *)body;
 
 @property (nonatomic, weak) MenuViewController *menuController;
-
+@property (nonatomic, strong) NSMutableArray *announcementDictionaries;
 @end
