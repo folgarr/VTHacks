@@ -32,6 +32,8 @@
 }
 
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,8 +43,7 @@
         
         NSLog(@"awards %lu", (unsigned long)[jsonDictionary[@"awards"] count]);
         self.awardsList = jsonDictionary[@"awards"];
-//        self.contactsDictionary = jsonDictionary;
-//        self.companyListWithContactsDict = jsonDictionary[@"companies"];
+
         [self.tableView reloadData];
     }];
 
@@ -76,19 +77,19 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [self.awardsList count];
 }
 
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSDictionary *award = self.awardsList[section];
-//    NSString *awardTitle = award[@"title"];
-//    return awardTitle;
-//}
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSDictionary *award = self.awardsList[section];
+    NSString *awardTitle = award[@"title"];
+    return awardTitle;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    
-    return [self.awardsList count];
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,39 +101,29 @@
     
     NSDictionary *award = self.awardsList[row];
     NSString *company = award[@"company"];
-    NSString *url = award[@"url"];
+//    NSString *url = award[@"url"];
     NSString *prize = award[@"prize"];
     NSString *description = award[@"description"];
     
     [cell.companyLabel setText:company];
-    [cell.descriptionLabel setText:description];
+    [cell.descriptionView setText:description];
     [cell.prizeLabel setText:prize];
-//
-//    NSDictionary *company = self.companyListWithContactsDict[section];
-//    NSMutableArray *companyContacts = company[@"contacts"];
-//    
-//    NSDictionary *contact = companyContacts[row];
-//    NSArray *skills = contact[@"skills"];
-//    NSMutableString *skillString = [[NSMutableString alloc]init];
-//    
-//    int index = 0;
-//    NSUInteger length = [skills count] - 1;
-//    for (NSString *skill in skills)
-//    {
-//        NSString *withComma = [NSString stringWithFormat:@"%@, ", skill];
-//        [skillString appendString:((index != length) ? withComma : skill)];
-//        index++;
-//    }
-//    
-//    [cell.nameLabel setText:contact[@"name"]];
-//    [cell.skillLabel setText:skillString];
-//    
+
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 147;
+    NSInteger row = [indexPath row];
+    NSDictionary *award = self.awardsList[row];
+    NSString *description = award[@"description"];
+    
+    CGSize size = [description boundingRectWithSize:CGSizeMake(280, FLT_MAX)
+                                            options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
+                                            context:nil].size;
+    
+    return 48 + size.height;
 }
 
 

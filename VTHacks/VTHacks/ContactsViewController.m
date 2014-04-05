@@ -67,10 +67,54 @@
     [self.messageBoard getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
         
         self.contactsDictionary = jsonDictionary;
-        self.companyListWithContactsDict = jsonDictionary[@"companies"];
+        self.companyListWithContactsDict = [self removeSkillsArray:jsonDictionary];
+        
         [self.tableView reloadData];
     }];
     // Do any additional setup after loading the view.
+}
+
+//Help me convert the skills array into a string my friend.
+- (NSMutableArray *)removeSkillsArray: (NSDictionary *)dict
+{
+    NSMutableArray *updatedArray = [[NSMutableArray alloc] init];
+    
+    NSArray *listOfCompanies = dict[@"companies"];
+    
+    for (int i = 0; i < [listOfCompanies count]; i++)
+    {
+        NSDictionary *companyDict = listOfCompanies[i];
+        NSMutableDictionary *updateCompanyDict = [NSMutableDictionary dictionaryWithDictionary:companyDict];
+        
+        NSMutableArray *contacts = [NSMutableArray arrayWithArray:companyDict[@"contacts"]];
+        
+        for (int i = 0; i < [contacts count]; i++)
+        {
+            
+            NSMutableDictionary *mutableContact = [NSMutableDictionary dictionaryWithDictionary:contacts[i]];
+            
+            NSArray *skills = mutableContact[@"skills"];
+            NSMutableString *skillString = [[NSMutableString alloc]init];
+            
+            int index = 0;
+            NSUInteger length = [skills count] - 1;
+            for (NSString *skill in skills)
+            {
+                NSString *withComma = [NSString stringWithFormat:@"%@, ", skill];
+                [skillString appendString:((index != length) ? withComma : skill)];
+                index++;
+            }
+            
+            mutableContact[@"skills"] = skillString;
+            
+            contacts[i] = mutableContact;
+        }
+        
+        updateCompanyDict[@"contacts"] = contacts;
+        [updatedArray addObject:updateCompanyDict];
+    }
+    
+    return updatedArray;
 }
 
 - (void)didReceiveMemoryWarning
@@ -151,20 +195,10 @@
     NSMutableArray *companyContacts = company[@"contacts"];
     
     NSDictionary *contact = companyContacts[row];
-    NSArray *skills = contact[@"skills"];
-    NSMutableString *skillString = [[NSMutableString alloc]init];
-    
-    int index = 0;
-    NSUInteger length = [skills count] - 1;
-    for (NSString *skill in skills)
-    {
-        NSString *withComma = [NSString stringWithFormat:@"%@, ", skill];
-        [skillString appendString:((index != length) ? withComma : skill)];
-        index++;
-    }
-    
+    NSString *skills = contact[@"skills"];
+
     [cell.nameLabel setText:contact[@"name"]];
-    [cell.skillLabel setText:skillString];
+    [cell.skillLabel setText:skills];
 
     return cell;
 }
@@ -179,22 +213,8 @@
     NSMutableArray *companyContacts = company[@"contacts"];
     
     NSDictionary *contact = companyContacts[row];
-    NSArray *skills = contact[@"skills"];
-    NSMutableString *skillString = [[NSMutableString alloc]init];
-    
-    
-    //TODO: Doing this twice.... so much for having a JSON Array DOPASIDSOPAIDPSPDA
-    int index = 0;
-    NSUInteger length = [skills count] - 1;
-    for (NSString *skill in skills)
-    {
-        NSString *withComma = [NSString stringWithFormat:@"%@, ", skill];
-        [skillString appendString:((index != length) ? withComma : skill)];
-        index++;
-    }
-
-    
-    CGSize size = [skillString boundingRectWithSize:CGSizeMake(280, FLT_MAX)
+    NSString *skills = contact[@"skills"];
+    CGSize size = [skills boundingRectWithSize:CGSizeMake(280, FLT_MAX)
                        options:NSStringDrawingUsesLineFragmentOrigin
                     attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
                        context:nil].size;
