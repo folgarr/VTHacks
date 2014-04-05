@@ -13,6 +13,8 @@
 #import "AnnoucementViewController.h"
 #import "ContactsViewController.h"
 #import "SocialViewController.h"
+#import "AwardsViewController.h"
+#import "MapViewController.h"
 @interface MenuViewController ()
 
 //Menu Properties
@@ -37,21 +39,37 @@
     {
         ScheduleViewController *scheduleController = (ScheduleViewController *)viewController;
         scheduleController.menuController = self;
+        scheduleController.navigationController.title = @"Schedule";
     }
     else if ([viewController isKindOfClass:[AnnoucementViewController class]])
     {
         AnnoucementViewController *annoucementController = (AnnoucementViewController *)viewController;
         annoucementController.menuController = self;
+        annoucementController.navigationController.title = @"Annoucements";
     }
     else if ([viewController isKindOfClass:[ContactsViewController class]])
     {
         ContactsViewController *contactsController = (ContactsViewController *)viewController;
         contactsController.menuController = self;
+        contactsController.navigationController.title = @"Contacts";
     }
     else if ([viewController isKindOfClass:[SocialViewController class]])
     {
         SocialViewController *socialController = (SocialViewController *)viewController;
         socialController.menuController = self;
+        socialController.navigationController.title = @"Social";
+    }
+    else if ([viewController isKindOfClass:[AwardsViewController class]])
+    {
+        AwardsViewController *awardsController = (AwardsViewController *)viewController;
+        awardsController.menuController = self;
+        awardsController.navigationController.title = @"Awards";
+    }
+    else if ([viewController isKindOfClass:[MapViewController class]])
+    {
+        MapViewController *mapController = (MapViewController *)viewController;
+        mapController.menuController = self;
+        mapController.navigationController.title = @"Map";
     }
     
     [self createMenuWithViewController:viewController];
@@ -69,6 +87,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+ 
+    //Customize all nav bars to be maroon
+    UIColor *red = [UIColor colorWithRed:153/255.0f
+                                   green:0/255.0f
+                                    blue:51/255.0f
+                                   alpha:1.0f];
+    
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+    [self.navigationController.navigationBar setBarTintColor:red];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    
     self.navigationController.delegate = self;
     self.menuSelected = @"Annoucements";
     
@@ -106,14 +136,15 @@
     [self.menuBarButton setTitle:@"\uf142"];
     viewController.navigationItem.rightBarButtonItem = self.menuBarButton;
     [viewController.navigationController.navigationBar setTranslucent:NO];
-    [viewController.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
-                       forBarPosition:UIBarPositionAny
-                           barMetrics:UIBarMetricsDefault];
+//    [viewController.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
+//                       forBarPosition:UIBarPositionAny
+//                           barMetrics:UIBarMetricsDefault];
+//    
+//    [viewController.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+//
     
-    [viewController.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
-    
+//        [self.navigationController.navigationBar setBackgroundColor:[UIColor greenColor]];
     viewController.navigationItem.hidesBackButton = YES;
-
 }
 
 
@@ -235,8 +266,8 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
 //        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [vc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-        [self.navigationController pushViewController:vc animated:YES];
+
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else if ([selectedMenuItem isEqualToString:@"Schedule"])
     {
@@ -246,7 +277,7 @@
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
 
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else if ([selectedMenuItem isEqualToString:@"Contacts"])
     {
@@ -256,24 +287,31 @@
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
         
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else if ([selectedMenuItem isEqualToString:@"Map"])
     {
         NSLog(@"Map View Controller");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"mapViewController"];
+        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else if ([selectedMenuItem isEqualToString:@"Awards"])
     {
-        NSLog(@"Awards View Controller");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"awardsViewController"];
+        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        [self.navigationController pushViewController:vc animated:NO];
     }
+    
     else //Social
     {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
 }
 

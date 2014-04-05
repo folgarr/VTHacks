@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MenuViewController.h"
 
-@interface AnnoucementViewController : UITableViewController <UIActionSheetDelegate>
+@interface AnnoucementViewController : UITableViewController <UIActionSheetDelegate, UIScrollViewDelegate>
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body;
 +(void) setSubject:(NSString *)subj andBody:(NSString *)body;
 

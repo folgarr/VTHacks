@@ -11,7 +11,13 @@
 #import "Constants.h"
 #import "MessageBoard.h"
 #import "AnnoucementViewController.h"
+#import "ScheduleViewController.h"
+#import "AnnoucementViewController.h"
+#import "ContactsViewController.h"
+#import "SocialViewController.h"
+#import "AwardsViewController.h"
 
+#import <MessageUI/MessageUI.h>
 @implementation AppDelegate
 
 
@@ -74,7 +80,8 @@
 //        else
 //            NSLog(@"Invalid body in the message of this notification");
 //    }
-    [self customizeUI];
+
+
     
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -189,20 +196,6 @@
     return [jsonDic objectForKey:@"Message"];
 }
 
-#pragma mark - Customizations
-- (void) customizeUI
-{
-//    [self.window setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundColor.png"]]];
-    UIColor *red = [UIColor colorWithRed:153/255.0f
-                                   green:0/255.0f
-                                    blue:51/255.0f
-                                   alpha:1.0f];
-    
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UINavigationBar appearance] setBarTintColor:red];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
-}
 
 
 @end

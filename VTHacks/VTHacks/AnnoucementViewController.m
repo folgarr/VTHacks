@@ -48,12 +48,17 @@ static NSString *notifyBody;
 
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
 
     //Creates an instance of MessageBoard
-    //MessageBoard *messageBoard = [MessageBoard instance];
 
-    
+//    MessageBoard *messageBoard = [MessageBoard instance];
+
+
+    // someplace where you create the UINavigationController
+//[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backgroundColor.png"] forBarMetrics:UIBarMetricsDefault];
+//    
 
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"annoucementCache"
                                                          ofType:@"plist"];
@@ -96,7 +101,12 @@ static NSString *notifyBody;
     __weak UIScrollView *tempScrollView = self.tableView;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-        // call getannouncements usingPullToRefresh:yes
+        
+        //Grab annoucements data that is cached on initial load
+//        [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+//            _annoucementDict = jsonList;
+//        } fromCache:YES];
+
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
@@ -296,6 +306,28 @@ static NSString *notifyBody;
 }
 
 
+#pragma mark - scroll view delegates 
+
+-(void)scrollViewDidScroll: (UIScrollView*)scrollView
+{
+    float scrollOffset = scrollView.contentOffset.y;
+    if (scrollOffset == 0 || scrollOffset < 20)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor maroonColor]];
+        }
+        
+    }
+    else if (scrollOffset > 21)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor whiteColor]];
+        }
+        
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
