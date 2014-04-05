@@ -57,6 +57,7 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
 -(NSMutableArray *)getMessagesFromQueue;
 -(void)subscribeQueue;
 -(void)deleteMessageFromQueue:(SQSMessage *)message;
+-(void)updateCacheWithAnnouncement:(NSDictionary *)announcement;
 
 
 @end

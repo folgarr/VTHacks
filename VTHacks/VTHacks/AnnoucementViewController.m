@@ -100,45 +100,83 @@ static NSString *notifyBody;
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
-     __unsafe_unretained typeof(self) weakSelf = self;
+    __unsafe_unretained typeof(self) weakSelf = self;
+//    __unsafe_unretained typeof(self) weakSelfTableView = self.tableView;
+    
+    
+    
+    
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
         
-        //Grab annoucements data that is cached on initial load
+        //Grab annoucements data. This call will NOT use the cache (because user is explicitely asking to refresh).
         [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
             NSLog(@"Here are the announcements: %@", jsonList);
             weakSelf.announcementDictionaries = jsonList;
         } usingPullToRefresh:YES];
-
+        [weakSelf.tableView reloadData];
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
     
     
+    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
+        self.announcementDictionaries = jsonList;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    } usingPullToRefresh:NO];
+    
+    
 }
-
 
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body
 {
     NSDate *now = [NSDate date];
-    NSDictionary *eventDict = @{@"time": now, @"location": @"AWS", @"description" : body};
+//    NSDictionary *eventDict = @{@"time": now, @"location": @"AWS", @"description" : body};
+//    
+//    NSString *currentDate = self.annoucementKeys[0];
+//    NSMutableDictionary *listOfEventsWithinDate = [[NSMutableDictionary alloc] initWithDictionary:self.annoucementDict[currentDate]];
+//    
+//    [listOfEventsWithinDate setObject:eventDict forKey:subject];
+//    [self.eventKeys insertObject:subject atIndex:0];
+//    
+//    self.annoucementDict[currentDate] = listOfEventsWithinDate;
     
-    NSString *currentDate = self.annoucementKeys[0];
-    NSMutableDictionary *listOfEventsWithinDate = [[NSMutableDictionary alloc] initWithDictionary:self.annoucementDict[currentDate]];
     
-    [listOfEventsWithinDate setObject:eventDict forKey:subject];
-    [self.eventKeys insertObject:subject atIndex:0];
-    
-    self.annoucementDict[currentDate] = listOfEventsWithinDate;
-    
-    [self.tableView reloadData];
-    
-    self.tableView.scrollsToTop = YES;
+    if (self.announcementDictionaries != nil)
+    {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        NSString *currentTime = [dateFormatter stringFromDate:now];
+        NSDictionary *newAnnouncement = @{@"title" : subject, @"body" : body, @"date":now, @"dateString":@"temporary date string?", @"simpleTimeString":currentTime};
+        [[MessageBoard instance] updateCacheWithAnnouncement:newAnnouncement];
+        [self.announcementDictionaries insertObject:newAnnouncement atIndex:0];
+        
+        [self.tableView reloadData];
+        self.tableView.scrollsToTop = YES;
+    }
 
 
     NSLog(@"\nMESSAGE TITLE: %@\nMESSAGE BODY: %@\n", subject, body);
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    __unsafe_unretained typeof(self) weakSelf = self;
 
+//    //Grab annoucements data that is cached on initial load
+//    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+//        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
+//        weakSelf.announcementDictionaries = jsonList;
+//        [weakSelf.tableView reloadData];
+//        [self.tableView setNeedsDisplay];
+//
+//    } usingPullToRefresh:NO];
+}
 
 - (void)showScheduleView
 
@@ -173,24 +211,36 @@ static NSString *notifyBody;
 //}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-        NSString *currentDate = self.annoucementKeys[indexPath.section];
-        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-        NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
-        NSString *event = listOfEventsNames[indexPath.row];
-        
-        NSDictionary *annoucement = listOfEventsWithinDate[event];
-        NSString *description = annoucement[@"description"];
-        NSUInteger characterCount = [description length];
-        
-        if (self.selectedRow == [indexPath row] && characterCount > 200)
-        {
-            return 320;
-        }
-        else
-        {
-            return 100;
-        }
+
+    NSInteger row = [indexPath row];
+    NSDictionary *announcement = self.announcementDictionaries[row];
+    NSString *description = announcement[@"body"];
+    
+    CGSize size = [description boundingRectWithSize:CGSizeMake(280, FLT_MAX)
+                                            options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
+                                            context:nil].size;
+    
+    return 75 + size.height + 38;
+    
+    
+//        NSString *currentDate = self.annoucementKeys[indexPath.section];
+//        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
+//        NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
+//        NSString *event = listOfEventsNames[indexPath.row];
+//        
+//        NSDictionary *annoucement = listOfEventsWithinDate[event];
+//        NSString *description = annoucement[@"description"];
+//        NSUInteger characterCount = [description length];
+//        
+//        if (self.selectedRow == [indexPath row] && characterCount > 200)
+//        {
+//            return 320;
+//        }
+//        else
+//        {
+//            return 100;
+//        }
    
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -203,10 +253,10 @@ static NSString *notifyBody;
 {
     // Return the number of rows in the section.
    
-        NSString *currentDate = self.annoucementKeys[section];
-        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-        
-        return [listOfEventsWithinDate count];
+//        NSString *currentDate = self.annoucementKeys[section];
+//        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
+    
+    return self.announcementDictionaries == nil? 0 : [self.announcementDictionaries count];
 
 
 }
@@ -214,66 +264,66 @@ static NSString *notifyBody;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
         NSInteger row = [indexPath row];
-        NSInteger section = [indexPath section];
-        
+       // NSInteger section = [indexPath section];
+
         
         static NSString *CellIdentifier = @"annoucementCell";
         AnnoucementCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        NSString *currentDate = self.annoucementKeys[section];
-        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
+        //NSString *currentDate = self.annoucementKeys[section];
+        //NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
         //    NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
-        NSString *event = self.eventKeys[row];
+        //NSString *event = self.eventKeys[row];
         
-        NSDictionary *annoucement = listOfEventsWithinDate[event];
+        NSDictionary *annoucement = self.announcementDictionaries[row];//listOfEventsWithinDate[event];
         
-        [cell.annoucementTitle setText:event];
+        [cell.annoucementTitle setText:annoucement[@"title"]];
+    
+        [cell.annoucementTime setText:annoucement[@"simpleTimeString"]];
+        //[cell.annoucementMonth setText:[self.monthFormatter stringFromDate:annoucement[@"time"]]];
         
-        [cell.annoucementTime setText:[self.dateFormatter stringFromDate:annoucement[@"time"]]];
-        [cell.annoucementMonth setText:[self.monthFormatter stringFromDate:annoucement[@"time"]]];
-        
-        [cell.subDescription setText:annoucement[@"description"]];
+        [cell.subDescription setText:annoucement[@"body"]];
         return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
-        if (self.selectedRow == indexPath.row)
-        {
-            self.selectedRow = -1;
-            [tableView beginUpdates];
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView endUpdates];
-            
-        }
-        else
-        {
-            self.selectedRow = indexPath.row;
-            [tableView beginUpdates];
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView endUpdates];
-            AnnoucementCell *cell = (AnnoucementCell *)[tableView cellForRowAtIndexPath:indexPath];
-            
-            NSString *currentDate = self.annoucementKeys[indexPath.section];
-            NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-            NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
-            NSString *event = listOfEventsNames[indexPath.row];
-            
-            NSDictionary *annoucement = listOfEventsWithinDate[event];
-            NSString *description = annoucement[@"description"];
-            NSUInteger characterCount = [description length];
-            
-            if (characterCount > 200)
-            {
-                cell.subDescription.numberOfLines = 0;
-                [cell.subDescription sizeToFit];
-            }
-            
-        }
-        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        if (self.selectedRow == indexPath.row)
+//        {
+//            self.selectedRow = -1;
+//            [tableView beginUpdates];
+//            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//            [tableView endUpdates];
+//            
+//        }
+//        else
+//        {
+//            self.selectedRow = indexPath.row;
+//            [tableView beginUpdates];
+//            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//            [tableView endUpdates];
+//            AnnoucementCell *cell = (AnnoucementCell *)[tableView cellForRowAtIndexPath:indexPath];
+//            
+//            NSString *currentDate = self.annoucementKeys[indexPath.section];
+//            NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
+//            NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
+//            NSString *event = listOfEventsNames[indexPath.row];
+//            
+//            NSDictionary *annoucement = listOfEventsWithinDate[event];
+//            NSString *description = annoucement[@"description"];
+//            NSUInteger characterCount = [description length];
+//            
+//            if (characterCount > 200)
+//            {
+//                cell.subDescription.numberOfLines = 0;
+//                [cell.subDescription sizeToFit];
+//            }
+//            
+//        }
+//        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 
 }
 

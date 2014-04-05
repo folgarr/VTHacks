@@ -295,6 +295,21 @@ static MessageBoard *_instance = nil;
     return response.subscriptions;
 }
 
+NSComparisonResult dateSort(NSDictionary *d1, NSDictionary *d2, void *context) {
+    NSDate *date1 = d1[@"date"];
+    NSDate *date2 = d2[@"date"];
+    return [date2 compare:date1];
+}
+
+
+
+-(void)updateCacheWithAnnouncement:(NSDictionary *)announcement
+{
+    if (cachedAnnouncements != nil) {
+        [cachedAnnouncements insertObject:announcement atIndex:0];
+    }
+}
+
 -(void)getAnnouncements:(jsonListCallback)handler usingPullToRefresh:(BOOL)skipCache
 {
     // only return cached response if its available
@@ -309,10 +324,10 @@ static MessageBoard *_instance = nil;
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        });
-        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//        });
+    
             rawJSON = [self getMessagesFromQueue];
             NSError *localError = nil;
             NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
@@ -326,21 +341,45 @@ static MessageBoard *_instance = nil;
                 NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
                 NSString * message = jsonDict[@"Message"];
                 NSArray *components = [message componentsSeparatedByString:@"|"];
-                NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString};
+                NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
                 [multipleJsons addObject:simpleDictionary];
             }
-            
-            cachedAnnouncements = multipleJsons;
-            handler(multipleJsons, localError);
+        
+            // sort the array in descending order
+            NSArray *sorted =[multipleJsons sortedArrayUsingFunction:dateSort context:nil];
+            NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
+            cachedAnnouncements = sortedAnnouncements;
+            handler(sortedAnnouncements, localError);
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+
+//            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//        });
     });
     
     
 }
 
+
++(NSString *)getSimpleTimeFromDateString:(NSString *)dateString
+{
+    NSArray *components = [dateString componentsSeparatedByString:@" "];
+    if (components && [components count] == 5)
+    {
+        NSString *longTimeString = components[3];
+        NSArray *timeComponents = [longTimeString componentsSeparatedByString:@":"];
+        NSString *amOrPm = components[4];
+    
+        NSString *finalString = [NSString stringWithFormat:@"%@:%@ %@", timeComponents[0], timeComponents[1], amOrPm];
+        return finalString;
+    }
+    else
+        return @"";
+    
+
+    
+}
 
 -(NSMutableArray *)getMessagesFromQueue
 {
