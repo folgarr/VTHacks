@@ -14,6 +14,13 @@
 
 @implementation MessageBoard
 
+
+NSComparisonResult dateSort(NSDictionary *d1, NSDictionary *d2, void *context) {
+    NSDate *date1 = d1[@"date"];
+    NSDate *date2 = d2[@"date"];
+    return [date2 compare:date1];
+}
+
 /* last stored completion handler from a server request */
 static completionHandler serverResponseHandler;
 
@@ -295,11 +302,6 @@ static MessageBoard *_instance = nil;
     return response.subscriptions;
 }
 
-NSComparisonResult dateSort(NSDictionary *d1, NSDictionary *d2, void *context) {
-    NSDate *date1 = d1[@"date"];
-    NSDate *date2 = d2[@"date"];
-    return [date2 compare:date1];
-}
 
 
 
@@ -341,9 +343,12 @@ NSComparisonResult dateSort(NSDictionary *d1, NSDictionary *d2, void *context) {
                 NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
                 NSString * message = jsonDict[@"Message"];
                 NSArray *components = [message componentsSeparatedByString:@"|"];
-                NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-                NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-                [multipleJsons addObject:simpleDictionary];
+                if ([components count] == 2)
+                {
+                    NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                    NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                    [multipleJsons addObject:simpleDictionary];
+                }
             }
         
             // sort the array in descending order

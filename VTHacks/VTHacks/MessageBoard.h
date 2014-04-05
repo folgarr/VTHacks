@@ -12,6 +12,7 @@
 #import <AWSSQS/AWSSQS.h>
 
 
+
 typedef void (^completionHandler)(NSDictionary *jsonDictionary, NSError *serverError);
 typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError);
 
@@ -58,6 +59,7 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
 -(void)subscribeQueue;
 -(void)deleteMessageFromQueue:(SQSMessage *)message;
 -(void)updateCacheWithAnnouncement:(NSDictionary *)announcement;
++(NSString *)getSimpleTimeFromDateString:(NSString *)dateString;
 
 
 @end

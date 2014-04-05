@@ -14,6 +14,8 @@
 #import "VVNTransparentView.h"
 #import "MenuCell.h"
 #import "UIScrollView+GifPullToRefresh.h"
+#import "MessageBoard.h"
+
 
 
 static NSString *notifySubject;
@@ -38,6 +40,13 @@ static NSString *notifyBody;
 
 @implementation AnnoucementViewController
 
+
+NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *context) {
+    NSDate *date1 = d1[@"date"];
+    NSDate *date2 = d2[@"date"];
+    return [date2 compare:date1];
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -46,6 +55,8 @@ static NSString *notifyBody;
     }
     return self;
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -117,16 +128,42 @@ static NSString *notifyBody;
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
+
     
-    
-    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
-        self.announcementDictionaries = jsonList;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+    NSMutableArray *rawJSON = nil;
+    rawJSON = [[MessageBoard instance] getMessagesFromQueue];
+    NSError *localError = nil;
+    NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
+    for (SQSMessage *rawMessage in rawJSON)
+    {
+        NSString *body = [rawMessage body];
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&localError];
         
-    } usingPullToRefresh:NO];
+        // get the date from time-stamp (initially comes in as utc timezone)
+        NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
+        NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
+        NSString * message = jsonDict[@"Message"];
+        NSArray *components = [message componentsSeparatedByString:@"|"];
+        NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+        NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+        [multipleJsons addObject:simpleDictionary];
+    }
+    
+    // sort the array in descending order
+    NSArray *sorted = [multipleJsons sortedArrayUsingFunction:sortDictsByDate context:nil];
+    NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
+    self.announcementDictionaries = sortedAnnouncements;
+
+    
+    
+    
+//    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+//        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.tableView reloadData];
+//        });
+//        
+//    } usingPullToRefresh:NO];
     
     
 }
