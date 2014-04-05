@@ -159,21 +159,39 @@
     
     NSString *nameDate = self.sectionDay[section];
     NSArray *events = self.scheduleDict[nameDate];
-    NSArray *eventsSortedDescending = [DateUtilities sortArrayOfEventDictByTimeStamp:events ascending:YES];
+//    NSArray *eventsSortedDescending = [DateUtilities sortArrayOfEventDictByTimeStamp:events ascending:YES];
     
-    NSDictionary *event = eventsSortedDescending[row];
+    NSDictionary *event = events[row];
     
     [cell.timeLabel setText:event[@"timestamp"]];
     [cell.eventLabel setText:event[@"description"]];
     [cell.cellTitle setText:event[@"title"]];
+    
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 85;
+    
+    NSInteger section = [indexPath section];
+    NSInteger row = [indexPath row];
+    
+    NSString *nameDate = self.sectionDay[section];
+    NSArray *events = self.scheduleDict[nameDate];
+    
+    NSDictionary *event = events[row];
+    
+    NSString *description = event[@"description"];
+    
+    CGSize size = [description boundingRectWithSize:CGSizeMake(280, FLT_MAX)
+                                            options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
+                                            context:nil].size;
+
+    return 75 + size.height + 38;
 }
+
 
 #pragma mark - scroll view delegates
 

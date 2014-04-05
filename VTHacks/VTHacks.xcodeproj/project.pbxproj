@@ -53,6 +53,8 @@
 		10CF8DD718C2FED60014E20D /* annoucementCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD618C2FED60014E20D /* annoucementCache.plist */; };
 		10CF8DDE18C305B60014E20D /* annoucementDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */; };
 		10CF8DE118C38D620014E20D /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DE018C38D620014E20D /* ScheduleViewController.m */; };
+		10E88E0218EF99500087E712 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E88E0118EF99500087E712 /* Social.framework */; };
+		10E88E0418EF9B5A0087E712 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E88E0318EF9B5A0087E712 /* MessageUI.framework */; };
 		10F75C1718EB7F0C004DBF27 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F75C1618EB7F0C004DBF27 /* AWSRuntime.framework */; };
 		10F75C1B18EB8494004DBF27 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D9118C27EBA0014E20D /* UIKit.framework */; };
 		10F75C1C18EB849A004DBF27 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CF8D8D18C27EBA0014E20D /* Foundation.framework */; };
@@ -147,6 +149,8 @@
 		10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = annoucementDescriptionCell.m; sourceTree = "<group>"; };
 		10CF8DDF18C38D620014E20D /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		10CF8DE018C38D620014E20D /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		10E88E0118EF99500087E712 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		10E88E0318EF9B5A0087E712 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		10F75C1618EB7F0C004DBF27 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		10F75C1E18EB8908004DBF27 /* VVNTransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VVNTransparentView.h; sourceTree = "<group>"; };
 		10F75C1F18EB8908004DBF27 /* VVNTransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VVNTransparentView.m; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10E88E0418EF9B5A0087E712 /* MessageUI.framework in Frameworks */,
+				10E88E0218EF99500087E712 /* Social.framework in Frameworks */,
 				10F75C1D18EB84A0004DBF27 /* CoreGraphics.framework in Frameworks */,
 				10F75C1C18EB849A004DBF27 /* Foundation.framework in Frameworks */,
 				10F75C1B18EB8494004DBF27 /* UIKit.framework in Frameworks */,
@@ -247,6 +253,8 @@
 		10CF8D8C18C27EBA0014E20D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				10E88E0318EF9B5A0087E712 /* MessageUI.framework */,
+				10E88E0118EF99500087E712 /* Social.framework */,
 				10F75C1618EB7F0C004DBF27 /* AWSRuntime.framework */,
 				3D4103B518C399CF008B4295 /* AWSSNS.framework */,
 				3D4103B618C399CF008B4295 /* AWSSQS.framework */,

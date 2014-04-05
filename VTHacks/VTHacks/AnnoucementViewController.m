@@ -48,6 +48,7 @@ static NSString *notifyBody;
 
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
 
     //Creates an instance of MessageBoard

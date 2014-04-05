@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MenuViewController.h"
+#import <Social/Social.h>
+#import <MessageUI/MessageUI.h>
 
-@interface ContactsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface ContactsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) MenuViewController *menuController;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;

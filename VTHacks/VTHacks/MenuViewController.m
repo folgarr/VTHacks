@@ -80,6 +80,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+ 
+    //Customize all nav bars to be maroon
+    UIColor *red = [UIColor colorWithRed:153/255.0f
+                                   green:0/255.0f
+                                    blue:51/255.0f
+                                   alpha:1.0f];
+    
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+    [self.navigationController.navigationBar setBarTintColor:red];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    
     self.navigationController.delegate = self;
     self.menuSelected = @"Annoucements";
     
@@ -290,8 +302,8 @@
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        
-        [self.navigationController pushViewController:vc animated:NO];
+        [self presentViewController:vc animated:YES completion:nil];
+//        [self.navigationController pushViewController:vc animated:NO];
     }
 }
 
