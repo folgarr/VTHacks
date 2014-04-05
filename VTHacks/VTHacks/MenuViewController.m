@@ -302,8 +302,7 @@
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
         
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [self presentViewController:vc animated:YES completion:nil];
-//        [self.navigationController pushViewController:vc animated:NO];
+        [self.navigationController pushViewController:vc animated:NO];
     }
 }
 
