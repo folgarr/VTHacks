@@ -51,7 +51,7 @@ static NSString *notifyBody;
     [super viewDidLoad];
 
     //Creates an instance of MessageBoard
-    MessageBoard *messageBoard = [MessageBoard instance];
+    //MessageBoard *messageBoard = [MessageBoard instance];
 
     
 
@@ -96,17 +96,10 @@ static NSString *notifyBody;
     __weak UIScrollView *tempScrollView = self.tableView;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-        
-        //Grab annoucements data that is cached on initial load
-        [messageBoard getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-            _annoucementDict = jsonList;
-        } fromCache:YES];
+        // call getannouncements usingPullToRefresh:yes
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         
     }];
-    
-    
-    
     
     
 }

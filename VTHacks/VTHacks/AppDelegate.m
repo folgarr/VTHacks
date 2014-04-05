@@ -29,6 +29,8 @@
     [[NSUserDefaults standardUserDefaults] setObject:tokenString forKey:@"myDeviceToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    // call getannouncements with pulltorefresh:no
+    
     
     /*
         On construct of first instance of MessageBoard object:
@@ -48,30 +50,30 @@
     //Register for push notification
     application.applicationIconBadgeNumber = 0;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    if(launchOptions != nil)
-    {
-        NSString *msg = [NSString stringWithFormat:@"%@", launchOptions];
-        NSLog(@"%@",msg);
-        
-        NSString *rawBody = launchOptions[@"aps"][@"alert"];
-        if (rawBody != nil && [rawBody length] > 0)
-        {
-            NSArray *components = [rawBody componentsSeparatedByString:@"|"];
-            if (components && [components count] > 1)
-            {
-                
-                if (self.announceVC)
-                    [self.announceVC announceWithSubject: components[0] andBody: components[1]];
-                else
-                {
-                    [AnnoucementViewController setSubject:components[0] andBody:components[1]];
-                }
-                [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
-            }
-        }
-        else
-            NSLog(@"Invalid body in the message of this notification");
-    }
+//    if(launchOptions != nil)
+//    {
+//        NSString *msg = [NSString stringWithFormat:@"%@", launchOptions];
+//        NSLog(@"%@",msg);
+//        
+//        NSString *rawBody = launchOptions[@"aps"][@"alert"];
+//        if (rawBody != nil && [rawBody length] > 0)
+//        {
+//            NSArray *components = [rawBody componentsSeparatedByString:@"|"];
+//            if (components && [components count] > 1)
+//            {
+//                
+//                if (self.announceVC)
+//                    [self.announceVC announceWithSubject: components[0] andBody: components[1]];
+//                else
+//                {
+//                    [AnnoucementViewController setSubject:components[0] andBody:components[1]];
+//                }
+//                [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
+//            }
+//        }
+//        else
+//            NSLog(@"Invalid body in the message of this notification");
+//    }
     [self customizeUI];
     
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

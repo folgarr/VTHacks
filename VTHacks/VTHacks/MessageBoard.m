@@ -295,7 +295,7 @@ static MessageBoard *_instance = nil;
     return response.subscriptions;
 }
 
--(void)getAnnouncements:(jsonListCallback)handler fromCache:(BOOL)wantCached
+-(void)getAnnouncements:(jsonListCallback)handler usingPullToRefresh:(BOOL)wantCached
 {
     // only return cached response if its available
     if (wantCached && cachedAnnouncements)

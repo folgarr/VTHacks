@@ -48,7 +48,7 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
 
 +(MessageBoard *)instance;
 -(void)getDataFromServer:(NSString*) type completionHandler:(completionHandler)handler;
--(void)getAnnouncements:(jsonListCallback)handler fromCache:(BOOL)wantCached;
+-(void)getAnnouncements:(jsonListCallback)handler usingPullToRefresh:(BOOL)wantCached;
 
 -(id)init;
 -(bool)createApplicationEndpoint;
