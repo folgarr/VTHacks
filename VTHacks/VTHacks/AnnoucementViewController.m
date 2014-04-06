@@ -130,6 +130,23 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     }];
 
     
+    
+    
+    
+    
+//    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+//        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.tableView reloadData];
+//        });
+//        
+//    } usingPullToRefresh:NO];
+    
+    
+}
+
+-(void) reloadAnnouncements
+{
     NSMutableArray *rawJSON = nil;
     rawJSON = [[MessageBoard instance] getMessagesFromQueue];
     NSError *localError = nil;
@@ -144,28 +161,20 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
         NSString * message = jsonDict[@"Message"];
         NSArray *components = [message componentsSeparatedByString:@"|"];
-        NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-        NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-        [multipleJsons addObject:simpleDictionary];
+        if ([components count] == 2)
+        {
+            NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+            NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+            [multipleJsons addObject:simpleDictionary];
+        }
     }
     
     // sort the array in descending order
     NSArray *sorted = [multipleJsons sortedArrayUsingFunction:sortDictsByDate context:nil];
     NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
     self.announcementDictionaries = sortedAnnouncements;
+    [self.tableView reloadData];
 
-    
-    
-    
-//    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-//        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tableView reloadData];
-//        });
-//        
-//    } usingPullToRefresh:NO];
-    
-    
 }
 
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body

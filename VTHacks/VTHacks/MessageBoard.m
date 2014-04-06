@@ -9,7 +9,8 @@
 #import "MessageBoard.h"
 #import "Constants.h"
 #import <AWSRuntime/AWSRuntime.h>
-
+#import "AppDelegate.h"
+#import "AnnoucementViewController.h"
 
 
 @implementation MessageBoard
@@ -158,22 +159,27 @@ static MessageBoard *_instance = nil;
             }
         }
 
+        AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
+        AnnoucementViewController *annVC =  appDel.announceVC;
+        [annVC reloadAnnouncements];
         
-        // Grab all the SQS items and output them to log for now
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-            });
-            
-//NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
-//NSLog(@"Here are the SQS messages: %@", msgs);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            });
-        });
+        
+//        // Grab all the SQS items and output them to log for now
+//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        dispatch_async(queue, ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//            });
+//            
+////NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
+////NSLog(@"Here are the SQS messages: %@", msgs);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//            });
+//        });
     }
     NSLog(@"Done with runSetupWithCredentials. Here's endpoint ARN: %@", endpointARN);
+    
 }
 
 

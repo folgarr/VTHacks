@@ -15,4 +15,5 @@
 
 @property (nonatomic, weak) MenuViewController *menuController;
 @property (nonatomic, strong) NSMutableArray *announcementDictionaries;
+-(void) reloadAnnouncements;
 @end
