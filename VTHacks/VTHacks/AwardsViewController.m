@@ -22,6 +22,11 @@
 
 @implementation AwardsViewController
 
+- (void)dealloc
+{
+    [self.tableView.refreshControl containingViewDidUnload];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -59,13 +64,13 @@
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
-//    
-//    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-//        
-//        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-//        
-//    }];
-//    
+    
+    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+        
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        
+    }];
+    
 
 }
 

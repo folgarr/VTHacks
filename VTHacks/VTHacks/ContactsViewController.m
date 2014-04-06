@@ -26,6 +26,11 @@
 
 @implementation ContactsViewController
 
+- (void)dealloc
+{
+    [self.tableView.refreshControl containingViewDidUnload];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,12 +59,12 @@
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
-//    
-//    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-//        
-//        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-//        
-//    }];
+    
+    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+        
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        
+    }];
 
     
     
@@ -372,21 +377,36 @@
 
 - (void)showEmailSheetWithName: (NSString *)name withEmail:(NSString *)email
 {
-    // Email Subject
-    NSString *emailTitle = @"VTHacks Help!";
-    // Email Content
-    NSString *messageBody = [NSString stringWithFormat:@"Hey %@", name];
-    // To address
-    NSArray *toRecipents = @[email];
     
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:toRecipents];
-    
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:nil];
+    if ([MFMailComposeViewController canSendMail]) {
+        // Email Subject
+        NSString *emailTitle = @"VTHacks Help!";
+        // Email Content
+        NSString *messageBody = [NSString stringWithFormat:@"Hey %@", name];
+        // To address
+        NSArray *toRecipents = @[email];
+        
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
+        [mc setToRecipients:toRecipents];
+        
+        // Present mail view controller on screen
+        [self presentViewController:mc animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Not Supported"
+                                                        message: @"Your device does not support mail or have not been setup."
+                                                       delegate: nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        
+        [alert show];
+        
+        
+    }
 
 }
 //TODO: remove the NSLogs when shipping.

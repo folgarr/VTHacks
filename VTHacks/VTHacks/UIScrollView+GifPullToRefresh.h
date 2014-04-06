@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NSArray *loadingImgs;
 @property (nonatomic, assign) CGFloat originalContentInsectY;
 - (void)endLoading;
+- (void)containingViewDidUnload;
 @end
 
 @interface UIScrollView (GifPullToRefresh)
@@ -39,6 +40,7 @@
 
 - (void)addPullToRefreshWithDrawingImgs:(NSArray*)drawingImgs andLoadingImgs:(NSArray*)loadingImgs andActionHandler:(void (^)(void))actionHandler;
 - (void)didFinishPullToRefresh;
+
 @end
 
 

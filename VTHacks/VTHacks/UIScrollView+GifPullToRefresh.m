@@ -83,6 +83,14 @@ static char UIScrollViewGifPullToRefresh;
     BOOL _isTrigged;
     UIImageView *_refreshView;
 }
+
+-(void)containingViewDidUnload {
+    [_scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    [_scrollView removeObserver:self forKeyPath:@"pan.state"];
+    _scrollView = nil;
+}
+
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

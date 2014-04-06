@@ -136,14 +136,7 @@
     [self.menuBarButton setTitle:@"\uf142"];
     viewController.navigationItem.rightBarButtonItem = self.menuBarButton;
     [viewController.navigationController.navigationBar setTranslucent:NO];
-//    [viewController.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
-//                       forBarPosition:UIBarPositionAny
-//                           barMetrics:UIBarMetricsDefault];
-//    
-//    [viewController.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
-//
-    
-//        [self.navigationController.navigationBar setBackgroundColor:[UIColor greenColor]];
+
     viewController.navigationItem.hidesBackButton = YES;
 }
 
@@ -257,13 +250,7 @@
     [self.navigationController popToRootViewControllerAnimated:NO];
     
      NSLog(@"stack after pop %lu", (unsigned long)[[self.navigationController viewControllers] count]);
-
-//    if ([self.navigationController.viewControllers count] > 1)
-//    {
-//        [self.navigationController popViewControllerAnimated:NO];
-////        [self.navigationController popToRootViewControllerAnimated:NO]
-//    }
-//    
+  
     if ([selectedMenuItem isEqualToString:@"Annoucements"])
     {
         NSLog(@"Annoucements View Controller");

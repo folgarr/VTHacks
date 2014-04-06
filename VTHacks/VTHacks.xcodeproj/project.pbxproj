@@ -455,7 +455,7 @@
 				ORGANIZATIONNAME = "Vincent Ngo";
 				TargetAttributes = {
 					10CF8D8918C27EBA0014E20D = {
-						DevelopmentTeam = 3AC2RN6H7L;
+						DevelopmentTeam = LZMRHF534X;
 					};
 					10CF8DAA18C27EBA0014E20D = {
 						TestTargetID = 10CF8D8918C27EBA0014E20D;

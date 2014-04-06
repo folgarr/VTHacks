@@ -26,9 +26,16 @@
 @property (nonatomic, strong) NSMutableArray *saturdayEvents;
 @property (nonatomic, strong) NSMutableArray *fridayEvents;
 
+
 @end
 
 @implementation ScheduleViewController
+
+
+- (void)dealloc
+{
+    [self.tableView.refreshControl containingViewDidUnload];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -38,6 +45,8 @@
     }
     return self;
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -76,14 +85,14 @@
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
-//    
-//    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-//
-//        NSLog(@"PULL TO REFRESH is happening ScheduleViewController!");
-//
-//        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-//        
-//    }];
+    
+    [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
+
+        NSLog(@"PULL TO REFRESH is happening ScheduleViewController!");
+
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
