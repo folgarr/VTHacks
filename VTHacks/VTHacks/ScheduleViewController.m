@@ -195,10 +195,10 @@
     
     CGSize size = [description boundingRectWithSize:CGSizeMake(280, FLT_MAX)
                                             options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
-                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
+                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0]}
                                             context:nil].size;
 
-    return 75 + size.height + 38;
+    return 52 + size.height + 52;
 }
 
 

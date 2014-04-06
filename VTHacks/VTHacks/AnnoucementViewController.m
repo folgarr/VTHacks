@@ -263,7 +263,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15.0]}
                                             context:nil].size;
     
-    return 40 + size.height + 36;
+    return 60 + size.height + 36;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

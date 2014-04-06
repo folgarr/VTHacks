@@ -85,11 +85,40 @@
     return [self.awardsList count];
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
+    /* Create custom view to display section header... */
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width, 30)];
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    
     NSDictionary *award = self.awardsList[section];
-    NSString *awardTitle = award[@"title"];
-    return awardTitle;
+    NSString *string = award[@"title"];
+    
+    label.textAlignment = NSTextAlignmentLeft;
+    
+    /* Section header is in 0th index... */
+    [label setText:string];
+    [view addSubview:label];
+    [view setBackgroundColor:[UIColor sectionColor]]; //your background color...
+    //    scheduleHeaderCell
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+
+-(UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    return view;
+}
+-(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -102,9 +131,8 @@
     static NSString *CellIdentifier = @"awardsCell";
     AwardsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    NSInteger row = [indexPath row];
-    
-    NSDictionary *award = self.awardsList[row];
+    NSInteger section = [indexPath section];
+    NSDictionary *award = self.awardsList[section];
     NSString *company = award[@"company"];
 //    NSString *url = award[@"url"];
     NSString *prize = award[@"prize"];
@@ -112,6 +140,7 @@
     
     [cell.companyLabel setText:company];
     [cell.descriptionView setText:description];
+
     [cell.prizeLabel setText:prize];
 
     return cell;
@@ -125,10 +154,10 @@
     
     CGSize size = [description boundingRectWithSize:CGSizeMake(280, FLT_MAX)
                                             options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
-                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
+                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0]}
                                             context:nil].size;
     
-    return 48 + size.height;
+    return 50 + size.height;
 }
 
 
