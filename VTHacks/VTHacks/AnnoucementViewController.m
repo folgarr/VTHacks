@@ -148,6 +148,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
                 NSLog(@"Error: pull to refresh tried to get queue messages but errored out with this message: %@", [serverError description]);
             }
         } usingPullToRefresh:YES];
+        [weakSelf.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
     }];
 }
@@ -156,6 +157,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 {
     NSMutableArray *rawJSON = nil;
     rawJSON = [instance getMessagesFromQueue];
+    NSLog(@"RECEIVED THIS MANY MESSAGES FROM THE QUEUE: %lu", (unsigned long)[rawJSON count]);
     NSError *localError = nil;
     NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
     for (SQSMessage *rawMessage in rawJSON)
@@ -174,6 +176,12 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
             NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
             [multipleJsons addObject:simpleDictionary];
         }
+        else if (message && [message length] > 0)
+        {
+            NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+            NSDictionary *simpleDictionary = @{@"title" : @"Announcement", @"body" : message, @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+            [multipleJsons addObject:simpleDictionary];
+        }
     }
     
     // sort the array in descending order
@@ -182,6 +190,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     self.announcementDictionaries = sortedAnnouncements;
     cachedDicts = self.announcementDictionaries;
     [self.tableView reloadData];
+    
 
 }
 
@@ -212,6 +221,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         
         [self.tableView reloadData];
         self.tableView.scrollsToTop = YES;
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }
 
 
