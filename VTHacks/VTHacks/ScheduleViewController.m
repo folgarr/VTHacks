@@ -126,10 +126,6 @@
     return 30;
 }
 
-//-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    return [[UIView alloc] initWithFrame:CGRectZero];
-//}
 
 -(UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -141,11 +137,6 @@
 {
     return 1.0;
 }
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *currentDate = self.sectionDay[section];
-//    return currentDate;
-//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

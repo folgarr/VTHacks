@@ -224,23 +224,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     
 }
 
-- (void)showScheduleView
-
-{
-    NSLog(@"CLICKED ON THE Show Schedule Button!");
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"scheduleViewController"];
-    [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-//    
-//    [self presentViewController:vc animated:NO completion:nil];
-    [[self navigationController] pushViewController:vc animated:YES];
-
-//    [self presentViewController:vc animated:YES completion:nil];
-
-    
-}
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -263,7 +246,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15.0]}
                                             context:nil].size;
     
-    return 60 + size.height + 36;
+    return 61 + size.height + 36;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -274,13 +257,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-   
-//        NSString *currentDate = self.annoucementKeys[section];
-//        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-    
     return self.announcementDictionaries == nil? 0 : [self.announcementDictionaries count];
-
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -311,69 +288,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         [cell.subDescription setText:annoucement[@"body"]];
         return cell;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-   
-//        if (self.selectedRow == indexPath.row)
-//        {
-//            self.selectedRow = -1;
-//            [tableView beginUpdates];
-//            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//            [tableView endUpdates];
-//            
-//        }
-//        else
-//        {
-//            self.selectedRow = indexPath.row;
-//            [tableView beginUpdates];
-//            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//            [tableView endUpdates];
-//            AnnoucementCell *cell = (AnnoucementCell *)[tableView cellForRowAtIndexPath:indexPath];
-//            
-//            NSString *currentDate = self.annoucementKeys[indexPath.section];
-//            NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-//            NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
-//            NSString *event = listOfEventsNames[indexPath.row];
-//            
-//            NSDictionary *annoucement = listOfEventsWithinDate[event];
-//            NSString *description = annoucement[@"description"];
-//            NSUInteger characterCount = [description length];
-//            
-//            if (characterCount > 200)
-//            {
-//                cell.subDescription.numberOfLines = 0;
-//                [cell.subDescription sizeToFit];
-//            }
-//            
-//        }
-//        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-
-}
-
-- (CGFloat)textViewHeightForText:(NSString *)text andWidth:(CGFloat)width
-{
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-    NSDictionary *attrsDictionary =
-    [NSDictionary dictionaryWithObject:font
-                                forKey:NSFontAttributeName];
-    NSAttributedString *string = [[NSAttributedString alloc]initWithString:text attributes:attrsDictionary];
-    
-    UITextView *textView = [[UITextView alloc] init];
-    [textView setAttributedText:string];
-    CGSize size = [textView sizeThatFits:CGSizeMake(width, FLT_MAX)];
-    return size.height;
-}
-
-- (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
-{
-        CGRect frame = [text boundingRectWithSize:size
-                                          options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                       attributes:@{NSFontAttributeName:font}
-                                          context:nil];
-        return frame.size;
-}
-
 
 +(void) setSubject:(NSString *)subj andBody:(NSString *)body
 {
