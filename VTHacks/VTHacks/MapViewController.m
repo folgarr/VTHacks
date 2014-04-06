@@ -31,9 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-//    [self.scrollView addSubview:self.imageView];
-//    self.scrollView.contentSize = CGSizeMake(405.5, 646);
+    self.scrollView.delegate = self;
     
     NSURL *url = [NSURL URLWithString:MAPS_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -57,6 +55,7 @@
     self.scrollView.minimumZoomScale = 0.85f;
     self.scrollView.maximumZoomScale = 2.0f;
     self.scrollView.zoomScale = 0.85f;
+
 }
 
 - (void)didReceiveMemoryWarning
