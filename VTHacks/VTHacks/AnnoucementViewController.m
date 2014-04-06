@@ -18,8 +18,9 @@
 
 
 
-static NSString *notifySubject;
-static NSString *notifyBody;
+static NSString * notifySubject;
+static NSString * notifyBody;
+static NSMutableArray * cachedDicts;
 
 @interface AnnoucementViewController ()
 
@@ -40,6 +41,10 @@ static NSString *notifyBody;
 
 @implementation AnnoucementViewController
 
++(void) setAnnouncementsCache:(NSMutableArray*)dict
+{
+    cachedDicts = dict;
+}
 
 - (void)dealloc
 {
@@ -119,8 +124,8 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     __unsafe_unretained typeof(self) weakSelf = self;
 //    __unsafe_unretained typeof(self) weakSelfTableView = self.tableView;
     
-    
-    
+    if (cachedDicts)
+        self.announcementDictionaries = cachedDicts;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
         
@@ -129,8 +134,14 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
             if (!serverError && jsonList)
             {
                 NSLog(@"PULL TO REFRESH FOUDN THIS MANY ANNOUNCEMENTS IN QUEUE: %tu", [jsonList count]);
-                weakSelf.announcementDictionaries = jsonList;
-                [weakSelf.tableView reloadData];
+                if ((cachedDicts && [jsonList count] > [cachedDicts count]) || !cachedDicts)
+                {
+                    cachedDicts = jsonList;
+                    weakSelf.announcementDictionaries = jsonList;
+                    [weakSelf.tableView reloadData];
+                }
+                else
+                    NSLog(@"NO CHANGES IN QUEUE. PULL TO REFRESH WILL NOT UPDATE TABLE VIEW.");
             }
             else if (serverError)
             {
@@ -169,6 +180,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     NSArray *sorted = [multipleJsons sortedArrayUsingFunction:sortDictsByDate context:nil];
     NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
     self.announcementDictionaries = sortedAnnouncements;
+    cachedDicts = self.announcementDictionaries;
     [self.tableView reloadData];
 
 }
@@ -196,6 +208,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         NSDictionary *newAnnouncement = @{@"title" : subject, @"body" : body, @"date":now, @"dateString":@"temporary date string?", @"simpleTimeString":currentTime};
         [[MessageBoard instance] updateCacheWithAnnouncement:newAnnouncement];
         [self.announcementDictionaries insertObject:newAnnouncement atIndex:0];
+        cachedDicts = self.announcementDictionaries;
         
         [self.tableView reloadData];
         self.tableView.scrollsToTop = YES;
@@ -208,16 +221,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    __unsafe_unretained typeof(self) weakSelf = self;
-
-//    //Grab annoucements data that is cached on initial load
-//    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-//        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
-//        weakSelf.announcementDictionaries = jsonList;
-//        [weakSelf.tableView reloadData];
-//        [self.tableView setNeedsDisplay];
-//
-//    } usingPullToRefresh:NO];
+    
 }
 
 - (void)showScheduleView
@@ -246,11 +250,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 
 #pragma mark - Table view data source
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *currentDate = self.annoucementKeys[section];
-//    return currentDate;
-//}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -265,25 +265,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     
     return 75 + size.height + 38;
     
-    
-//        NSString *currentDate = self.annoucementKeys[indexPath.section];
-//        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-//        NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
-//        NSString *event = listOfEventsNames[indexPath.row];
-//        
-//        NSDictionary *annoucement = listOfEventsWithinDate[event];
-//        NSString *description = annoucement[@"description"];
-//        NSUInteger characterCount = [description length];
-//        
-//        if (self.selectedRow == [indexPath row] && characterCount > 200)
-//        {
-//            return 320;
-//        }
-//        else
-//        {
-//            return 100;
-//        }
-   
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
