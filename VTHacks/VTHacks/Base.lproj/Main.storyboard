@@ -201,7 +201,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iRk-BP-U6Y">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="6" translatesAutoresizingMaskIntoConstraints="NO" id="iRk-BP-U6Y">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -211,11 +211,17 @@
                                     </imageView>
                                 </subviews>
                                 <connections>
-                                    <outlet property="delegate" destination="Dwg-iU-AVh" id="OPR-lk-nqk"/>
+                                    <outlet property="delegate" destination="Dwg-iU-AVh" id="8yh-qE-tRp"/>
                                 </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iRk-BP-U6Y" firstAttribute="leading" secondItem="fbn-tI-Fxf" secondAttribute="leading" id="KHa-NH-4RI"/>
+                            <constraint firstAttribute="trailing" secondItem="iRk-BP-U6Y" secondAttribute="trailing" id="kWM-tt-k6Y"/>
+                            <constraint firstAttribute="bottom" secondItem="iRk-BP-U6Y" secondAttribute="bottom" id="mC5-KV-rlh"/>
+                            <constraint firstItem="iRk-BP-U6Y" firstAttribute="top" secondItem="fbn-tI-Fxf" secondAttribute="top" id="v4D-ZO-lls"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="SnK-fD-zg3" id="08X-WG-sgS"/>

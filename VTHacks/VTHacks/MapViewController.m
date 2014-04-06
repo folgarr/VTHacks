@@ -31,9 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-//    [self.scrollView addSubview:self.imageView];
-//    self.scrollView.contentSize = CGSizeMake(405.5, 646);
+    self.scrollView.delegate = self;
+    self.scrollView.contentSize = self.imageView.image.size;
+    self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
     
     NSURL *url = [NSURL URLWithString:MAPS_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -43,7 +43,8 @@
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.imageView.image = responseObject;
-        self.scrollView.contentSize = CGSizeMake(405.5, 646);
+            self.scrollView.contentSize = self.imageView.image.size;
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -54,16 +55,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    CGRect scrollViewFrame = self.scrollView.frame;
-    CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
-    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-    CGFloat minScale = MIN(scaleWidth, scaleHeight);
-    self.scrollView.minimumZoomScale = minScale;
-
-    
-    self.scrollView.maximumZoomScale = 2.0f;
-    self.scrollView.zoomScale = minScale;
-
 }
 
 - (void)didReceiveMemoryWarning
