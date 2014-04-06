@@ -121,34 +121,25 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         
         //Grab annoucements data. This call will NOT use the cache (because user is explicitely asking to refresh).
         [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-            NSLog(@"Here are the announcements: %@", jsonList);
-            weakSelf.announcementDictionaries = jsonList;
+            if (!serverError && jsonList)
+            {
+                NSLog(@"PULL TO REFRESH FOUDN THIS MANY ANNOUNCEMENTS IN QUEUE: %tu", [jsonList count]);
+                weakSelf.announcementDictionaries = jsonList;
+                [weakSelf.tableView reloadData];
+            }
+            else if (serverError)
+            {
+                NSLog(@"Error: pull to refresh tried to get queue messages but errored out with this message: %@", [serverError description]);
+            }
         } usingPullToRefresh:YES];
-        [weakSelf.tableView reloadData];
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-        
     }];
-
-    
-    
-    
-    
-    
-//    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-//        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tableView reloadData];
-//        });
-//        
-//    } usingPullToRefresh:NO];
-    
-    
 }
 
--(void) reloadAnnouncements
+-(void) reloadAnnouncementsWithInstance:(MessageBoard *)instance
 {
     NSMutableArray *rawJSON = nil;
-    rawJSON = [[MessageBoard instance] getMessagesFromQueue];
+    rawJSON = [instance getMessagesFromQueue];
     NSError *localError = nil;
     NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
     for (SQSMessage *rawMessage in rawJSON)
