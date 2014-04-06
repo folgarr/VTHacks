@@ -41,6 +41,11 @@ static NSString *notifyBody;
 @implementation AnnoucementViewController
 
 
+- (void)dealloc
+{
+    [self.tableView.refreshControl containingViewDidUnload];
+}
+
 NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *context) {
     NSDate *date1 = d1[@"date"];
     NSDate *date2 = d2[@"date"];
