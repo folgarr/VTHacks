@@ -260,10 +260,10 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     
     CGSize size = [description boundingRectWithSize:CGSizeMake(280, FLT_MAX)
                                             options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
-                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
+                                         attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15.0]}
                                             context:nil].size;
     
-    return 49 + size.height;
+    return 40 + size.height + 36;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -300,7 +300,9 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         //NSString *event = self.eventKeys[row];
         
         NSDictionary *annoucement = self.announcementDictionaries[row];//listOfEventsWithinDate[event];
-        
+    
+//        cell.subDescription.contentInset = UIEdgeInsetsMake(0,0,0,0);
+    [cell.subDescription setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
         [cell.annoucementTitle setText:annoucement[@"title"]];
     
         [cell.annoucementTime setText:annoucement[@"simpleTimeString"]];
