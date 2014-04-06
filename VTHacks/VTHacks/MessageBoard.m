@@ -158,26 +158,11 @@ static MessageBoard *_instance = nil;
                 [self subscribeDevice:nil];
             }
         }
-
         AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
         AnnoucementViewController *annVC =  appDel.announceVC;
-        [annVC reloadAnnouncements];
-        
-        
-//        // Grab all the SQS items and output them to log for now
-//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_async(queue, ^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//            });
-//            
-////NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
-////NSLog(@"Here are the SQS messages: %@", msgs);
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//            });
-//        });
+        [annVC reloadAnnouncementsWithInstance:self];
     }
+
     NSLog(@"Done with runSetupWithCredentials. Here's endpoint ARN: %@", endpointARN);
     
 }
@@ -335,38 +320,45 @@ static MessageBoard *_instance = nil;
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 //        });
-    
-            rawJSON = [self getMessagesFromQueue];
             NSError *localError = nil;
-            NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
-            for (SQSMessage *rawMessage in rawJSON)
+
+            rawJSON = [self getMessagesFromQueue];
+            if (!rawJSON || [rawJSON count] == 0)
             {
-                NSString *body = [rawMessage body];
-                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&localError];
-                
-                // get the date from time-stamp (initially comes in as utc timezone)
-                NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
-                NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
-                NSString * message = jsonDict[@"Message"];
-                NSArray *components = [message componentsSeparatedByString:@"|"];
-                if ([components count] == 2)
-                {
-                    NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-                    NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-                    [multipleJsons addObject:simpleDictionary];
-                }
+                localError = [NSError errorWithDomain:@"test" code:200 userInfo:@{NSLocalizedDescriptionKey:@"ERROR: NO MESSAGES FOUND IN QUEUE"}];
+                handler(nil, localError);
             }
-        
-            // sort the array in descending order
-            NSArray *sorted =[multipleJsons sortedArrayUsingFunction:dateSort context:nil];
-            NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
-            cachedAnnouncements = sortedAnnouncements;
-            handler(sortedAnnouncements, localError);
+            else
+            {
+                NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
+                for (SQSMessage *rawMessage in rawJSON)
+                {
+                    NSString *body = [rawMessage body];
+                    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&localError];
+                    
+                    // get the date from time-stamp (initially comes in as utc timezone)
+                    NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
+                    NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
+                    NSString * message = jsonDict[@"Message"];
+                    NSArray *components = [message componentsSeparatedByString:@"|"];
+                    if ([components count] == 2)
+                    {
+                        NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                        NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                        [multipleJsons addObject:simpleDictionary];
+                    }
+                    else
+                        NSLog(@"This message was not seperated by a SINGLE bar |: %@", message);
+                }
+                
+                // sort the array in descending order
+                NSArray *sorted =[multipleJsons sortedArrayUsingFunction:dateSort context:nil];
+                NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
+                cachedAnnouncements = sortedAnnouncements;
+                handler(sortedAnnouncements, localError);
+            }
 
-//        dispatch_async(dispatch_get_main_queue(), ^{
 
-//            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//        });
     });
     
     
@@ -400,17 +392,24 @@ static MessageBoard *_instance = nil;
     
     SQSReceiveMessageResponse *response    = nil;
     NSMutableArray *allMessages = [NSMutableArray array];
-    do {
-        response = [sqsClient receiveMessage:rmr];
-        if(response.error != nil)
-        {
-            NSLog(@"Error: %@", response.error);
-            return [NSMutableArray array];
-        }
-        
-        [allMessages addObjectsFromArray:response.messages];
-        [NSThread sleepForTimeInterval:0.2];
-    } while ( [response.messages count] != 0);
+    @try
+    {
+        do {
+            response = [sqsClient receiveMessage:rmr];
+            if(response.error != nil)
+            {
+                NSLog(@"Error: %@", response.error);
+                return [NSMutableArray array];
+            }
+            
+            [allMessages addObjectsFromArray:response.messages];
+            [NSThread sleepForTimeInterval:0.2];
+        } while ( [response.messages count] != 0);
+    }
+    @catch (NSException* ex)
+    {
+        NSLog(@"Here is the aws exception %@", [ex description]);
+    }
     
     return allMessages;
 }

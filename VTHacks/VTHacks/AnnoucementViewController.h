@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MenuViewController.h"
+#import "MessageBoard.h"
 
 @interface AnnoucementViewController : UITableViewController <UIActionSheetDelegate, UIScrollViewDelegate>
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body;
@@ -15,5 +16,5 @@
 
 @property (nonatomic, weak) MenuViewController *menuController;
 @property (nonatomic, strong) NSMutableArray *announcementDictionaries;
--(void) reloadAnnouncements;
+-(void) reloadAnnouncementsWithInstance:(MessageBoard *)instance;
 @end
