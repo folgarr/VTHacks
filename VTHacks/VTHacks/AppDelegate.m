@@ -44,7 +44,7 @@
             2. the app creates its own endpoint and subscribes to sns topic
      */
     [MessageBoard instance];
-}
+} 
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
 	NSLog(@"Failed to register with error : %@", error);

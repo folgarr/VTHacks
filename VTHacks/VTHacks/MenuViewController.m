@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong) NSString *menuSelected;
 
+@property (nonatomic, strong) NSMutableDictionary *viewControllerCache;
+
 @end
 
 @implementation MenuViewController
@@ -88,14 +90,11 @@
 {
     [super viewDidLoad];
  
-    //Customize all nav bars to be maroon
-    UIColor *red = [UIColor colorWithRed:153/255.0f
-                                   green:0/255.0f
-                                    blue:51/255.0f
-                                   alpha:1.0f];
+    //Create view controller cache.
+    self.viewControllerCache = [[NSMutableDictionary alloc]init];
     
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
-    [self.navigationController.navigationBar setBarTintColor:red];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor maroonColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     
@@ -103,12 +102,7 @@
     self.menuSelected = @"Annoucements";
     
     //Initially push Annoucement view controller on the stack
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
-    [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-    
-    [self.navigationController pushViewController:vc animated:NO];
-    
+    [self openSelectedMenuItem:@"Annoucements"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -243,6 +237,39 @@
 
 }
 
+- (UIViewController *)createViewControllerWithStringType:(NSString *)string withCache: (NSMutableDictionary *)cacheDict
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc;
+    if ([string isEqualToString:@"Annoucements"])
+    {
+        vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
+    }
+    else if ([string isEqualToString:@"Schedule"])
+    {
+        vc = [storyboard instantiateViewControllerWithIdentifier:@"scheduleViewController"];
+    }
+    else if ([string isEqualToString:@"Contacts"])
+    {
+        vc = [storyboard instantiateViewControllerWithIdentifier:@"contactsViewController"];
+    }
+    else if ([string isEqualToString:@"Map"])
+    {
+        vc = [storyboard instantiateViewControllerWithIdentifier:@"mapViewController"];
+    }
+    else if ([string isEqualToString:@"Awards"])
+    {
+        vc = [storyboard instantiateViewControllerWithIdentifier:@"awardsViewController"];
+    }
+    else //Social
+    {
+        vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
+    }
+    
+    return vc;
+}
+
+
 - (void)openSelectedMenuItem: (NSString *)selectedMenuItem
 {
     NSLog(@"Count of number of viewControllers on the stack is %lu", (unsigned long)[[self.navigationController viewControllers] count]);
@@ -251,59 +278,25 @@
     
      NSLog(@"stack after pop %lu", (unsigned long)[[self.navigationController viewControllers] count]);
   
-    if ([selectedMenuItem isEqualToString:@"Annoucements"])
-    {
-        NSLog(@"Annoucements View Controller");
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"annoucementViewController"];
-//        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-
-        [self.navigationController pushViewController:vc animated:NO];
-    }
-    else if ([selectedMenuItem isEqualToString:@"Schedule"])
-    {
-        NSLog(@"Schedule View Controller");
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"scheduleViewController"];
-        
-        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-
-        [self.navigationController pushViewController:vc animated:NO];
-    }
-    else if ([selectedMenuItem isEqualToString:@"Contacts"])
-    {
-        NSLog(@"Contacts View Controller");
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"contactsViewController"];
-        
-        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        
-        [self.navigationController pushViewController:vc animated:NO];
-    }
-    else if ([selectedMenuItem isEqualToString:@"Map"])
-    {
-        NSLog(@"Map View Controller");
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"mapViewController"];
-        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [self.navigationController pushViewController:vc animated:NO];
-    }
-    else if ([selectedMenuItem isEqualToString:@"Awards"])
-    {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"awardsViewController"];
-        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [self.navigationController pushViewController:vc animated:NO];
-    }
+    //Check the cache.
+    UIViewController *controller;
     
-    else //Social
+    // If the cache doesn't have an existing view controller.
+    if (self.viewControllerCache[selectedMenuItem])
     {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
-        
-        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [self.navigationController pushViewController:vc animated:NO];
+        controller = self.viewControllerCache[selectedMenuItem];
     }
+    else
+    {
+        controller = [self createViewControllerWithStringType:selectedMenuItem withCache:self.viewControllerCache];
+        
+        //Cache view controller
+        [self.viewControllerCache setObject:controller forKey:selectedMenuItem];
+    }
+    //present controller
+    [controller setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController pushViewController:controller animated:NO];
+
 }
 
 

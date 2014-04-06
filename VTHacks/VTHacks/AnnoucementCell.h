@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *annoucementLocation;
 
 @property (strong, nonatomic) IBOutlet UILabel *annoucementMonth;
-@property (strong, nonatomic) IBOutlet UILabel *subDescription;
+
+@property (strong, nonatomic) IBOutlet UITextView *subDescription;
 
 @end

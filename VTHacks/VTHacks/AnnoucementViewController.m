@@ -52,16 +52,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     return [date2 compare:date1];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 
 - (void)viewDidLoad
 {
@@ -263,27 +253,9 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0]}
                                             context:nil].size;
     
-    return 75 + size.height + 38;
+    return 49 + size.height + 49;
     
-    
-//        NSString *currentDate = self.annoucementKeys[indexPath.section];
-//        NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-//        NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
-//        NSString *event = listOfEventsNames[indexPath.row];
-//        
-//        NSDictionary *annoucement = listOfEventsWithinDate[event];
-//        NSString *description = annoucement[@"description"];
-//        NSUInteger characterCount = [description length];
-//        
-//        if (self.selectedRow == [indexPath row] && characterCount > 200)
-//        {
-//            return 320;
-//        }
-//        else
-//        {
-//            return 100;
-//        }
-   
+
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
