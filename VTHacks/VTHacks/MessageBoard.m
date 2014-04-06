@@ -347,6 +347,12 @@ static MessageBoard *_instance = nil;
                         NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
                         [multipleJsons addObject:simpleDictionary];
                     }
+                    else if (message && [message length] > 0)
+                    {
+                        NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                        NSDictionary *simpleDictionary = @{@"title" : @"Announcement", @"body" : message, @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                        [multipleJsons addObject:simpleDictionary];
+                    }
                     else
                         NSLog(@"This message was not seperated by a SINGLE bar |: %@", message);
                 }

@@ -18,8 +18,9 @@
 
 
 
-static NSString *notifySubject;
-static NSString *notifyBody;
+static NSString * notifySubject;
+static NSString * notifyBody;
+static NSMutableArray * cachedDicts;
 
 @interface AnnoucementViewController ()
 
@@ -40,6 +41,10 @@ static NSString *notifyBody;
 
 @implementation AnnoucementViewController
 
++(void) setAnnouncementsCache:(NSMutableArray*)dict
+{
+    cachedDicts = dict;
+}
 
 - (void)dealloc
 {
@@ -109,8 +114,8 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     __unsafe_unretained typeof(self) weakSelf = self;
 //    __unsafe_unretained typeof(self) weakSelfTableView = self.tableView;
     
-    
-    
+    if (cachedDicts)
+        self.announcementDictionaries = cachedDicts;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
         
@@ -119,14 +124,21 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
             if (!serverError && jsonList)
             {
                 NSLog(@"PULL TO REFRESH FOUDN THIS MANY ANNOUNCEMENTS IN QUEUE: %tu", [jsonList count]);
-                weakSelf.announcementDictionaries = jsonList;
-                [weakSelf.tableView reloadData];
+                if ((cachedDicts && [jsonList count] > [cachedDicts count]) || !cachedDicts)
+                {
+                    cachedDicts = jsonList;
+                    weakSelf.announcementDictionaries = jsonList;
+                    [weakSelf.tableView reloadData];
+                }
+                else
+                    NSLog(@"NO CHANGES IN QUEUE. PULL TO REFRESH WILL NOT UPDATE TABLE VIEW.");
             }
             else if (serverError)
             {
                 NSLog(@"Error: pull to refresh tried to get queue messages but errored out with this message: %@", [serverError description]);
             }
         } usingPullToRefresh:YES];
+        [weakSelf.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
     }];
 }
@@ -135,6 +147,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 {
     NSMutableArray *rawJSON = nil;
     rawJSON = [instance getMessagesFromQueue];
+    NSLog(@"RECEIVED THIS MANY MESSAGES FROM THE QUEUE: %lu", (unsigned long)[rawJSON count]);
     NSError *localError = nil;
     NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
     for (SQSMessage *rawMessage in rawJSON)
@@ -153,13 +166,21 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
             NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
             [multipleJsons addObject:simpleDictionary];
         }
+        else if (message && [message length] > 0)
+        {
+            NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+            NSDictionary *simpleDictionary = @{@"title" : @"Announcement", @"body" : message, @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+            [multipleJsons addObject:simpleDictionary];
+        }
     }
     
     // sort the array in descending order
     NSArray *sorted = [multipleJsons sortedArrayUsingFunction:sortDictsByDate context:nil];
     NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
     self.announcementDictionaries = sortedAnnouncements;
+    cachedDicts = self.announcementDictionaries;
     [self.tableView reloadData];
+    
 
 }
 
@@ -186,9 +207,11 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         NSDictionary *newAnnouncement = @{@"title" : subject, @"body" : body, @"date":now, @"dateString":@"temporary date string?", @"simpleTimeString":currentTime};
         [[MessageBoard instance] updateCacheWithAnnouncement:newAnnouncement];
         [self.announcementDictionaries insertObject:newAnnouncement atIndex:0];
+        cachedDicts = self.announcementDictionaries;
         
         [self.tableView reloadData];
         self.tableView.scrollsToTop = YES;
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }
 
 
@@ -198,16 +221,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    __unsafe_unretained typeof(self) weakSelf = self;
-
-//    //Grab annoucements data that is cached on initial load
-//    [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-//        NSLog(@"viewWillAppear: Here are the announcements: %@", jsonList);
-//        weakSelf.announcementDictionaries = jsonList;
-//        [weakSelf.tableView reloadData];
-//        [self.tableView setNeedsDisplay];
-//
-//    } usingPullToRefresh:NO];
+    
 }
 
 - (void)showScheduleView
@@ -236,11 +250,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 
 #pragma mark - Table view data source
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *currentDate = self.annoucementKeys[section];
-//    return currentDate;
-//}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -254,8 +264,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
                                             context:nil].size;
     
     return 49 + size.height + 49;
-    
-
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
