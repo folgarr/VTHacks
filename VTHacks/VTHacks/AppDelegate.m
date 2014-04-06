@@ -123,6 +123,8 @@
             [self.announceVC announceWithSubject: components[0] andBody: components[1]];
             [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
         }
+        else
+            NSLog(@"\nERROR: please put a | into the message!");
     }
     else
         NSLog(@"Invalid body in the message of this notification");

@@ -9,10 +9,18 @@
 #import "MessageBoard.h"
 #import "Constants.h"
 #import <AWSRuntime/AWSRuntime.h>
-
+#import "AppDelegate.h"
+#import "AnnoucementViewController.h"
 
 
 @implementation MessageBoard
+
+
+NSComparisonResult dateSort(NSDictionary *d1, NSDictionary *d2, void *context) {
+    NSDate *date1 = d1[@"date"];
+    NSDate *date2 = d2[@"date"];
+    return [date2 compare:date1];
+}
 
 /* last stored completion handler from a server request */
 static completionHandler serverResponseHandler;
@@ -151,22 +159,27 @@ static MessageBoard *_instance = nil;
             }
         }
 
+        AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
+        AnnoucementViewController *annVC =  appDel.announceVC;
+        [annVC reloadAnnouncements];
         
-        // Grab all the SQS items and output them to log for now
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-            });
-            
-//NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
-//NSLog(@"Here are the SQS messages: %@", msgs);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            });
-        });
+        
+//        // Grab all the SQS items and output them to log for now
+//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        dispatch_async(queue, ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//            });
+//            
+////NSMutableArray *msgs = [[MessageBoard instance] getMessagesFromQueue];
+////NSLog(@"Here are the SQS messages: %@", msgs);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//            });
+//        });
     }
     NSLog(@"Done with runSetupWithCredentials. Here's endpoint ARN: %@", endpointARN);
+    
 }
 
 
@@ -295,11 +308,6 @@ static MessageBoard *_instance = nil;
     return response.subscriptions;
 }
 
-NSComparisonResult dateSort(NSDictionary *d1, NSDictionary *d2, void *context) {
-    NSDate *date1 = d1[@"date"];
-    NSDate *date2 = d2[@"date"];
-    return [date2 compare:date1];
-}
 
 
 
@@ -341,9 +349,12 @@ NSComparisonResult dateSort(NSDictionary *d1, NSDictionary *d2, void *context) {
                 NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
                 NSString * message = jsonDict[@"Message"];
                 NSArray *components = [message componentsSeparatedByString:@"|"];
-                NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-                NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-                [multipleJsons addObject:simpleDictionary];
+                if ([components count] == 2)
+                {
+                    NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                    NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                    [multipleJsons addObject:simpleDictionary];
+                }
             }
         
             // sort the array in descending order
