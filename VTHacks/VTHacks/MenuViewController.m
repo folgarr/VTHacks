@@ -55,12 +55,12 @@
         contactsController.menuController = self;
         contactsController.navigationController.title = @"Contacts";
     }
-    else if ([viewController isKindOfClass:[SocialViewController class]])
-    {
-        SocialViewController *socialController = (SocialViewController *)viewController;
-        socialController.menuController = self;
-        socialController.navigationController.title = @"Social";
-    }
+//    else if ([viewController isKindOfClass:[SocialViewController class]])
+//    {
+//        SocialViewController *socialController = (SocialViewController *)viewController;
+//        socialController.menuController = self;
+//        socialController.navigationController.title = @"Social";
+//    }
     else if ([viewController isKindOfClass:[AwardsViewController class]])
     {
         AwardsViewController *awardsController = (AwardsViewController *)viewController;
@@ -117,10 +117,10 @@
 - (void)createMenuWithViewController: (UIViewController *)viewController
 {
     //Set up Menu Data
-    self.menuList = @[@"Annoucements", @"Schedule", @"Contacts", @"Map", @"Awards", @"Social"];
+    self.menuList = @[@"Annoucements", @"Schedule", @"Contacts", @"Map", @"Awards"];//, @"Social"];
     
     //Stores the awesomefont id that cooresponds to the company name.
-    self.menuDict = @{@"Annoucements": @"\uf0f3", @"Schedule" : @"\uf133", @"Contacts" : @"\uf007", @"Map" : @"\uf041", @"Awards" : @"\uf091", @"Social" : @"\uf099"};
+    self.menuDict = @{@"Annoucements": @"\uf0f3", @"Schedule" : @"\uf133", @"Contacts" : @"\uf007", @"Map" : @"\uf041", @"Awards" : @"\uf091"};//, @"Social" : @"\uf099"};
     
     //Add Ellipse Menu Button
     self.menuBarButton = [[UIBarButtonItem alloc] initWithTitle:@"^_^"
@@ -261,10 +261,10 @@
     {
         vc = [storyboard instantiateViewControllerWithIdentifier:@"awardsViewController"];
     }
-    else //Social
-    {
-        vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
-    }
+//    else //Social
+//    {
+//        vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
+//    }
     
     return vc;
 }
