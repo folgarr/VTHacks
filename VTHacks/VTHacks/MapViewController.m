@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     self.scrollView.delegate = self;
+    
     self.scrollView.contentSize = self.imageView.image.size;
     self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
     

@@ -189,7 +189,7 @@
             </objects>
             <point key="canvasLocation" x="623" y="824"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Map View Controller - Map-->
         <scene sceneID="fRn-S2-x3N">
             <objects>
                 <viewController storyboardIdentifier="mapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dwg-iU-AVh" customClass="MapViewController" sceneMemberID="viewController">
@@ -223,6 +223,7 @@
                             <constraint firstItem="iRk-BP-U6Y" firstAttribute="top" secondItem="fbn-tI-Fxf" secondAttribute="top" id="v4D-ZO-lls"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Map" id="d0C-OF-G3O"/>
                     <connections>
                         <outlet property="imageView" destination="SnK-fD-zg3" id="08X-WG-sgS"/>
                         <outlet property="scrollView" destination="iRk-BP-U6Y" id="wgr-vk-3QO"/>
