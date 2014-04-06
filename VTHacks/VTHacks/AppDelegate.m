@@ -34,15 +34,6 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:tokenString forKey:@"myDeviceToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    // call getannouncements with pulltorefresh:no
-    
-    
-    /*
-        On construct of first instance of MessageBoard object:
-            1. all the clients are initialized
-            2. the app creates its own endpoint and subscribes to sns topic
-     */
     [MessageBoard instance];
 } 
 

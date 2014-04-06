@@ -43,7 +43,7 @@
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.imageView.image = responseObject;
-        self.scrollView.contentSize = CGSizeMake(405.5, 646);
+        self.scrollView.contentSize = self.imageView.image.size;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -54,16 +54,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    CGRect scrollViewFrame = self.scrollView.frame;
-    CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
-    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-    CGFloat minScale = MIN(scaleWidth, scaleHeight);
-    self.scrollView.minimumZoomScale = minScale;
-
-    
+    self.scrollView.minimumZoomScale = 0.85f;
     self.scrollView.maximumZoomScale = 2.0f;
-    self.scrollView.zoomScale = minScale;
-
+    self.scrollView.zoomScale = 0.85f;
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,18 +70,5 @@
     // Return the view that you want to zoom
     return self.imageView;
 }
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

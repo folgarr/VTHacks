@@ -112,7 +112,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     }
     __weak UIScrollView *tempScrollView = self.tableView;
     __unsafe_unretained typeof(self) weakSelf = self;
-//    __unsafe_unretained typeof(self) weakSelfTableView = self.tableView;
     
     if (cachedDicts)
         self.announcementDictionaries = cachedDicts;
@@ -150,6 +149,8 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     NSLog(@"RECEIVED THIS MANY MESSAGES FROM THE QUEUE: %lu", (unsigned long)[rawJSON count]);
     NSError *localError = nil;
     NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
+    // keeps track of messages
+    NSMutableDictionary *tempMessageHistory = [[NSMutableDictionary alloc] initWithCapacity:[rawJSON count]];
     for (SQSMessage *rawMessage in rawJSON)
     {
         NSString *body = [rawMessage body];
@@ -159,19 +160,28 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
         NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
         NSString * message = jsonDict[@"Message"];
-        NSArray *components = [message componentsSeparatedByString:@"|"];
-        if ([components count] == 2)
+
+        if (!tempMessageHistory[message]) //dont allow repeats
         {
-            NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-            NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-            [multipleJsons addObject:simpleDictionary];
+            NSArray *components = [message componentsSeparatedByString:@"|"];
+            if ([components count] == 2)
+            {
+                NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                [multipleJsons addObject:simpleDictionary];
+            }
+            else if (message && [message length] > 0)
+            {
+                NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                NSDictionary *simpleDictionary = @{@"title" : @"Announcement", @"body" : message, @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                [multipleJsons addObject:simpleDictionary];
+            }
+            else
+                NSLog(@"Found a strange message, it didnt use the | seperator. Here it is: %@", message);
         }
-        else if (message && [message length] > 0)
-        {
-            NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-            NSDictionary *simpleDictionary = @{@"title" : @"Announcement", @"body" : message, @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-            [multipleJsons addObject:simpleDictionary];
-        }
+        else
+            NSLog(@"This message was a duplicate produced by sqs read: %@", message);
+        tempMessageHistory[message] = [NSNumber numberWithBool:YES];
     }
     
     // sort the array in descending order

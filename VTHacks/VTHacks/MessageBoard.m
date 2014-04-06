@@ -147,7 +147,6 @@ static MessageBoard *_instance = nil;
             [self subscribeQueue];
         
         // Find endpointARN for this device if there is one.
-        
         if (fullRun)
         {
             endpointARN = [self findEndpointARN];
@@ -155,9 +154,11 @@ static MessageBoard *_instance = nil;
             {
                 NSLog(@"UNABLE TO findEnpointARN. Will try to create applicationEndPoint");
                 [self createApplicationEndpoint];
-                [self subscribeDevice:nil];
             }
         }
+        [self subscribeDevice:nil];
+        
+        /* reload AnnouncementViewController table data with newly found messages */
         AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
         AnnoucementViewController *annVC =  appDel.announceVC;
         [annVC reloadAnnouncementsWithInstance:self];
@@ -182,24 +183,16 @@ static MessageBoard *_instance = nil;
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         });
-        
         if ([[MessageBoard instance] subscribeDevice]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Subscription worked!!!");
-                //[[Constants universalAlertsWithTitle:@"Subscription succeed" andMessage:nil] show];
             });
         }
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         });
     });
-    
 }
-
-
-
 
 -(bool)createApplicationEndpoint
 {
@@ -235,11 +228,9 @@ static MessageBoard *_instance = nil;
 
 -(bool)subscribeDevice
 {
-    if (endpointARN == nil) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [[Constants universalAlertsWithTitle:@"endpointARN not found!" andMessage:@"Please create an endpoint for this device before subscribe to topic"] show];
-        });
+    if (endpointARN == nil)
+    {
+        NSLog(@"Sorry, will be unable to subscribe this device to the topic because we dont have an endpointARN yet :( ");
         return NO;
     }
     
@@ -247,19 +238,11 @@ static MessageBoard *_instance = nil;
     SNSSubscribeResponse *subscribeResponse = [snsClient subscribe:sr];
     if(subscribeResponse.error != nil)
     {
-        NSLog(@"Error: %@", subscribeResponse.error);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [[Constants universalAlertsWithTitle:@"Subscription Error" andMessage:subscribeResponse.error.userInfo.description] show];
-        });
-        
+        NSLog(@"Error: %@ and %@", subscribeResponse.error, subscribeResponse.error.userInfo.description);
         return NO;
     }
     else
-    {
         NSLog(@"IT WORKED. THIS APP IS SUBSCRIBED TO the SNS TOPIC!");
-    }
-    
     return YES;
 }
 
@@ -312,25 +295,23 @@ static MessageBoard *_instance = nil;
         return;
     }
     
-    // must assign __block specifier to indicate mutability within block
     __block NSMutableArray *rawJSON = nil;
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//        });
             NSError *localError = nil;
 
             rawJSON = [self getMessagesFromQueue];
             if (!rawJSON || [rawJSON count] == 0)
             {
-                localError = [NSError errorWithDomain:@"test" code:200 userInfo:@{NSLocalizedDescriptionKey:@"ERROR: NO MESSAGES FOUND IN QUEUE"}];
+                localError = [NSError errorWithDomain:@"test" code:200 userInfo:@{NSLocalizedDescriptionKey:@"Sorry, NO MESSAGES FOUND IN QUEUE."}];
                 handler(nil, localError);
             }
             else
             {
                 NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
+                // keeps track of messages
+                NSMutableDictionary *tempMessageHistory = [[NSMutableDictionary alloc] initWithCapacity:[rawJSON count]];
                 for (SQSMessage *rawMessage in rawJSON)
                 {
                     NSString *body = [rawMessage body];
@@ -340,23 +321,29 @@ static MessageBoard *_instance = nil;
                     NSDate *utcDate = [NSDate dateWithISO8061Format:jsonDict[@"Timestamp"]];
                     NSString *localDateString = [NSDateFormatter localizedStringFromDate:utcDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
                     NSString * message = jsonDict[@"Message"];
-                    NSArray *components = [message componentsSeparatedByString:@"|"];
-                    if ([components count] == 2)
+                    if (!tempMessageHistory[message]) //dont allow repeats
                     {
-                        NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-                        NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-                        [multipleJsons addObject:simpleDictionary];
-                    }
-                    else if (message && [message length] > 0)
-                    {
-                        NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
-                        NSDictionary *simpleDictionary = @{@"title" : @"Announcement", @"body" : message, @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
-                        [multipleJsons addObject:simpleDictionary];
+                        NSArray *components = [message componentsSeparatedByString:@"|"];
+                        if ([components count] == 2)
+                        {
+                            NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                            NSDictionary *simpleDictionary = @{@"title" : components[0], @"body" : components[1], @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                            [multipleJsons addObject:simpleDictionary];
+                        }
+                        else if (message && [message length] > 0)
+                        {
+                            NSString *simpleTimeString = [MessageBoard getSimpleTimeFromDateString:localDateString];
+                            NSDictionary *simpleDictionary = @{@"title" : @"Announcement", @"body" : message, @"date":utcDate, @"dateString":localDateString, @"simpleTimeString":simpleTimeString};
+                            [multipleJsons addObject:simpleDictionary];
+                        }
+                        else
+                            NSLog(@"Found a strange message, it didnt use the | seperator. Here it is: %@", message);
                     }
                     else
-                        NSLog(@"This message was not seperated by a SINGLE bar |: %@", message);
+                        NSLog(@"Reading of Queue found a duplicate message. I will skip it. Here's the message: %@", message);
+                    tempMessageHistory[message] = [NSNumber numberWithBool:YES];
                 }
-                
+
                 // sort the array in descending order
                 NSArray *sorted =[multipleJsons sortedArrayUsingFunction:dateSort context:nil];
                 NSMutableArray *sortedAnnouncements = [NSMutableArray arrayWithArray:sorted];
