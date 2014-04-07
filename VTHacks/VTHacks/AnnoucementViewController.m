@@ -16,8 +16,6 @@
 #import "UIScrollView+GifPullToRefresh.h"
 #import "MessageBoard.h"
 
-
-
 static NSString * notifySubject;
 static NSString * notifyBody;
 static NSMutableArray * cachedDicts;
@@ -62,16 +60,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 {
 
     [super viewDidLoad];
-
-    //Creates an instance of MessageBoard
-
-//    MessageBoard *messageBoard = [MessageBoard instance];
-
-
-    // someplace where you create the UINavigationController
-//[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backgroundColor.png"] forBarMetrics:UIBarMetricsDefault];
-//    
-
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"annoucementCache"
                                                          ofType:@"plist"];
     self.annoucementDict = [NSMutableDictionary dictionaryWithContentsOfFile:filePath];
@@ -113,8 +101,11 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     __weak UIScrollView *tempScrollView = self.tableView;
     __unsafe_unretained typeof(self) weakSelf = self;
     
-    if (cachedDicts)
+    if (cachedDicts && [cachedDicts count] > 0)
         self.announcementDictionaries = cachedDicts;
+    else if (!self.announcementDictionaries || [self.announcementDictionaries count] == 0)
+        self.announcementDictionaries = [NSMutableArray arrayWithArray:@[@{@"title" : @"Loading", @"body" : @"Loading please wait...", @"date":[NSDate date], @"dateString":@"Today", @"simpleTimeString":@"now" }]];
+        
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
         
@@ -197,17 +188,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 -(void) announceWithSubject:(NSString *)subject andBody:(NSString *)body
 {
     NSDate *now = [NSDate date];
-//    NSDictionary *eventDict = @{@"time": now, @"location": @"AWS", @"description" : body};
-//    
-//    NSString *currentDate = self.annoucementKeys[0];
-//    NSMutableDictionary *listOfEventsWithinDate = [[NSMutableDictionary alloc] initWithDictionary:self.annoucementDict[currentDate]];
-//    
-//    [listOfEventsWithinDate setObject:eventDict forKey:subject];
-//    [self.eventKeys insertObject:subject atIndex:0];
-//    
-//    self.annoucementDict[currentDate] = listOfEventsWithinDate;
-    
-    
+   
     if (self.announcementDictionaries != nil)
     {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -224,7 +205,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }
 
-
     NSLog(@"\nMESSAGE TITLE: %@\nMESSAGE BODY: %@\n", subject, body);
 }
 
@@ -238,11 +218,9 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -273,28 +251,13 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
         NSInteger row = [indexPath row];
-       // NSInteger section = [indexPath section];
-
-        
         static NSString *CellIdentifier = @"annoucementCell";
         AnnoucementCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        //NSString *currentDate = self.annoucementKeys[section];
-        //NSDictionary *listOfEventsWithinDate = self.annoucementDict[currentDate];
-        //    NSArray *listOfEventsNames = [listOfEventsWithinDate allKeys];
-        //NSString *event = self.eventKeys[row];
-        
-        NSDictionary *annoucement = self.announcementDictionaries[row];//listOfEventsWithinDate[event];
-    
-//        cell.subDescription.contentInset = UIEdgeInsetsMake(0,0,0,0);
-    [cell.subDescription setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+        NSDictionary *annoucement = self.announcementDictionaries[row];
+        [cell.subDescription setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
         [cell.annoucementTitle setText:annoucement[@"title"]];
-    
         [cell.annoucementTime setText:annoucement[@"simpleTimeString"]];
-        //[cell.annoucementMonth setText:[self.monthFormatter stringFromDate:annoucement[@"time"]]];
-        
         [cell.subDescription setText:annoucement[@"body"]];
         return cell;
 }
@@ -327,56 +290,5 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
         }
     }
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 @end
