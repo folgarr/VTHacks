@@ -64,11 +64,19 @@
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
+    __unsafe_unretained typeof(self) weakSelf = self;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
         
-        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-        
+        weakSelf.messageBoard = [MessageBoard instance];
+        [weakSelf.messageBoard getDataFromServer:@"awards" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+            
+            NSLog(@"awards %lu", (unsigned long)[jsonDictionary[@"awards"] count]);
+            weakSelf.awardsList = jsonDictionary[@"awards"];
+            
+            [weakSelf.tableView reloadData];
+            [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        }];
     }];
     
 
@@ -148,8 +156,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row = [indexPath row];
-    NSDictionary *award = self.awardsList[row];
+    NSInteger section = [indexPath section];
+    NSDictionary *award = self.awardsList[section];
     NSString *description = award[@"description"];
     
     CGSize size = [description boundingRectWithSize:CGSizeMake(280, FLT_MAX)
@@ -157,7 +165,7 @@
                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0]}
                                             context:nil].size;
     
-    return 50 + size.height;
+    return 50 + size.height + 50;
 }
 
 

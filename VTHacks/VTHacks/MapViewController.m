@@ -9,10 +9,6 @@
 #import "MapViewController.h"
 #import "Constants.h"
 #import "AFNetworking.h"
-
-
-
-
 @interface MapViewController ()
 
 @end

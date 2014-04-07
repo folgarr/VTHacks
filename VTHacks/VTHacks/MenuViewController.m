@@ -12,7 +12,6 @@
 #import "ScheduleViewController.h"
 #import "AnnoucementViewController.h"
 #import "ContactsViewController.h"
-#import "SocialViewController.h"
 #import "AwardsViewController.h"
 #import "MapViewController.h"
 @interface MenuViewController ()
@@ -55,12 +54,6 @@
         contactsController.menuController = self;
         contactsController.navigationController.title = @"Contacts";
     }
-//    else if ([viewController isKindOfClass:[SocialViewController class]])
-//    {
-//        SocialViewController *socialController = (SocialViewController *)viewController;
-//        socialController.menuController = self;
-//        socialController.navigationController.title = @"Social";
-//    }
     else if ([viewController isKindOfClass:[AwardsViewController class]])
     {
         AwardsViewController *awardsController = (AwardsViewController *)viewController;
@@ -261,11 +254,6 @@
     {
         vc = [storyboard instantiateViewControllerWithIdentifier:@"awardsViewController"];
     }
-//    else //Social
-//    {
-//        vc = [storyboard instantiateViewControllerWithIdentifier:@"socialViewController"];
-//    }
-    
     return vc;
 }
 

@@ -47,6 +47,15 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.messageBoard = [MessageBoard instance];
+    [self.messageBoard getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+        
+        self.contactsDictionary = jsonDictionary;
+        self.companyListWithContactsDict = [self removeSkillsArray:jsonDictionary];
+        
+        [self.tableView reloadData];
+    }];
+
     NSMutableArray *horseDrawingImgs = [NSMutableArray array];
     NSMutableArray *horseLoadingImgs = [NSMutableArray array];
     for (NSUInteger i  = 0; i <= 15; i++) {
@@ -59,24 +68,20 @@
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
+    __unsafe_unretained typeof(self) weakSelf = self;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
         
-        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        [[MessageBoard instance] getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+            
+            weakSelf.contactsDictionary = jsonDictionary;
+            weakSelf.companyListWithContactsDict = [weakSelf removeSkillsArray:jsonDictionary];
+            
+            [weakSelf.tableView reloadData];
+            [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        }];
         
     }];
-
-    
-    
-    self.messageBoard = [MessageBoard instance];
-    [self.messageBoard getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
-        
-        self.contactsDictionary = jsonDictionary;
-        self.companyListWithContactsDict = [self removeSkillsArray:jsonDictionary];
-        
-        [self.tableView reloadData];
-    }];
-    // Do any additional setup after loading the view.
 }
 
 //Help me convert the skills array into a string my friend.
@@ -438,30 +443,26 @@
 
 
 #pragma mark - scroll view delegates
-
-//TODO: need to put this back when real data to test it somemore..
-
-//-(void)scrollViewDidScroll: (UIScrollView*)scrollView
-//{
-//    float scrollOffset = scrollView.contentOffset.y;
-//    if (scrollOffset == 0 || scrollOffset < 2)
-//    {
-//        if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
-//        {
-//            [self.tableView setBackgroundColor:[UIColor maroonColor]];
-//        }
-//        
-//    }
-//    else if (scrollOffset > 6)
-//    {
-//        if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
-//        {
-//            [self.tableView setBackgroundColor:[UIColor whiteColor]];
-//        }
-//        
-//    }
-//}
-//
+-(void)scrollViewDidScroll: (UIScrollView*)scrollView
+{
+    float scrollOffset = scrollView.contentOffset.y;
+    if (scrollOffset == 0 || scrollOffset < 20)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor maroonColor]];
+        }
+        
+    }
+    else if (scrollOffset > 21)
+    {
+        if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
+        {
+            [self.tableView setBackgroundColor:[UIColor whiteColor]];
+        }
+        
+    }
+}
 
 
 /*

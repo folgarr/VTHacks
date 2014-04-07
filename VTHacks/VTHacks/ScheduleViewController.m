@@ -52,12 +52,6 @@
 {
     [super viewDidLoad];
     
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"scheduleCache" ofType:@"plist"];
-    self.scheduleDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    
-    // this is an array of dicts (exactly two of them)
-    self.nameOfDay = [self.scheduleDict allKeys];
-    
     self.messageBoard = [MessageBoard instance];
     [self.messageBoard getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError)
     {
@@ -85,12 +79,26 @@
         [horseLoadingImgs addObject:[UIImage imageNamed:fileName]];
     }
     __weak UIScrollView *tempScrollView = self.tableView;
+    __unsafe_unretained typeof(self) weakSelf = self;
+    
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
 
         NSLog(@"PULL TO REFRESH is happening ScheduleViewController!");
-
-        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        [[MessageBoard instance] getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError)
+         {
+             if (jsonDictionary)
+             {
+                 weakSelf.scheduleDict = jsonDictionary;
+                 
+                 weakSelf.sectionDay = [NSMutableArray arrayWithArray:[jsonDictionary allKeys]];
+                 [DateUtilities sortArrayBasedOnDay:weakSelf.sectionDay ascending:YES];
+                 
+                 [weakSelf.tableView reloadData];
+             }
+             
+             [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+         }];
         
     }];
 }

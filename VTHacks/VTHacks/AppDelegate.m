@@ -14,7 +14,6 @@
 #import "ScheduleViewController.h"
 #import "AnnoucementViewController.h"
 #import "ContactsViewController.h"
-#import "SocialViewController.h"
 #import "AwardsViewController.h"
 
 #import <MessageUI/MessageUI.h>
