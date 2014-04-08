@@ -210,47 +210,33 @@
 
 
 #pragma mark - scroll view delegates
-
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-    float scrollOffset = scrollView.contentOffset.y;
-    if (scrollOffset == 0 || scrollOffset < 20)
+    NSLog(@"%f", scrollView.contentSize.height);
+    if (scrollView.contentSize.height < 200)
     {
-        if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
-        {
-            [self.tableView setBackgroundColor:[UIColor maroonColor]];
-        }
-        
+        [self.tableView setBackgroundColor:[UIColor whiteColor]];
     }
-    else if (scrollOffset > 21)
+    else
     {
-        if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
+        float scrollOffset = scrollView.contentOffset.y;
+        if (scrollOffset == 0 || scrollOffset < 20)
         {
-            [self.tableView setBackgroundColor:[UIColor whiteColor]];
+            if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
+            {
+                [self.tableView setBackgroundColor:[UIColor maroonColor]];
+            }
+            
         }
-        
+        else if (scrollOffset > 21)
+        {
+            if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
+            {
+                [self.tableView setBackgroundColor:[UIColor whiteColor]];
+            }
+        }
     }
 }
-
-
-
-
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-//{
-//    float scrollViewHeight = scrollView.frame.size.height;
-//    float scrollContentSizeHeight = scrollView.contentSize.height;
-//    float scrollOffset = scrollView.contentOffset.y;
-//    
-//    if (scrollOffset == 0)
-//    {
-//        [self.tableView setBackgroundColor:[UIColor redColor]];
-//    }
-//    else if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
-//    {
-//        [self.tableView setBackgroundColor:[UIColor whiteColor]];
-//    }
-//}
-
 //- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 //{
 //    
