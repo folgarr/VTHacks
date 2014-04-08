@@ -11,7 +11,7 @@
 #import <AWSRuntime/AWSRuntime.h>
 #import "AppDelegate.h"
 #import "AnnoucementViewController.h"
-
+#import "Reachability.h"
 
 @implementation MessageBoard
 
@@ -102,8 +102,15 @@ static MessageBoard *_instance = nil;
 // should display splash screen here while there is still data to be fetched
 -(id)init
 {
-    self = [super init];
     
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        return nil;
+    }
+    self = [super init];
+
     // this call will restore everything if it finds valid credentials stored in defaults - returns true in that case
     // else it will return false
     if ([self previousCredentialsStillValid])
@@ -124,6 +131,7 @@ static MessageBoard *_instance = nil;
  */
 -(void) runSetupWithCredentials:(BOOL)fullRun
 {
+    didSetupCorrectly = YES;
     NSString *logStr = fullRun? @" fullRun is TRUE." : @" fullRun is FALSE";
     NSLog(@"-------- doing runSetupWithCredentials %@-----", logStr);
     if (self != nil)
@@ -156,12 +164,15 @@ static MessageBoard *_instance = nil;
                 [self createApplicationEndpoint];
             }
         }
-        [self subscribeDevice:nil];
-        
-        /* reload AnnouncementViewController table data with newly found messages */
-        AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
-        AnnoucementViewController *annVC =  appDel.announceVC;
-        [annVC reloadAnnouncementsWithInstance:self];
+        if([self subscribeDevice:nil])
+        {
+            /* reload AnnouncementViewController table data with newly found messages */
+            AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
+            AnnoucementViewController *annVC =  appDel.announceVC;
+            [annVC reloadAnnouncementsWithInstance:self];
+        }
+        else
+            didSetupCorrectly = NO;
     }
 
     NSLog(@"Done with runSetupWithCredentials. Here's endpoint ARN: %@", endpointARN);
@@ -170,28 +181,34 @@ static MessageBoard *_instance = nil;
 
 
 
-- (void)subscribeDevice:(id)sender {
+- (BOOL)subscribeDevice:(id)sender
+{
     
 #if TARGET_IPHONE_SIMULATOR
     [[Constants universalAlertsWithTitle:@"Unable to Subscribe Device" andMessage:@"Push notifications are not supported in the simulator."] show];
     return;
 #endif
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    BOOL didWork = [self subscribeDevice];
     dispatch_async(queue, ^{
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         });
-        if ([[MessageBoard instance] subscribeDevice]) {
+        if (didWork) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Subscription worked!!!");
             });
         }
+        else
+            NSLog(@"SUBSCRIPTION DID NOT WORK");
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         });
     });
+    return didWork;
 }
 
 -(bool)createApplicationEndpoint
@@ -228,25 +245,49 @@ static MessageBoard *_instance = nil;
 
 -(bool)subscribeDevice
 {
+    NSError *localError = nil;
+    bool didWork = [self subscribeDeviceWithError:localError];
+    if (!didWork && localError && [localError code] == 1009)
+    {
+        [[Constants universalAlertsWithTitle:@"Offline Error" andMessage:@"No Internet Connection! Please connect in order to load the data."] show];
+        return NO;
+    }
+
+    return didWork;
+}
+
+
+-(bool)subscribeDeviceWithError:(NSError*)error
+{
     if (endpointARN == nil)
     {
         NSLog(@"Sorry, will be unable to subscribe this device to the topic because we dont have an endpointARN yet :( ");
         return NO;
     }
     
-    SNSSubscribeRequest *sr = [[SNSSubscribeRequest alloc] initWithTopicArn:topicARN andProtocol:@"application" andEndpoint:endpointARN];
-    SNSSubscribeResponse *subscribeResponse = [snsClient subscribe:sr];
-    if(subscribeResponse.error != nil)
+    @try
     {
-        NSLog(@"Error: %@ and %@", subscribeResponse.error, subscribeResponse.error.userInfo.description);
+        SNSSubscribeRequest *sr = [[SNSSubscribeRequest alloc] initWithTopicArn:topicARN andProtocol:@"application" andEndpoint:endpointARN];
+        SNSSubscribeResponse *subscribeResponse = [snsClient subscribe:sr];
+        if(subscribeResponse.error != nil)
+        {
+            NSLog(@"Error: %@ and %@", subscribeResponse.error, subscribeResponse.error.userInfo.description);
+            return NO;
+        }
+        else
+            NSLog(@"IT WORKED. THIS APP IS SUBSCRIBED TO the SNS TOPIC!");
+    }
+    @catch (NSException* ex)
+    {
+        if ([ex isKindOfClass:[AmazonServiceException class]] && [(AmazonServiceException*)ex statusCode] == 1009)
+            error = [NSError errorWithDomain:@"NO INTERNET" code:1009 userInfo:@{NSLocalizedDescriptionKey:@"NO INTERNET ACCESS!"}];
+        else if ([ex isKindOfClass:[AmazonClientException class]])
+            error = [NSError errorWithDomain:@"NO INTERNET" code:1009 userInfo:@{NSLocalizedDescriptionKey:@"NO INTERNET ACCESS!"}];
+        NSLog(@"Here is the aws exception %@", [ex description]);
         return NO;
     }
-    else
-        NSLog(@"IT WORKED. THIS APP IS SUBSCRIBED TO the SNS TOPIC!");
     return YES;
 }
-
-
 
 
 -(void)subscribeQueue
@@ -301,7 +342,13 @@ static MessageBoard *_instance = nil;
     dispatch_async(queue, ^{
             NSError *localError = nil;
 
-            rawJSON = [self getMessagesFromQueue];
+            rawJSON = [self getMessagesFromQueueWithError:localError];
+            if (localError != nil) {
+                [[Constants universalAlertsWithTitle:@"Offline Error" andMessage:@"No Internet Connection! Please connect in order to load the data."] show];
+                handler(nil,localError);
+                return;
+            }
+            localError = nil;
             if (!rawJSON || [rawJSON count] == 0)
             {
                 localError = [NSError errorWithDomain:@"test" code:200 userInfo:@{NSLocalizedDescriptionKey:@"Sorry, NO MESSAGES FOUND IN QUEUE."}];
@@ -377,11 +424,12 @@ static MessageBoard *_instance = nil;
     
 }
 
--(NSMutableArray *)getMessagesFromQueue
+-(NSMutableArray *)getMessagesFromQueueWithError:(NSError*)error
 {
     SQSReceiveMessageRequest *rmr = [[SQSReceiveMessageRequest alloc] initWithQueueUrl:queueUrl];
     rmr.maxNumberOfMessages = [NSNumber numberWithInt:10];
     rmr.visibilityTimeout   = [NSNumber numberWithInt:10];
+    
     
     SQSReceiveMessageResponse *response    = nil;
     NSMutableArray *allMessages = [NSMutableArray array];
@@ -401,6 +449,8 @@ static MessageBoard *_instance = nil;
     }
     @catch (NSException* ex)
     {
+        if ([ex isKindOfClass:[AmazonServiceException class]] && [(AmazonServiceException*)ex statusCode] == 1009)
+            error = [NSError errorWithDomain:@"NO INTERNET" code:1009 userInfo:@{NSLocalizedDescriptionKey:@"NO INTERNET ACCESS!"}];
         NSLog(@"Here is the aws exception %@", [ex description]);
     }
     

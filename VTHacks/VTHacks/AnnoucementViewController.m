@@ -15,6 +15,7 @@
 #import "MenuCell.h"
 #import "UIScrollView+GifPullToRefresh.h"
 #import "MessageBoard.h"
+#import "Constants.h"
 
 static NSString * notifySubject;
 static NSString * notifyBody;
@@ -60,22 +61,6 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 {
 
     [super viewDidLoad];
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"annoucementCache"
-                                                         ofType:@"plist"];
-    self.annoucementDict = [NSMutableDictionary dictionaryWithContentsOfFile:filePath];
-    self.annoucementKeys = [[NSMutableArray alloc] initWithArray:[self.annoucementDict allKeys]];
-    NSMutableDictionary *eventDict = self.annoucementDict[self.annoucementKeys[0]];
-    self.eventKeys = [[NSMutableArray alloc] initWithArray:[eventDict allKeys]];
-    //TODO: order the dates.
-
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.monthFormatter = [[NSDateFormatter alloc] init];
-    
-    [self.dateFormatter setDateFormat:@"h:mm a"];
-    [self.monthFormatter setDateFormat:@"EEEE"];
-    
-    self.selectedRow = -1;
-    self.currentDescriptionHeight = 0;
     
     self.appDelegate = [[UIApplication sharedApplication] delegate];
     self.appDelegate.announceVC = self;
@@ -104,31 +89,37 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     if (cachedDicts && [cachedDicts count] > 0)
         self.announcementDictionaries = cachedDicts;
     else if (!self.announcementDictionaries || [self.announcementDictionaries count] == 0)
-        self.announcementDictionaries = [NSMutableArray arrayWithArray:@[@{@"title" : @"Loading", @"body" : @"Loading please wait...", @"date":[NSDate date], @"dateString":@"Today", @"simpleTimeString":@"now" }]];
+        self.announcementDictionaries = [NSMutableArray arrayWithArray:@[@{@"title" : @"Loading", @"body" : @"Waiting for internet connection...", @"date":[NSDate date], @"dateString":@"Today", @"simpleTimeString":@"now" }]];
         
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-        
-        //Grab annoucements data. This call will NOT use the cache (because user is explicitely asking to refresh).
-        [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
-            if (!serverError && jsonList)
-            {
-                NSLog(@"PULL TO REFRESH FOUDN THIS MANY ANNOUNCEMENTS IN QUEUE: %tu", [jsonList count]);
-                if ((cachedDicts && [jsonList count] > [cachedDicts count]) || !cachedDicts)
+        MessageBoard *mb = [MessageBoard instance];
+        if (mb)
+        {
+            //Grab annoucements data. This call will NOT use the cache (because user is explicitely asking to refresh).
+            [[MessageBoard instance] getAnnouncements:^(NSMutableArray *jsonList, NSError *serverError) {
+                if (!serverError && jsonList)
                 {
-                    cachedDicts = jsonList;
-                    weakSelf.announcementDictionaries = jsonList;
-                    [weakSelf.tableView reloadData];
+                    NSLog(@"PULL TO REFRESH FOUDN THIS MANY ANNOUNCEMENTS IN QUEUE: %tu", [jsonList count]);
+                    if ((cachedDicts && [jsonList count] > [cachedDicts count]) || !cachedDicts)
+                    {
+                        cachedDicts = jsonList;
+                        weakSelf.announcementDictionaries = jsonList;
+                        [weakSelf.tableView reloadData];
+                        [weakSelf.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+                    }
+                    else
+                        NSLog(@"NO CHANGES IN QUEUE. PULL TO REFRESH WILL NOT UPDATE TABLE VIEW.");
                 }
-                else
-                    NSLog(@"NO CHANGES IN QUEUE. PULL TO REFRESH WILL NOT UPDATE TABLE VIEW.");
-            }
-            else if (serverError)
-            {
-                NSLog(@"Error: pull to refresh tried to get queue messages but errored out with this message: %@", [serverError description]);
-            }
-        } usingPullToRefresh:YES];
-        [weakSelf.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+                else if (serverError)
+                {
+                    NSLog(@"Error: pull to refresh tried to get queue messages but errored out with this message: %@", [serverError description]);
+                }
+                [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+            } usingPullToRefresh:YES];
+        }
+        else
+            [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
         [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
     }];
 }
@@ -136,9 +127,15 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 -(void) reloadAnnouncementsWithInstance:(MessageBoard *)instance
 {
     NSMutableArray *rawJSON = nil;
-    rawJSON = [instance getMessagesFromQueue];
-    NSLog(@"RECEIVED THIS MANY MESSAGES FROM THE QUEUE: %lu", (unsigned long)[rawJSON count]);
     NSError *localError = nil;
+    rawJSON = [instance getMessagesFromQueueWithError:localError];
+    if (localError != nil) {
+        [[Constants universalAlertsWithTitle:@"Offline Error" andMessage:@"No Internet Connection! Please connect in order to load the data."] show];
+        return;
+    }
+    localError = nil;
+    NSLog(@"RECEIVED THIS MANY MESSAGES FROM THE QUEUE: %lu", (unsigned long)[rawJSON count]);
+
     NSMutableArray *multipleJsons = [[NSMutableArray alloc] initWithCapacity:[rawJSON count]];
     // keeps track of messages
     NSMutableDictionary *tempMessageHistory = [[NSMutableDictionary alloc] initWithCapacity:[rawJSON count]];

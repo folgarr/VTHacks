@@ -15,6 +15,8 @@
 #import "AnnoucementViewController.h"
 #import "ContactsViewController.h"
 #import "AwardsViewController.h"
+#import "Reachability.h"
+
 
 #import <MessageUI/MessageUI.h>
 @implementation AppDelegate
@@ -33,8 +35,14 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:tokenString forKey:@"myDeviceToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [MessageBoard instance];
-} 
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+    } else {
+        [MessageBoard instance];
+    }        
+}
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
 	NSLog(@"Failed to register with error : %@", error);
@@ -46,54 +54,6 @@
     //Register for push notification
     application.applicationIconBadgeNumber = 0;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-//    if(launchOptions != nil)
-//    {
-//        NSString *msg = [NSString stringWithFormat:@"%@", launchOptions];
-//        NSLog(@"%@",msg);
-//        
-//        NSString *rawBody = launchOptions[@"aps"][@"alert"];
-//        if (rawBody != nil && [rawBody length] > 0)
-//        {
-//            NSArray *components = [rawBody componentsSeparatedByString:@"|"];
-//            if (components && [components count] > 1)
-//            {
-//                
-//                if (self.announceVC)
-//                    [self.announceVC announceWithSubject: components[0] andBody: components[1]];
-//                else
-//                {
-//                    [AnnoucementViewController setSubject:components[0] andBody:components[1]];
-//                }
-//                [[Constants universalAlertsWithTitle:components[0] andMessage:components[1]] show];
-//            }
-//        }
-//        else
-//            NSLog(@"Invalid body in the message of this notification");
-//    }
-
-
-    
-    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController.navigationController;
-    AnnoucementViewController *result;
-    
-    //check to see if navbar "get" worked
-    if (navigationController.viewControllers)
-        
-        //look for the nav controller in tab bar views
-        for (UINavigationController *view in navigationController.viewControllers)
-        {
-            
-            //when found, do the same thing to find the MasterViewController under the nav controller
-            if ([view isKindOfClass:[UINavigationController class]])
-                for (UIViewController *view2 in view.viewControllers)
-                    if ([view2 isKindOfClass:[AnnoucementViewController class]])
-                        result = (AnnoucementViewController *) view2;
-        }
-    
-    // Override point for customization after application launch.
-
     return YES;
 }
 

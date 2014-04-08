@@ -71,16 +71,19 @@
     __unsafe_unretained typeof(self) weakSelf = self;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-        
-        [[MessageBoard instance] getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
-            
-            weakSelf.contactsDictionary = jsonDictionary;
-            weakSelf.companyListWithContactsDict = [weakSelf removeSkillsArray:jsonDictionary];
-            
-            [weakSelf.tableView reloadData];
+        MessageBoard *mb = [MessageBoard instance];
+        if (mb)
+        {
+            [mb getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+                weakSelf.contactsDictionary = jsonDictionary;
+                weakSelf.companyListWithContactsDict = [weakSelf removeSkillsArray:jsonDictionary];
+                [weakSelf.tableView reloadData];
+                [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+            }];
+        }
+        else
             [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-        }];
-        
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
     }];
 }
 

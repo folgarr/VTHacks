@@ -67,19 +67,24 @@
     __unsafe_unretained typeof(self) weakSelf = self;
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-        
-        weakSelf.messageBoard = [MessageBoard instance];
-        [weakSelf.messageBoard getDataFromServer:@"awards" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
-            
-            NSLog(@"awards %lu", (unsigned long)[jsonDictionary[@"awards"] count]);
-            weakSelf.awardsList = jsonDictionary[@"awards"];
-            
-            [weakSelf.tableView reloadData];
+        MessageBoard *mb = [MessageBoard instance];
+        if (mb)
+        {
+            weakSelf.messageBoard = mb;
+            [weakSelf.messageBoard getDataFromServer:@"awards" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+                
+                NSLog(@"awards %lu", (unsigned long)[jsonDictionary[@"awards"] count]);
+                weakSelf.awardsList = jsonDictionary[@"awards"];
+                
+                [weakSelf.tableView reloadData];
+                [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+            }];
+        }
+        else
             [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-        }];
-    }];
-    
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
 
+        }];
 }
 
 - (void)didReceiveMemoryWarning

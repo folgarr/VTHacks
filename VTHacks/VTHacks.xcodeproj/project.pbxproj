@@ -67,6 +67,8 @@
 		3D56281E18C2B4FC003C3253 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56281D18C2B4FC003C3253 /* Constants.m */; };
 		3D56282118C2B63F003C3253 /* ClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56282018C2B63F003C3253 /* ClientManager.m */; };
 		3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE7483418C3396900AC37E7 /* MessageBoard.m */; };
+		DD06230818F3665E00CB3D5C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD06230718F3665E00CB3D5C /* SystemConfiguration.framework */; };
+		DD06230B18F366D900CB3D5C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD06230A18F366D900CB3D5C /* Reachability.m */; };
 		DDB2486B18EFC62B003F74D2 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB2486A18EFC62B003F74D2 /* MapViewController.m */; };
 		FDC8A306F1A6461297919629 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EEA74AFA4D472CA2679F35 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -168,6 +170,9 @@
 		3DE7483318C3396900AC37E7 /* MessageBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBoard.h; sourceTree = "<group>"; };
 		3DE7483418C3396900AC37E7 /* MessageBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageBoard.m; sourceTree = "<group>"; };
 		4920DFA4CA934F69830C9883 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		DD06230718F3665E00CB3D5C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DD06230918F366D900CB3D5C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		DD06230A18F366D900CB3D5C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DDB2486918EFC62B003F74D2 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		DDB2486A18EFC62B003F74D2 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD06230818F3665E00CB3D5C /* SystemConfiguration.framework in Frameworks */,
 				10E88E0418EF9B5A0087E712 /* MessageUI.framework in Frameworks */,
 				10E88E0218EF99500087E712 /* Social.framework in Frameworks */,
 				10F75C1D18EB84A0004DBF27 /* CoreGraphics.framework in Frameworks */,
@@ -258,6 +264,7 @@
 		10CF8D8C18C27EBA0014E20D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DD06230718F3665E00CB3D5C /* SystemConfiguration.framework */,
 				10F7B48B18F2239500448A01 /* AWSRuntime.framework */,
 				10E88E0318EF9B5A0087E712 /* MessageUI.framework */,
 				10E88E0118EF99500087E712 /* Social.framework */,
@@ -290,6 +297,8 @@
 				10CF8D9F18C27EBA0014E20D /* Main.storyboard */,
 				10CF8D9418C27EBA0014E20D /* Supporting Files */,
 				3D56281C18C2B4FC003C3253 /* Constants.h */,
+				DD06230918F366D900CB3D5C /* Reachability.h */,
+				DD06230A18F366D900CB3D5C /* Reachability.m */,
 				3D56281D18C2B4FC003C3253 /* Constants.m */,
 				3D56281F18C2B63F003C3253 /* ClientManager.h */,
 				3D56282018C2B63F003C3253 /* ClientManager.m */,
@@ -450,7 +459,7 @@
 				ORGANIZATIONNAME = "Vincent Ngo";
 				TargetAttributes = {
 					10CF8D8918C27EBA0014E20D = {
-						DevelopmentTeam = LZMRHF534X;
+						DevelopmentTeam = 3AC2RN6H7L;
 					};
 					10CF8DAA18C27EBA0014E20D = {
 						TestTargetID = 10CF8D8918C27EBA0014E20D;
@@ -575,6 +584,7 @@
 				10CF8D9A18C27EBA0014E20D /* main.m in Sources */,
 				3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */,
 				10751F4418EC8BB200102B57 /* AwardsViewController.m in Sources */,
+				DD06230B18F366D900CB3D5C /* Reachability.m in Sources */,
 				105829A918EE3E1600C4AD7E /* ContactsCell.m in Sources */,
 				3D56281E18C2B4FC003C3253 /* Constants.m in Sources */,
 				10F75C2018EB8908004DBF27 /* VVNTransparentView.m in Sources */,

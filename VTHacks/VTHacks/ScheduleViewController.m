@@ -82,24 +82,32 @@
     __unsafe_unretained typeof(self) weakSelf = self;
     
     
+    
+    
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
-
-        NSLog(@"PULL TO REFRESH is happening ScheduleViewController!");
-        [[MessageBoard instance] getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError)
-         {
-             if (jsonDictionary)
+        MessageBoard *mb = [MessageBoard instance];
+        if (mb)
+        {
+            NSLog(@"PULL TO REFRESH is happening ScheduleViewController!");
+            [mb getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError)
              {
-                 weakSelf.scheduleDict = jsonDictionary;
+                 if (jsonDictionary)
+                 {
+                     weakSelf.scheduleDict = jsonDictionary;
+                     
+                     weakSelf.sectionDay = [NSMutableArray arrayWithArray:[jsonDictionary allKeys]];
+                     [DateUtilities sortArrayBasedOnDay:weakSelf.sectionDay ascending:YES];
+                     
+                     [weakSelf.tableView reloadData];
+                 }
                  
-                 weakSelf.sectionDay = [NSMutableArray arrayWithArray:[jsonDictionary allKeys]];
-                 [DateUtilities sortArrayBasedOnDay:weakSelf.sectionDay ascending:YES];
-                 
-                 [weakSelf.tableView reloadData];
-             }
-             
-             [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
-         }];
-        
+                 [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+             }];
+        }
+        else
+            [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:2];
+
     }];
 }
 

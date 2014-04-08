@@ -42,9 +42,8 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
     // store announcements here
     NSMutableArray* cachedAnnouncements;
     
-
-    //(nonatomic, copy) void (^serverResponseHandler)(NSDictionary *jsonDictionary, NSError *serverError);
-       
+    // did do the correct aws setup
+    BOOL didSetupCorrectly;
 }
 
 +(MessageBoard *)instance;
@@ -55,7 +54,7 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
 -(bool)createApplicationEndpoint;
 -(NSString *)findEndpointARN;
 -(bool)subscribeDevice;
--(NSMutableArray *)getMessagesFromQueue;
+-(NSMutableArray *)getMessagesFromQueueWithError:(NSError*)error;
 -(void)subscribeQueue;
 -(void)deleteMessageFromQueue:(SQSMessage *)message;
 -(void)updateCacheWithAnnouncement:(NSDictionary *)announcement;
