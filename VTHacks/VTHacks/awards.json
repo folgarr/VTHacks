@@ -1,15 +1,22 @@
 {
   "awards" : [
     {
-      "title" : "Best Salesforce Platform Hack",
-      "description" : "Best use of the Salesforce Platform will win a Macbook Pro.",
-      "prize" : "Macbook Pro",
-      "company" : "Salesforce",
+      "title" : "NOTICE",
+      "description" : "Apple is not a sponsor nor is involved in any way with this event (or any related contests presented here or during the event). All contests and prizes presented in this app are sponsored by VTHacks. The only official rule for these contests is to be a registered VTHacks participant.",
+      "prize" : "Please read:",
+      "company" : "",
       "url" : ""
     },
     {
-      "title" : "Best Hack",
-      "description" : "This award goes out to the group that creates the best hack during this hackathon.",
+      "title" : "Best Hardware Hack",
+      "description" : "The rules for this prize are fairly simple: You have to be a registered VTHacks participant and all you have to do is make use of common electronic prototyping parts in your project and have a functional demo. Our judges will vote on the best overall hardware project and the winner will be notified shortly afterwards.",
+      "prize" : "$100",
+      "company" : "VTHacks",
+      "url" : ""
+    },
+    {
+      "title" : "Overall Best Hack",
+      "description" : "The rules for this prize are also simple: you have to be a registered VTHacks participant that creates a functional demo project that impresses our judges the most during this hackathon.",
       "prize" : "$500",
       "company" : "VTHacks",
       "url" : ""

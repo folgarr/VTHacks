@@ -89,8 +89,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     if (cachedDicts && [cachedDicts count] > 0)
         self.announcementDictionaries = cachedDicts;
     else if (!self.announcementDictionaries || [self.announcementDictionaries count] == 0)
-        self.announcementDictionaries = [NSMutableArray arrayWithArray:@[@{@"title" : @"Welcome", @"body" : @"Hello World! Welcome to the official VTHacks app. Don't forget that you can pull to refresh on your screen in order to check for new content! Happy Hacking!", @"date":[NSDate date], @"dateString":@"Today", @"simpleTimeString":@"now" }]];
-        
+        self.announcementDictionaries = [NSMutableArray arrayWithArray:@[@{@"title" : @"Welcome", @"body" : @"Hello World! Welcome to the official VTHacks app. Don't forget that you can pull to refresh on your screen in order to check for new content! Happy Hacking!\n\nNOTICE:\nApple is not a sponsor nor is involved in any way with this event (or any related contests presented here or during the event). All contests and prizes presented in this app are sponsored by VTHacks. The only official rule for these contests is to be a registered VTHacks participant.", @"date":[NSDate date], @"dateString":@"Today", @"simpleTimeString":@"now" }]];
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
         MessageBoard *mb = [MessageBoard instance];
@@ -270,30 +269,29 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-
-    if (scrollView.contentSize.height < 200)
-    {
-        [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    }
-    else
-    {
-        float scrollOffset = scrollView.contentOffset.y;
-        if (scrollOffset == 0 || scrollOffset < 20)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor maroonColor]];
-            }
-            
-        }
-        else if (scrollOffset > 21)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor whiteColor]];
-            }
-        }
-    }
+//    if (scrollView.contentSize.height < 200)
+//    {
+//        [self.tableView setBackgroundColor:[UIColor whiteColor]];
+//    }
+//    else
+//    {
+//        float scrollOffset = scrollView.contentOffset.y;
+//        if (scrollOffset == 0 || scrollOffset < 20)
+//        {
+//            if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
+//            {
+//                [self.tableView setBackgroundColor:[UIColor maroonColor]];
+//            }
+//            
+//        }
+//        else if (scrollOffset > 21)
+//        {
+//            if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
+//            {
+//                [self.tableView setBackgroundColor:[UIColor whiteColor]];
+//            }
+//        }
+//    }
 }
 
 @end

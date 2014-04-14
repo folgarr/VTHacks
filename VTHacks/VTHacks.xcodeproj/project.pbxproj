@@ -67,11 +67,11 @@
 		3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE7483418C3396900AC37E7 /* MessageBoard.m */; };
 		DD06230818F3665E00CB3D5C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD06230718F3665E00CB3D5C /* SystemConfiguration.framework */; };
 		DD06230B18F366D900CB3D5C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD06230A18F366D900CB3D5C /* Reachability.m */; };
-		DD20ED4A18FB73D400864B97 /* awards.json in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4718FB73D400864B97 /* awards.json */; };
 		DD20ED4B18FB73D400864B97 /* contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4818FB73D400864B97 /* contacts.json */; };
 		DD20ED4C18FB73D400864B97 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4918FB73D400864B97 /* schedule.json */; };
 		DD20ED4E18FB79E500864B97 /* vthacks_map.png in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4D18FB79E500864B97 /* vthacks_map.png */; };
 		DDB2486B18EFC62B003F74D2 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB2486A18EFC62B003F74D2 /* MapViewController.m */; };
+		DDE93AB818FC7C04004D72ED /* awards.json in Resources */ = {isa = PBXBuildFile; fileRef = DDE93AB718FC7C04004D72ED /* awards.json */; };
 		FDC8A306F1A6461297919629 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EEA74AFA4D472CA2679F35 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -173,12 +173,12 @@
 		DD06230718F3665E00CB3D5C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DD06230918F366D900CB3D5C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		DD06230A18F366D900CB3D5C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		DD20ED4718FB73D400864B97 /* awards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awards.json; sourceTree = "<group>"; };
 		DD20ED4818FB73D400864B97 /* contacts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contacts.json; sourceTree = "<group>"; };
 		DD20ED4918FB73D400864B97 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schedule.json; sourceTree = "<group>"; };
 		DD20ED4D18FB79E500864B97 /* vthacks_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vthacks_map.png; sourceTree = "<group>"; };
 		DDB2486918EFC62B003F74D2 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		DDB2486A18EFC62B003F74D2 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		DDE93AB718FC7C04004D72ED /* awards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awards.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,7 +299,7 @@
 				10CF8D9C18C27EBA0014E20D /* AppDelegate.h */,
 				10CF8D9D18C27EBA0014E20D /* AppDelegate.m */,
 				10CF8D9F18C27EBA0014E20D /* Main.storyboard */,
-				DD20ED4718FB73D400864B97 /* awards.json */,
+				DDE93AB718FC7C04004D72ED /* awards.json */,
 				DD20ED4818FB73D400864B97 /* contacts.json */,
 				DD20ED4918FB73D400864B97 /* schedule.json */,
 				DD20ED4D18FB79E500864B97 /* vthacks_map.png */,
@@ -507,7 +507,6 @@
 				DD20ED4C18FB73D400864B97 /* schedule.json in Resources */,
 				10751F5D18EC8D4D00102B57 /* hokieHorse-7.png in Resources */,
 				10751F5918EC8D4D00102B57 /* hokieHorse-3.png in Resources */,
-				DD20ED4A18FB73D400864B97 /* awards.json in Resources */,
 				10751F5C18EC8D4D00102B57 /* hokieHorse-6.png in Resources */,
 				10F75C2618EB8B11004DBF27 /* MenuCell.xib in Resources */,
 				10751F6018EC8D4D00102B57 /* hokieHorse-10.png in Resources */,
@@ -522,6 +521,7 @@
 				104E5D2B18EEAAFA00AEE078 /* test.png in Resources */,
 				10CF8DA118C27EBA0014E20D /* Main.storyboard in Resources */,
 				10751F5B18EC8D4D00102B57 /* hokieHorse-5.png in Resources */,
+				DDE93AB818FC7C04004D72ED /* awards.json in Resources */,
 				104E5D2D18EEAB2F00AEE078 /* test2.png in Resources */,
 				10751F5818EC8D4D00102B57 /* hokieHorse-2.png in Resources */,
 			);
