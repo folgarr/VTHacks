@@ -1,0 +1,45 @@
+{
+  "companies" : [
+    {
+      "name" : "Opower",
+      "contacts" : [
+        {
+          "name" : "Karthik Kumar",
+          "skills" : ["Java", "MySQL", "Git"],
+          "email" : "kkumar9844@gmail.com"
+        }
+      ]
+    },
+    {
+      "name" : "Bloomberg LP",
+      "contacts" : [
+        {
+          "name" : "John Ruffer",
+          "skills" : ["Python", "C++", "SQL"],
+	  "email" : "jruffer1@bloomberg.net"
+        },
+        {
+          "name" : "Dave Kurtzberg",
+          "skills" : ["Bloomberg API", "Javascript", "Python"],
+          "email" : "dkurtzberg@bloomberg.net",
+	  "twitter" : "@davekurtzberg"
+        }
+      ]
+    },
+    {
+      "name" : "CapTech Consulting",
+      "contacts" : [
+        {
+          "name" : "Tam Ayers",
+          "skills" : ["Mobile Dev", "Project Management"],
+          "email" : "tayers@captechconsulting.com"
+        },
+        {
+          "name" : "Daniel Malito",
+          "skills" : ["HTML5", "iOS", "Android", "Glass"],
+          "email" : "dmalito@captechconsulting.com"
+        }
+      ]
+    }
+  ]
+}

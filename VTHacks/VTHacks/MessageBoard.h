@@ -32,6 +32,7 @@ typedef void (^jsonListCallback)(NSMutableArray* jsonList, NSError *serverError)
     NSString *tempSECRET_KEY;
     NSString *tempSECURITY_TOKEN;
     NSString *tempExpirationString;
+    NSString *platformARN;
     
     // Holds the response data from any server call
     NSMutableData *_responseData;

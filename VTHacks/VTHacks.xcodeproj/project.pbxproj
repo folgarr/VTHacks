@@ -33,7 +33,6 @@
 		10751F6418EC8D4D00102B57 /* hokieHorse-14.png in Resources */ = {isa = PBXBuildFile; fileRef = 10751F5418EC8D4D00102B57 /* hokieHorse-14.png */; };
 		10751F6518EC8D4D00102B57 /* hokieHorse-15.png in Resources */ = {isa = PBXBuildFile; fileRef = 10751F5518EC8D4D00102B57 /* hokieHorse-15.png */; };
 		10C7849B18C397C5003A1ED0 /* AnnoucementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */; };
-		10C7849D18C3A03F003A1ED0 /* scheduleCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */; };
 		10C784A018C3A80B003A1ED0 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7849F18C3A80B003A1ED0 /* ScheduleCell.m */; };
 		10CF8D9818C27EBA0014E20D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8D9618C27EBA0014E20D /* InfoPlist.strings */; };
 		10CF8D9A18C27EBA0014E20D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8D9918C27EBA0014E20D /* main.m */; };
@@ -49,7 +48,6 @@
 		10CF8DCE18C28A760014E20D /* UIColor+VTHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DCD18C28A760014E20D /* UIColor+VTHColor.m */; };
 		10CF8DD218C293450014E20D /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD118C292BE0014E20D /* FontAwesome.otf */; };
 		10CF8DD418C2C9060014E20D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD318C2C9060014E20D /* Images.xcassets */; };
-		10CF8DD718C2FED60014E20D /* annoucementCache.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10CF8DD618C2FED60014E20D /* annoucementCache.plist */; };
 		10CF8DDE18C305B60014E20D /* annoucementDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */; };
 		10CF8DE118C38D620014E20D /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF8DE018C38D620014E20D /* ScheduleViewController.m */; };
 		10E88E0218EF99500087E712 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E88E0118EF99500087E712 /* Social.framework */; };
@@ -69,6 +67,10 @@
 		3DE7483518C3396900AC37E7 /* MessageBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE7483418C3396900AC37E7 /* MessageBoard.m */; };
 		DD06230818F3665E00CB3D5C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD06230718F3665E00CB3D5C /* SystemConfiguration.framework */; };
 		DD06230B18F366D900CB3D5C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD06230A18F366D900CB3D5C /* Reachability.m */; };
+		DD20ED4A18FB73D400864B97 /* awards.json in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4718FB73D400864B97 /* awards.json */; };
+		DD20ED4B18FB73D400864B97 /* contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4818FB73D400864B97 /* contacts.json */; };
+		DD20ED4C18FB73D400864B97 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4918FB73D400864B97 /* schedule.json */; };
+		DD20ED4E18FB79E500864B97 /* vthacks_map.png in Resources */ = {isa = PBXBuildFile; fileRef = DD20ED4D18FB79E500864B97 /* vthacks_map.png */; };
 		DDB2486B18EFC62B003F74D2 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB2486A18EFC62B003F74D2 /* MapViewController.m */; };
 		FDC8A306F1A6461297919629 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EEA74AFA4D472CA2679F35 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -117,7 +119,6 @@
 		10751F5518EC8D4D00102B57 /* hokieHorse-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hokieHorse-15.png"; sourceTree = "<group>"; };
 		10C7849918C397C5003A1ED0 /* AnnoucementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnoucementCell.h; sourceTree = "<group>"; };
 		10C7849A18C397C5003A1ED0 /* AnnoucementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnoucementCell.m; sourceTree = "<group>"; };
-		10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = scheduleCache.plist; sourceTree = "<group>"; };
 		10C7849E18C3A80B003A1ED0 /* ScheduleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
 		10C7849F18C3A80B003A1ED0 /* ScheduleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
 		10CF8D8A18C27EBA0014E20D /* VTHacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VTHacks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,7 +146,6 @@
 		10CF8DCF18C290370014E20D /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		10CF8DD118C292BE0014E20D /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		10CF8DD318C2C9060014E20D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		10CF8DD618C2FED60014E20D /* annoucementCache.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = annoucementCache.plist; sourceTree = "<group>"; };
 		10CF8DDC18C305B60014E20D /* annoucementDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = annoucementDescriptionCell.h; sourceTree = "<group>"; };
 		10CF8DDD18C305B60014E20D /* annoucementDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = annoucementDescriptionCell.m; sourceTree = "<group>"; };
 		10CF8DDF18C38D620014E20D /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
@@ -173,6 +173,10 @@
 		DD06230718F3665E00CB3D5C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DD06230918F366D900CB3D5C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		DD06230A18F366D900CB3D5C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		DD20ED4718FB73D400864B97 /* awards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awards.json; sourceTree = "<group>"; };
+		DD20ED4818FB73D400864B97 /* contacts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contacts.json; sourceTree = "<group>"; };
+		DD20ED4918FB73D400864B97 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schedule.json; sourceTree = "<group>"; };
+		DD20ED4D18FB79E500864B97 /* vthacks_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vthacks_map.png; sourceTree = "<group>"; };
 		DDB2486918EFC62B003F74D2 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		DDB2486A18EFC62B003F74D2 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -295,6 +299,10 @@
 				10CF8D9C18C27EBA0014E20D /* AppDelegate.h */,
 				10CF8D9D18C27EBA0014E20D /* AppDelegate.m */,
 				10CF8D9F18C27EBA0014E20D /* Main.storyboard */,
+				DD20ED4718FB73D400864B97 /* awards.json */,
+				DD20ED4818FB73D400864B97 /* contacts.json */,
+				DD20ED4918FB73D400864B97 /* schedule.json */,
+				DD20ED4D18FB79E500864B97 /* vthacks_map.png */,
 				10CF8D9418C27EBA0014E20D /* Supporting Files */,
 				3D56281C18C2B4FC003C3253 /* Constants.h */,
 				DD06230918F366D900CB3D5C /* Reachability.h */,
@@ -302,8 +310,6 @@
 				3D56281D18C2B4FC003C3253 /* Constants.m */,
 				3D56281F18C2B63F003C3253 /* ClientManager.h */,
 				3D56282018C2B63F003C3253 /* ClientManager.m */,
-				10CF8DD618C2FED60014E20D /* annoucementCache.plist */,
-				10C7849C18C3A03F003A1ED0 /* scheduleCache.plist */,
 				3DE7483318C3396900AC37E7 /* MessageBoard.h */,
 				3DE7483418C3396900AC37E7 /* MessageBoard.m */,
 				10751F3C18EC6AD700102B57 /* DateUtilities.h */,
@@ -459,7 +465,7 @@
 				ORGANIZATIONNAME = "Vincent Ngo";
 				TargetAttributes = {
 					10CF8D8918C27EBA0014E20D = {
-						DevelopmentTeam = LZMRHF534X;
+						DevelopmentTeam = 3AC2RN6H7L;
 					};
 					10CF8DAA18C27EBA0014E20D = {
 						TestTargetID = 10CF8D8918C27EBA0014E20D;
@@ -490,7 +496,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10C7849D18C3A03F003A1ED0 /* scheduleCache.plist in Resources */,
 				10751F5A18EC8D4D00102B57 /* hokieHorse-4.png in Resources */,
 				10751F5618EC8D4D00102B57 /* hokieHorse-0.png in Resources */,
 				10751F6418EC8D4D00102B57 /* hokieHorse-14.png in Resources */,
@@ -499,16 +504,19 @@
 				10751F5F18EC8D4D00102B57 /* hokieHorse-9.png in Resources */,
 				10751F6218EC8D4D00102B57 /* hokieHorse-12.png in Resources */,
 				10751F6318EC8D4D00102B57 /* hokieHorse-13.png in Resources */,
+				DD20ED4C18FB73D400864B97 /* schedule.json in Resources */,
 				10751F5D18EC8D4D00102B57 /* hokieHorse-7.png in Resources */,
 				10751F5918EC8D4D00102B57 /* hokieHorse-3.png in Resources */,
+				DD20ED4A18FB73D400864B97 /* awards.json in Resources */,
 				10751F5C18EC8D4D00102B57 /* hokieHorse-6.png in Resources */,
 				10F75C2618EB8B11004DBF27 /* MenuCell.xib in Resources */,
 				10751F6018EC8D4D00102B57 /* hokieHorse-10.png in Resources */,
+				DD20ED4E18FB79E500864B97 /* vthacks_map.png in Resources */,
 				10751F5718EC8D4D00102B57 /* hokieHorse-1.png in Resources */,
 				10751F6518EC8D4D00102B57 /* hokieHorse-15.png in Resources */,
+				DD20ED4B18FB73D400864B97 /* contacts.json in Resources */,
 				10751F5E18EC8D4D00102B57 /* hokieHorse-8.png in Resources */,
 				10CF8DD418C2C9060014E20D /* Images.xcassets in Resources */,
-				10CF8DD718C2FED60014E20D /* annoucementCache.plist in Resources */,
 				10751F6118EC8D4D00102B57 /* hokieHorse-11.png in Resources */,
 				10CF8D9818C27EBA0014E20D /* InfoPlist.strings in Resources */,
 				104E5D2B18EEAAFA00AEE078 /* test.png in Resources */,
@@ -715,7 +723,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Carlos Folgar (3AC2RN6H7L)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -729,7 +737,7 @@
 				INFOPLIST_FILE = "VTHacks/VTHacks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "850A7C7D-3091-4853-88C6-0499A7BBD158";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -740,7 +748,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Carlos Folgar (3AC2RN6H7L)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -754,7 +762,7 @@
 				INFOPLIST_FILE = "VTHacks/VTHacks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "850A7C7D-3091-4853-88C6-0499A7BBD158";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

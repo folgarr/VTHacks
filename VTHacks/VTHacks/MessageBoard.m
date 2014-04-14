@@ -164,15 +164,16 @@ static MessageBoard *_instance = nil;
                 [self createApplicationEndpoint];
             }
         }
-        if([self subscribeDevice:nil])
-        {
+        [self subscribeDevice:nil];
+//        if()
+//        {
             /* reload AnnouncementViewController table data with newly found messages */
-            AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
-            AnnoucementViewController *annVC =  appDel.announceVC;
-            [annVC reloadAnnouncementsWithInstance:self];
-        }
-        else
-            didSetupCorrectly = NO;
+//            AppDelegate * appDel = [[UIApplication sharedApplication] delegate];
+//            AnnoucementViewController *annVC =  appDel.announceVC;
+//            [annVC reloadAnnouncementsWithInstance:self];
+//        }
+//        else
+//            didSetupCorrectly = NO;
     }
 
     NSLog(@"Done with runSetupWithCredentials. Here's endpoint ARN: %@", endpointARN);
@@ -181,21 +182,21 @@ static MessageBoard *_instance = nil;
 
 
 
-- (BOOL)subscribeDevice:(id)sender
+- (void)subscribeDevice:(id)sender
 {
     
 #if TARGET_IPHONE_SIMULATOR
     [[Constants universalAlertsWithTitle:@"Unable to Subscribe Device" andMessage:@"Push notifications are not supported in the simulator."] show];
-    return;
+    return NO;
 #endif
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    BOOL didWork = [self subscribeDevice];
     dispatch_async(queue, ^{
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//        });
+        BOOL didWork = [self subscribeDevice];
         if (didWork) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Subscription worked!!!");
@@ -204,11 +205,11 @@ static MessageBoard *_instance = nil;
         else
             NSLog(@"SUBSCRIPTION DID NOT WORK");
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//        });
     });
-    return didWork;
+//    return didWork;
 }
 
 -(bool)createApplicationEndpoint
@@ -217,6 +218,7 @@ static MessageBoard *_instance = nil;
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"myDeviceToken"];
     if (!deviceToken) {
         [[Constants universalAlertsWithTitle:@"deviceToken not found!" andMessage:@"Device may fail to register with Apple's Notification Service, please check debug window for details"] show];
+        return NO;
     }
     
     SNSCreatePlatformEndpointRequest *endpointReq = [[SNSCreatePlatformEndpointRequest alloc] init];
@@ -569,7 +571,7 @@ static MessageBoard *_instance = nil;
     else if ([currentlyProcessing isEqualToString:@"schedule"] || [currentlyProcessing isEqualToString:@"awards"] ||
              [currentlyProcessing isEqualToString:@"contacts"])
     {
-        NSLog(@"Received an awards response. Will call handler if one was set.");
+        NSLog(@"Received a response from our server. Will call handler if one was set.");
         serverResponseHandler(jsonDict,localError);
         currentlyProcessing = @"";
     }

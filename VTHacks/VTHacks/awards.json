@@ -1,0 +1,18 @@
+{
+  "awards" : [
+    {
+      "title" : "Best Salesforce Platform Hack",
+      "description" : "Best use of the Salesforce Platform will win a Macbook Pro.",
+      "prize" : "Macbook Pro",
+      "company" : "Salesforce",
+      "url" : ""
+    },
+    {
+      "title" : "Best Hack",
+      "description" : "This award goes out to the group that creates the best hack during this hackathon.",
+      "prize" : "$500",
+      "company" : "VTHacks",
+      "url" : ""
+    }
+  ]
+}

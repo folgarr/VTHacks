@@ -32,6 +32,11 @@
     NSURL *url = [NSURL URLWithString:MAPS_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    NSString* imagePath = [[NSBundle mainBundle] pathForResource:@"vthacks_map" ofType:@"png"];
+    UIImage* image = [UIImage imageWithContentsOfFile:imagePath];
+    self.imageView.image = image;
+    self.scrollView.contentSize = self.imageView.image.size;
+    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = [AFImageResponseSerializer serializer];
     

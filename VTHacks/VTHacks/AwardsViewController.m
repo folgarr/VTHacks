@@ -44,13 +44,13 @@
     [super viewDidLoad];
     
     self.messageBoard = [MessageBoard instance];
-    [self.messageBoard getDataFromServer:@"awards" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
-        
-        NSLog(@"awards %lu", (unsigned long)[jsonDictionary[@"awards"] count]);
-        self.awardsList = jsonDictionary[@"awards"];
-
-        [self.tableView reloadData];
-    }];
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"awards" ofType:@"json"];
+    NSData *jsonData = [NSData dataWithContentsOfFile:filepath];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:nil];
+    if (dict)
+    {
+        self.awardsList = dict[@"awards"];
+    }
 
     NSMutableArray *horseDrawingImgs = [NSMutableArray array];
     NSMutableArray *horseLoadingImgs = [NSMutableArray array];
@@ -114,7 +114,6 @@
     [label setText:string];
     [view addSubview:label];
     [view setBackgroundColor:[UIColor sectionColor]]; //your background color...
-    //    scheduleHeaderCell
     return view;
 }
 
@@ -147,7 +146,6 @@
     NSInteger section = [indexPath section];
     NSDictionary *award = self.awardsList[section];
     NSString *company = award[@"company"];
-//    NSString *url = award[@"url"];
     NSString *prize = award[@"prize"];
     NSString *description = award[@"description"];
     
@@ -178,40 +176,8 @@
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-    NSLog(@"%f", scrollView.contentSize.height);
-    if (scrollView.contentSize.height < 200)
-    {
-        [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    }
-    else
-    {
-        float scrollOffset = scrollView.contentOffset.y;
-        if (scrollOffset == 0 || scrollOffset < 20)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor maroonColor]];
-            }
-            
-        }
-        else if (scrollOffset > 21)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor whiteColor]];
-            }
-        }
-    }
-}
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
 }
-*/
 
 @end

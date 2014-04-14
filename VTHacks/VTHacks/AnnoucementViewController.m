@@ -89,7 +89,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
     if (cachedDicts && [cachedDicts count] > 0)
         self.announcementDictionaries = cachedDicts;
     else if (!self.announcementDictionaries || [self.announcementDictionaries count] == 0)
-        self.announcementDictionaries = [NSMutableArray arrayWithArray:@[@{@"title" : @"Loading", @"body" : @"Waiting for internet connection...", @"date":[NSDate date], @"dateString":@"Today", @"simpleTimeString":@"now" }]];
+        self.announcementDictionaries = [NSMutableArray arrayWithArray:@[@{@"title" : @"Welcome", @"body" : @"Hello World! Welcome to the official VTHacks app. Don't forget that you can pull to refresh on your screen in order to check for new content! Happy Hacking!", @"date":[NSDate date], @"dateString":@"Today", @"simpleTimeString":@"now" }]];
         
     
     [self.tableView addPullToRefreshWithDrawingImgs:horseDrawingImgs andLoadingImgs:horseLoadingImgs andActionHandler:^{
@@ -270,7 +270,7 @@ NSComparisonResult sortDictsByDate(NSDictionary *d1, NSDictionary *d2, void *con
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-    NSLog(@"%f", scrollView.contentSize.height);
+
     if (scrollView.contentSize.height < 200)
     {
         [self.tableView setBackgroundColor:[UIColor whiteColor]];

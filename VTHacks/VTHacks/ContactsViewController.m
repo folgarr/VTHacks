@@ -48,13 +48,21 @@
     self.tableView.delegate = self;
     
     self.messageBoard = [MessageBoard instance];
-    [self.messageBoard getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
-        
-        self.contactsDictionary = jsonDictionary;
-        self.companyListWithContactsDict = [self removeSkillsArray:jsonDictionary];
-        
-        [self.tableView reloadData];
-    }];
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"contacts" ofType:@"json"];
+    NSData *jsonData = [NSData dataWithContentsOfFile:filepath];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:nil];
+    if (dict)
+    {
+        self.contactsDictionary = dict;
+        self.companyListWithContactsDict = [self removeSkillsArray:dict];
+    }
+//    [self.messageBoard getDataFromServer:@"contacts" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError) {
+//        
+//        self.contactsDictionary = jsonDictionary;
+//        self.companyListWithContactsDict = [self removeSkillsArray:jsonDictionary];
+//        
+//        [self.tableView reloadData];
+//    }];
 
     NSMutableArray *horseDrawingImgs = [NSMutableArray array];
     NSMutableArray *horseLoadingImgs = [NSMutableArray array];
@@ -448,30 +456,7 @@
 #pragma mark - scroll view delegates
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-    NSLog(@"%f", scrollView.contentSize.height);
-    if (scrollView.contentSize.height < 200)
-    {
-        [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    }
-    else
-    {
-        float scrollOffset = scrollView.contentOffset.y;
-        if (scrollOffset == 0 || scrollOffset < 20)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor maroonColor]];
-            }
-            
-        }
-        else if (scrollOffset > 21)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor whiteColor]];
-            }
-        }
-    }
+
 }
 
 

@@ -53,19 +53,15 @@
     [super viewDidLoad];
     
     self.messageBoard = [MessageBoard instance];
-    [self.messageBoard getDataFromServer:@"schedule" completionHandler:^(NSDictionary *jsonDictionary, NSError *serverError)
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"schedule" ofType:@"json"];
+    NSData *jsonData = [NSData dataWithContentsOfFile:filepath];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:nil];
+    if (dict)
     {
-
-        if (jsonDictionary)
-        {
-            self.scheduleDict = jsonDictionary;
-            
-            self.sectionDay = [NSMutableArray arrayWithArray:[jsonDictionary allKeys]];
-            [DateUtilities sortArrayBasedOnDay:self.sectionDay ascending:YES];
-            
-            [self.tableView reloadData];
-        }
-    }];
+        self.scheduleDict = dict;
+        self.sectionDay = [NSMutableArray arrayWithArray:[dict allKeys]];
+        [DateUtilities sortArrayBasedOnDay:self.sectionDay ascending:YES];
+    }
     
     NSMutableArray *horseDrawingImgs = [NSMutableArray array];
     NSMutableArray *horseLoadingImgs = [NSMutableArray array];
@@ -133,7 +129,6 @@
     [label setText:string];
     [view addSubview:label];
     [view setBackgroundColor:[UIColor sectionColor]]; //your background color...
-//    scheduleHeaderCell
     return view;
 }
 
@@ -175,14 +170,11 @@
     
     NSString *nameDate = self.sectionDay[section];
     NSArray *events = self.scheduleDict[nameDate];
-//    NSArray *eventsSortedDescending = [DateUtilities sortArrayOfEventDictByTimeStamp:events ascending:YES];
-    
     NSDictionary *event = events[row];
     
     [cell.timeLabel setText:event[@"timestamp"]];
     [cell.eventLabel setText:event[@"description"]];
     [cell.cellTitle setText:event[@"title"]];
-    
     
     return cell;
 }
@@ -212,86 +204,8 @@
 #pragma mark - scroll view delegates
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView
 {
-    NSLog(@"%f", scrollView.contentSize.height);
-    if (scrollView.contentSize.height < 200)
-    {
-        [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    }
-    else
-    {
-        float scrollOffset = scrollView.contentOffset.y;
-        if (scrollOffset == 0 || scrollOffset < 20)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor maroonColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor maroonColor]];
-            }
-            
-        }
-        else if (scrollOffset > 21)
-        {
-            if (![self.tableView.backgroundColor isEqual:[UIColor whiteColor]])
-            {
-                [self.tableView setBackgroundColor:[UIColor whiteColor]];
-            }
-        }
-    }
-}
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-//{
-//    
-//}
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
- */
 
 @end
